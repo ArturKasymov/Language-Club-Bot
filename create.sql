@@ -3,8 +3,26 @@ $$
 BEGIN
 RETURN array['Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient'];
 END
+$$ language plpgsql;
+
+CREATE OR REPLACE FUNCTION get_user_languages(id varchar) RETURNS varchar[] AS
 $$
-language plpgsql;
+BEGIN
+    RETURN array(SELECT DISTINCT "langName" FROM "languages" WHERE "userID"=id);
+END
+$$ language plpgsql;
+
+CREATE OR REPLACE FUNCTION common_languages(idf varchar, ids varchar) RETURNS varchar[] AS
+$$
+DECLARE
+langsf varchar[];
+langss varchar[];
+BEGIN
+    langsf := get_user_languages(idf);
+    langss := get_user_languages(ids);
+    RETURN array(SELECT unnest(langsf) INTERSECT SELECT unnest(langss));
+END
+$$ language plpgsql;
 
 CREATE TABLE "users" (
   "facebookID" varchar PRIMARY KEY,
@@ -46,7 +64,8 @@ CREATE TABLE "conversations" (
   "meetingID" int,
   "firstUser" varchar,
   "secondUser" varchar,
-  CHECK ("firstUser" != "secondUser")
+  CHECK ("firstUser" != "secondUser"),
+  CHECK (common_languages("firstUser", "secondUser")::text != '{}')
 );
 
 CREATE TABLE "organizators" (
@@ -73,6 +92,10 @@ ALTER TABLE "organizators" ADD FOREIGN KEY ("userID") REFERENCES "users" ("faceb
 
 ALTER TABLE "organizators" ADD FOREIGN KEY ("meetingID") REFERENCES "meetings" ("id");
 
+CREATE INDEX user_in_languages ON languages("userID");
+CREATE INDEX user_in_users ON users("facebookID");
+CREATE INDEX meeting_in_meetings ON meetings(id);
+
 CREATE OR REPLACE FUNCTION meetings_insert() returns trigger as $meetings_insert$
 DECLARE
 k record;
@@ -87,6 +110,15 @@ END;
 $meetings_insert$ language plpgsql;
 
 CREATE TRIGGER meetings_insert BEFORE INSERT OR UPDATE ON "meetings" FOR EACH ROW EXECUTE PROCEDURE meetings_insert();
+
+CREATE OR REPLACE FUNCTION languages_insert() returns trigger as $languages_insert$
+BEGIN
+    NEW."langName" = LOWER(NEW."langName");
+    RETURN NEW;
+END
+$languages_insert$ language plpgsql;
+
+CREATE TRIGGER languages_insert BEFORE INSERT ON "languages" FOR EACH ROW EXECUTE PROCEDURE languages_insert();
 
 INSERT INTO "users" VALUES ('a1b2c3d4e5f6g7h', 'admin');
 INSERT INTO "users" VALUES ('abcdef1234zzzzz', 'demian');
@@ -126,3 +158,9 @@ END
 $$
 language plpgsql;
 
+CREATE OR REPLACE FUNCTION get_future_meetings(city varchar) returns TABLE(name varchar, adres varchar, "startDate" timestamp with time zone, "endDate" timestamp with time zone) AS
+$$
+BEGIN
+    RETURN QUERY SELECT p.name, p.adres, m."startDate", m."endDate" FROM meetings m LEFT JOIN places p ON m.id=p.id WHERE p.city=city;
+END
+$$ language plpgsql;

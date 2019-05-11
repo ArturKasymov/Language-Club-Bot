@@ -1,6 +1,12 @@
 DROP TRIGGER IF EXISTS meetings_insert ON "meetings";
 DROP FUNCTION IF EXISTS meetings_insert();
+DROP TRIGGER IF EXISTS languages_insert ON "languages";
+DROP FUNCTION IF EXISTS languages_insert();
 DROP FUNCTION IF EXISTS get_languages_on_meeting(int);
+DROP FUNCTION IF EXISTS get_future_meetings(varchar);
+DROP INDEX IF EXISTS meeting_in_meetings;
+DROP INDEX IF EXISTS user_in_users;
+DROP INDEX IF EXISTS user_in_languages;
 DROP TABLE IF EXISTS conversations CASCADE;
 DROP TABLE IF EXISTS languages CASCADE;
 DROP TABLE IF EXISTS organizators CASCADE;
@@ -9,3 +15,5 @@ DROP TABLE IF EXISTS meetings CASCADE;
 DROP TABLE IF EXISTS places CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP FUNCTION IF EXISTS get_language_levels();
+DROP FUNCTION IF EXISTS common_languages(varchar, varchar);
+DROP FUNCTION IF EXISTS get_user_languages(varchar);
