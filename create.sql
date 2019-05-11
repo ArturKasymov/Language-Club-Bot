@@ -1,3 +1,11 @@
+CREATE OR REPLACE FUNCTION get_language_levels() RETURNS varchar[] AS
+$$
+BEGIN
+RETURN array['Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient'];
+END
+$$
+language plpgsql;
+
 CREATE TABLE "users" (
   "facebookID" varchar PRIMARY KEY,
   "nickname" varchar NOT NULL
@@ -34,9 +42,11 @@ CREATE TABLE "places" (
 );
 
 CREATE TABLE "conversations" (
+  "conversationID" SERIAL PRIMARY KEY,
   "meetingID" int,
   "firstUser" varchar,
-  "secondUser" varchar
+  "secondUser" varchar,
+  CHECK ("firstUser" != "secondUser")
 );
 
 CREATE TABLE "organizators" (
@@ -63,6 +73,21 @@ ALTER TABLE "organizators" ADD FOREIGN KEY ("userID") REFERENCES "users" ("faceb
 
 ALTER TABLE "organizators" ADD FOREIGN KEY ("meetingID") REFERENCES "meetings" ("id");
 
+CREATE OR REPLACE FUNCTION meetings_insert() returns trigger as $meetings_insert$
+DECLARE
+k record;
+BEGIN
+    FOR k IN (SELECT * FROM "meetings") LOOP
+        IF (tsrange(k."startDate", k."endDate") && tsrange(new."startDate", new."endDate") = false) THEN
+            RAISE EXCEPTION 'The place is not free at that time.';
+        END IF;
+    END LOOP;
+    RETURN NEW;
+END;
+$meetings_insert$ language plpgsql;
+
+CREATE TRIGGER meetings_insert BEFORE INSERT OR UPDATE ON "meetings" FOR EACH ROW EXECUTE PROCEDURE meetings_insert();
+
 INSERT INTO "users" VALUES ('a1b2c3d4e5f6g7h', 'admin');
 INSERT INTO "users" VALUES ('abcdef1234zzzzz', 'demian');
 INSERT INTO "users" VALUES ('123456789101112', 'artur');
@@ -80,15 +105,23 @@ INSERT INTO "languages" VALUES ('a1b2c3d4e5f6g7h', 'Polish', 'Proficient');
 
 INSERT INTO "organizators" VALUES ('123456789101112', 0, 1);
 
-INSERT INTO "conversations" VALUES (1, 'abcdef1234zzzzz', '123456789101112');
+INSERT INTO "conversations" VALUES (DEFAULT, 1, 'abcdef1234zzzzz', '123456789101112');
 
 INSERT INTO "meetingVisitors" VALUES ('abcdef1234zzzzz', 1);
 INSERT INTO "meetingVisitors" VALUES ('123456789101112', 1);
 
-CREATE OR REPLACE FUNCTION get_language_levels() RETURNS varchar[] AS
+CREATE OR REPLACE FUNCTION get_languages_on_meeting(id int) returns varchar[] as
 $$
+DECLARE
+result varchar[];
+k record;
 BEGIN
-RETURN array['Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient'];
+    FOR k in (SELECT l.* FROM "meetingVisitors" mv LEFT JOIN "languages" l ON mv."userID"=l."facebookID" WHERE mv."meetingID"=id) LOOP
+        IF result && array[k."langName"] = false THEN
+            result = k."langName" || result;
+        END IF;
+    END LOOP;
+    RETURN result;
 END
 $$
 language plpgsql;

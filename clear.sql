@@ -1,3 +1,6 @@
+DROP TRIGGER IF EXISTS meetings_insert ON "meetings";
+DROP FUNCTION IF EXISTS meetings_insert();
+DROP FUNCTION IF EXISTS get_languages_on_meeting(int);
 DROP TABLE IF EXISTS conversations CASCADE;
 DROP TABLE IF EXISTS languages CASCADE;
 DROP TABLE IF EXISTS organizators CASCADE;
@@ -5,3 +8,4 @@ DROP TABLE IF EXISTS "meetingVisitors" CASCADE;
 DROP TABLE IF EXISTS meetings CASCADE;
 DROP TABLE IF EXISTS places CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+DROP FUNCTION IF EXISTS get_language_levels();
