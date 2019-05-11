@@ -5,26 +5,21 @@ CREATE TABLE "users" (
 
 CREATE TABLE "languages" (
   "userID" char(15) NOT NULL,
-  "langID" int NOT NULL,
-  "levelID" int
+  "langName" varchar NOT NULL,
+  "levelName" varchar NOT NULL,
+  CONSTRAINT lang_pr_key PRIMARY KEY ("userID", "langName")
 );
 
 CREATE TABLE "language" (
-  "id" int PRIMARY KEY,
-  "name" varchar UNIQUE NOT NULL,
-  "flag" varchar NOT NULL
-);
-
-CREATE TABLE "levels" (
-  "id" int PRIMARY KEY,
-  "name" varchar NOT NULL
+    "name" varchar PRIMARY KEY NOT NULL,
+    "flag" varchar NOT NULL
 );
 
 CREATE TABLE "meetings" (
   "id" int PRIMARY KEY,
   "placeID" int NOT NULL,
-  "startDate" datetime NOT NULL,
-  "endDate" datetime NOT NULL
+  "startDate" timestamp with time zone NOT NULL,
+  "endDate" timestamp with time zone NOT NULL
 );
 
 CREATE TABLE "meetingVisitors" (
@@ -35,6 +30,7 @@ CREATE TABLE "meetingVisitors" (
 CREATE TABLE "places" (
   "id" int PRIMARY KEY,
   "name" varchar NOT NULL,
+  "city" varchar NOT NULL,
   "adres" varchar NOT NULL,
   "foto" varchar
 );
@@ -53,9 +49,7 @@ CREATE TABLE "organizators" (
 
 ALTER TABLE "languages" ADD FOREIGN KEY ("userID") REFERENCES "users" ("facebookID");
 
-ALTER TABLE "languages" ADD FOREIGN KEY ("langID") REFERENCES "language" ("id");
-
-ALTER TABLE "languages" ADD FOREIGN KEY ("levelID") REFERENCES "levels" ("id");
+ALTER TABLE "languages" ADD FOREIGN KEY ("langName") REFERENCES "language" ("name");
 
 ALTER TABLE "meetings" ADD FOREIGN KEY ("placeID") REFERENCES "places" ("id");
 
