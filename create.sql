@@ -12,7 +12,8 @@ CREATE TABLE "languages" (
 
 CREATE TABLE "language" (
     "name" varchar PRIMARY KEY NOT NULL,
-    "flag" varchar NOT NULL
+    "flag" varchar NOT NULL,
+    CHECK ("name" = ANY(get_language_levels()))
 );
 
 CREATE TABLE "meetings" (
@@ -66,3 +67,12 @@ ALTER TABLE "conversations" ADD FOREIGN KEY ("secondUser") REFERENCES "users" ("
 ALTER TABLE "organizators" ADD FOREIGN KEY ("userID") REFERENCES "users" ("facebookID");
 
 ALTER TABLE "organizators" ADD FOREIGN KEY ("meetingID") REFERENCES "meetings" ("id");
+
+CREATE OR REPLACE FUNCTION get_language_levels() RETURNS varchar[] AS
+$$
+BEGIN
+RETURN array['Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient'];
+END
+$$
+language plpgsql;
+
