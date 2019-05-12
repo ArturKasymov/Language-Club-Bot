@@ -102,7 +102,8 @@ k record;
 BEGIN
     FOR k IN (SELECT * FROM "meetings") LOOP
         IF (tsrange(k."startDate", k."endDate") && tsrange(new."startDate", new."endDate") = false AND (k."placeID"=new."placeID" OR k."organizerID"=new."organizerID")) THEN
-            RAISE EXCEPTION 'The place is not free at that time.';
+            IF (k."placeID"=new."placeID") THEN RAISE EXCEPTION 'The place is not free at that time.'; END IF;
+            IF (k."organizatorID"=new."organizatorID") THEN RAISE EXCEPTION 'This organizer is not free at that time.'; END IF;
         END IF;
     END LOOP;
     RETURN NEW;
