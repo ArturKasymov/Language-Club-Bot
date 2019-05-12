@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION get_language_levels() RETURNS varchar[] AS
 $$
 BEGIN
-RETURN array['Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient'];
+RETURN array['Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient', 'Native speaker'];
 END
 $$ language plpgsql;
 
