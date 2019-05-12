@@ -4,6 +4,8 @@ DROP TRIGGER IF EXISTS languages_insert ON "languages";
 DROP FUNCTION IF EXISTS languages_insert();
 DROP FUNCTION IF EXISTS get_languages_on_meeting(int);
 DROP FUNCTION IF EXISTS get_future_meetings(varchar);
+DROP FUNCTION IF EXISTS startMeeting(int);
+DROP FUNCTION IF EXISTS finishMeeting(int);
 DROP INDEX IF EXISTS meeting_in_meetings;
 DROP INDEX IF EXISTS user_in_users;
 DROP INDEX IF EXISTS user_in_languages;

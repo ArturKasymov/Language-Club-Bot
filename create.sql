@@ -40,6 +40,7 @@ CREATE TABLE "languages" (
 CREATE TABLE "meetings" (
   "id" SERIAL PRIMARY KEY,
   "placeID" int NOT NULL,
+  "description" varchar NOT NULL,
   "startDate" timestamp with time zone NOT NULL,
   "endDate" timestamp with time zone NOT NULL
   check ("startDate" < NOW()),
@@ -54,6 +55,7 @@ CREATE TABLE "meetingVisitors" (
 CREATE TABLE "places" (
   "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
+  "description" varchar,
   "city" varchar NOT NULL,
   "adres" varchar NOT NULL,
   "foto" varchar
@@ -162,5 +164,19 @@ CREATE OR REPLACE FUNCTION get_future_meetings(city varchar) returns TABLE(name 
 $$
 BEGIN
     RETURN QUERY SELECT p.name, p.adres, m."startDate", m."endDate" FROM meetings m LEFT JOIN places p ON m.id=p.id WHERE p.city=city;
+END
+$$ language plpgsql;
+
+CREATE OR REPLACE FUNCTION startMeeting(meetingid int) returns void as
+$$
+BEGIN
+EXECUTE FORMAT('create or replace view %I as select "conversationID", "firstUser", "secondUser" from conversations where "meetingID"=%L', 'meeting'||meetingid::text, meetingid);
+END
+$$ language plpgsql;
+
+CREATE OR REPLACE FUNCTION finishMeeting(meetingid int) returns void as
+$$
+BEGIN
+EXECUTE FORMAT('drop view if exists %I', 'meeting'||meetingid::text);
 END
 $$ language plpgsql;
