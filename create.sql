@@ -55,7 +55,6 @@ CREATE TABLE "meetingVisitors" (
 CREATE TABLE "places" (
   "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
-  "description" varchar,
   "city" varchar NOT NULL,
   "adres" varchar NOT NULL,
   "description" varchar,
