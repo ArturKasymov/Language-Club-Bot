@@ -28,7 +28,7 @@ CREATE TABLE "users" (
   "facebookID" varchar PRIMARY KEY,
   "nickname" varchar NOT NULL,
   "permissionLevel" int NOT NULL,
-  CHECK "permissionLevel" IN (1,2,3)
+  CHECK ("permissionLevel" = ANY(array[1,2,3]))
 );
 
 CREATE TABLE "languages" (
