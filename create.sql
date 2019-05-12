@@ -26,7 +26,9 @@ $$ language plpgsql;
 
 CREATE TABLE "users" (
   "facebookID" varchar PRIMARY KEY,
-  "nickname" varchar NOT NULL
+  "nickname" varchar NOT NULL,
+  "permissionLevel" int NOT NULL,
+  CHECK "permissionLevel" IN (1,2,3)
 );
 
 CREATE TABLE "languages" (
@@ -72,11 +74,6 @@ CREATE TABLE "conversations" (
   CHECK (common_languages("firstUser", "secondUser")::text != '{}')
 );
 
-CREATE TABLE "admins" (
-  "userID" varchar NOT NULL,
-  "permissionLVL" int NOT NULL
-);
-
 ALTER TABLE "languages" ADD FOREIGN KEY ("userID") REFERENCES "users" ("facebookID");
 
 ALTER TABLE "meetings" ADD FOREIGN KEY ("placeID") REFERENCES "places" ("id");
@@ -90,8 +87,6 @@ ALTER TABLE "conversations" ADD FOREIGN KEY ("meetingID") REFERENCES "meetings" 
 ALTER TABLE "conversations" ADD FOREIGN KEY ("firstUser") REFERENCES "users" ("facebookID");
 
 ALTER TABLE "conversations" ADD FOREIGN KEY ("secondUser") REFERENCES "users" ("facebookID");
-
-ALTER TABLE "admins" ADD FOREIGN KEY ("userID") REFERENCES "users" ("facebookID");
 
 CREATE INDEX user_in_languages ON languages("userID");
 CREATE INDEX user_in_users ON users("facebookID");
@@ -159,22 +154,20 @@ EXECUTE FORMAT('drop view if exists %I', 'meeting'||meetingid::text);
 END
 $$ language plpgsql;    
     
-INSERT INTO "users" VALUES ('a1b2c3d4e5f6g7h', 'admin');
-INSERT INTO "users" VALUES ('abcdef1234zzzzz', 'demian');
-INSERT INTO "users" VALUES ('123456789101112', 'artur');
+INSERT INTO "users" VALUES ('a1b2c3d4e5f6g7h', 'admin',3);
+INSERT INTO "users" VALUES ('abcdef1234zzzzz', 'demian',2);
+INSERT INTO "users" VALUES ('123456789101112', 'artur',1);
 
 INSERT INTO "places" VALUES (DEFAULT, 'Caffee', 'Krakow', 'Ul. Golebia');
 INSERT INTO "places" VALUES (DEFAULT, 'Galeria Echo', 'Kielce', 'Ul. Swietokrzyska', NULL ,'https://photo.com/photo1');
 
-INSERT INTO "meetings" VALUES (DEFAULT, 1,'123456789101112','First Club Meeting', NOW()-'1 year'::interval, NOW()-'11 months 30 days 18 hours 30 min'::interval);
+INSERT INTO "meetings" VALUES (DEFAULT, 1,'abcdef1234zzzzz','First Club Meeting', NOW()-'1 year'::interval, NOW()-'11 months 30 days 18 hours 30 min'::interval);
 
 INSERT INTO "languages" VALUES ('abcdef1234zzzzz', 'English', 'Advanced');
 INSERT INTO "languages" VALUES ('abcdef1234zzzzz', 'Polish', 'Upper-Intermediate');
 INSERT INTO "languages" VALUES ('123456789101112', 'English', 'Advanced');
 INSERT INTO "languages" VALUES ('123456789101112', 'Polish', 'Intermediate');
 INSERT INTO "languages" VALUES ('a1b2c3d4e5f6g7h', 'Polish', 'Proficient');
-
-INSERT INTO "admins" VALUES ('123456789101112', 0);
 
 INSERT INTO "conversations" VALUES (DEFAULT, 1, 'abcdef1234zzzzz', '123456789101112');
 
