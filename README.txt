@@ -1,7 +1,7 @@
 Language Club Bot
 It's a semester project for Data Engineering course on Theoretical Computer Science department of Jagiellonian University.
 
-The database is used to store data about current club members, their levels of knowledge of various languages and club meetings. It gives an opportunity to speed up the processes of holding a club meeting, such as registration, creation of conversations graph and administration.
+The database is used to store the data about current club members, their levels of knowledge of various languages and club meetings. It gives an opportunity to speed up the process of organizing, maintaining and controlling a club meeting, which involves registration, creation of conversations graph and administration.
 
 Meeting procedure
 1) Registration
@@ -11,12 +11,14 @@ Meeting procedure
 Bot functionality
 1) User sign up (choosing languages and their levels of knowledge)
 2) List of all future meetings
-3) Registration on the future meeting
-4) Sending information about the interlocutor while meeting
+3) Registration for the future meeting
+4) Sending information about the interlocutors while meeting
 5) List of all previous interlocutor
-Admin functionality
-6)Adding a new meeting
-7)Adding a new admin
+6) Sending messages from users to admin
+extra functionality for admins
+7) Approving a club member participation in the meeting
+8) Adding a new meeting
+9) Adding a new admin
 
 Authors
 Demian Banakh (database triggers and functions)
