@@ -145,6 +145,20 @@ BEGIN
 END
 $$ language plpgsql;
 
+CREATE OR REPLACE FUNCTION startMeeting(meetingid int) returns void as
+$$
+BEGIN
+EXECUTE FORMAT('create or replace view %I as select "conversationID", "firstUser", "secondUser" from conversations where "meetingID"=%L', 'meeting'||meetingid::text, meetingid);
+END
+$$ language plpgsql;
+
+CREATE OR REPLACE FUNCTION finishMeeting(meetingid int) returns void as
+$$
+BEGIN
+EXECUTE FORMAT('drop view if exists %I', 'meeting'||meetingid::text);
+END
+$$ language plpgsql;    
+    
 INSERT INTO "users" VALUES ('a1b2c3d4e5f6g7h', 'admin');
 INSERT INTO "users" VALUES ('abcdef1234zzzzz', 'demian');
 INSERT INTO "users" VALUES ('123456789101112', 'artur');
@@ -167,16 +181,4 @@ INSERT INTO "conversations" VALUES (DEFAULT, 1, 'abcdef1234zzzzz', '123456789101
 INSERT INTO "meetingVisitors" VALUES ('abcdef1234zzzzz', 1);
 INSERT INTO "meetingVisitors" VALUES ('123456789101112', 1);
 
-CREATE OR REPLACE FUNCTION startMeeting(meetingid int) returns void as
-$$
-BEGIN
-EXECUTE FORMAT('create or replace view %I as select "conversationID", "firstUser", "secondUser" from conversations where "meetingID"=%L', 'meeting'||meetingid::text, meetingid);
-END
-$$ language plpgsql;
 
-CREATE OR REPLACE FUNCTION finishMeeting(meetingid int) returns void as
-$$
-BEGIN
-EXECUTE FORMAT('drop view if exists %I', 'meeting'||meetingid::text);
-END
-$$ language plpgsql;
