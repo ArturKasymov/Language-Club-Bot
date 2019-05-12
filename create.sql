@@ -55,6 +55,7 @@ CREATE TABLE "meetingVisitors" (
 CREATE TABLE "places" (
   "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
+  "description" varchar,
   "city" varchar NOT NULL,
   "adres" varchar NOT NULL,
   "description" varchar,
@@ -166,3 +167,17 @@ INSERT INTO "conversations" VALUES (DEFAULT, 1, 'abcdef1234zzzzz', '123456789101
 
 INSERT INTO "meetingVisitors" VALUES ('abcdef1234zzzzz', 1);
 INSERT INTO "meetingVisitors" VALUES ('123456789101112', 1);
+
+CREATE OR REPLACE FUNCTION startMeeting(meetingid int) returns void as
+$$
+BEGIN
+EXECUTE FORMAT('create or replace view %I as select "conversationID", "firstUser", "secondUser" from conversations where "meetingID"=%L', 'meeting'||meetingid::text, meetingid);
+END
+$$ language plpgsql;
+
+CREATE OR REPLACE FUNCTION finishMeeting(meetingid int) returns void as
+$$
+BEGIN
+EXECUTE FORMAT('drop view if exists %I', 'meeting'||meetingid::text);
+END
+$$ language plpgsql;
