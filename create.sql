@@ -173,7 +173,7 @@ INSERT INTO "languages" VALUES ('123456789101112', 'English', 'Advanced');
 INSERT INTO "languages" VALUES ('123456789101112', 'Polish', 'Intermediate');
 INSERT INTO "languages" VALUES ('a1b2c3d4e5f6g7h', 'Polish', 'Proficient');
 
-INSERT INTO "admins" VALUES ('123456789101112', 0, 1);
+INSERT INTO "admins" VALUES ('123456789101112', 0);
 
 INSERT INTO "conversations" VALUES (DEFAULT, 1, 'abcdef1234zzzzz', '123456789101112');
 
