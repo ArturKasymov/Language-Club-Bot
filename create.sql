@@ -40,6 +40,7 @@ CREATE TABLE "languages" (
 CREATE TABLE "meetings" (
   "id" SERIAL PRIMARY KEY,
   "placeID" int NOT NULL,
+  "organizerID" varchar NOT NULL,
   "description" varchar NOT NULL,
   "startDate" timestamp with time zone NOT NULL,
   "endDate" timestamp with time zone NOT NULL
@@ -71,9 +72,8 @@ CREATE TABLE "conversations" (
 );
 
 CREATE TABLE "admins" (
-  "userID" varchar,
-  "permissionLVL" int,
-  "meetingID" int
+  "userID" varchar NOT NULL,
+  "permissionLVL" int NOT NULL
 );
 
 ALTER TABLE "languages" ADD FOREIGN KEY ("userID") REFERENCES "users" ("facebookID");
@@ -91,8 +91,6 @@ ALTER TABLE "conversations" ADD FOREIGN KEY ("firstUser") REFERENCES "users" ("f
 ALTER TABLE "conversations" ADD FOREIGN KEY ("secondUser") REFERENCES "users" ("facebookID");
 
 ALTER TABLE "admins" ADD FOREIGN KEY ("userID") REFERENCES "users" ("facebookID");
-
-ALTER TABLE "admins" ADD FOREIGN KEY ("meetingID") REFERENCES "meetings" ("id");
 
 CREATE INDEX user_in_languages ON languages("userID");
 CREATE INDEX user_in_users ON users("facebookID");
@@ -166,7 +164,7 @@ INSERT INTO "users" VALUES ('123456789101112', 'artur');
 INSERT INTO "places" VALUES (DEFAULT, 'Caffee', 'Krakow', 'Ul. Golebia');
 INSERT INTO "places" VALUES (DEFAULT, 'Galeria Echo', 'Kielce', 'Ul. Swietokrzyska', NULL ,'https://photo.com/photo1');
 
-INSERT INTO "meetings" VALUES (DEFAULT, 1,'First Club Meeting', NOW()-'1 year'::interval, NOW()-'11 months 30 days 18 hours 30 min'::interval);
+INSERT INTO "meetings" VALUES (DEFAULT, 1,'123456789101112','First Club Meeting', NOW()-'1 year'::interval, NOW()-'11 months 30 days 18 hours 30 min'::interval);
 
 INSERT INTO "languages" VALUES ('abcdef1234zzzzz', 'English', 'Advanced');
 INSERT INTO "languages" VALUES ('abcdef1234zzzzz', 'Polish', 'Upper-Intermediate');
