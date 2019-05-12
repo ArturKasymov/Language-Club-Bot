@@ -28,7 +28,7 @@ CREATE TABLE "users" (
   "facebookID" varchar PRIMARY KEY,
   "nickname" varchar NOT NULL,
   "permissionLevel" int NOT NULL,
-  CHECK "permissionLevel" IN (1,2,3)
+  CHECK ("permissionLevel" IN (1,2,3))
 );
 
 CREATE TABLE "languages" (
@@ -77,6 +77,8 @@ CREATE TABLE "conversations" (
 ALTER TABLE "languages" ADD FOREIGN KEY ("userID") REFERENCES "users" ("facebookID");
 
 ALTER TABLE "meetings" ADD FOREIGN KEY ("placeID") REFERENCES "places" ("id");
+
+ALTER TABLE "meetings" ADD FOREIGN KEY ("organizerID") REFERENCES "users" ("facebookID");
 
 ALTER TABLE "meetingVisitors" ADD FOREIGN KEY ("userID") REFERENCES "users" ("facebookID");
 
