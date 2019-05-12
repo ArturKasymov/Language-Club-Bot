@@ -50,7 +50,8 @@ CREATE TABLE "meetings" (
 
 CREATE TABLE "meetingVisitors" (
   "userID" varchar NOT NULL,
-  "meetingID" int NOT NULL
+  "meetingID" int NOT NULL,
+  "isPresent" boolean NOT NULL
 );
 
 CREATE TABLE "places" (
@@ -177,7 +178,7 @@ INSERT INTO "admins" VALUES ('123456789101112', 0);
 
 INSERT INTO "conversations" VALUES (DEFAULT, 1, 'abcdef1234zzzzz', '123456789101112');
 
-INSERT INTO "meetingVisitors" VALUES ('abcdef1234zzzzz', 1);
-INSERT INTO "meetingVisitors" VALUES ('123456789101112', 1);
+INSERT INTO "meetingVisitors" VALUES ('abcdef1234zzzzz', 1,true);
+INSERT INTO "meetingVisitors" VALUES ('123456789101112', 1,true);
 
 
