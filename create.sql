@@ -67,9 +67,10 @@ CREATE TABLE "places" (
 
 CREATE TABLE "conversations" (
   "conversationID" SERIAL PRIMARY KEY,
-  "meetingID" int,
-  "firstUser" varchar,
-  "secondUser" varchar,
+  "meetingID" int NOT NULL,
+  "rowNumber" int NOT NULL,
+  "firstUser" varchar NOT NULL,
+  "secondUser" varchar NOT NULL,
   CHECK ("firstUser" != "secondUser"),
   CHECK (common_languages("firstUser", "secondUser")::text != '{}')
 );
@@ -171,7 +172,7 @@ INSERT INTO "languages" VALUES ('123456789101112', 'English', 'Advanced');
 INSERT INTO "languages" VALUES ('123456789101112', 'Polish', 'Intermediate');
 INSERT INTO "languages" VALUES ('a1b2c3d4e5f6g7h', 'Polish', 'Proficient');
 
-INSERT INTO "conversations" VALUES (DEFAULT, 1, 'abcdef1234zzzzz', '123456789101112');
+INSERT INTO "conversations" VALUES (DEFAULT, 1, 1 ,'abcdef1234zzzzz', '123456789101112');
 
 INSERT INTO "meetingVisitors" VALUES ('abcdef1234zzzzz', 1,true);
 INSERT INTO "meetingVisitors" VALUES ('123456789101112', 1,true);
