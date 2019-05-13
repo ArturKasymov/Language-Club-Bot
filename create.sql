@@ -1,9 +1,6 @@
-CREATE OR REPLACE FUNCTION get_language_levels() RETURNS varchar[] AS
-$$
-BEGIN
-RETURN array['Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient', 'Native speaker'];
-END
-$$ language plpgsql;
+CREATE type lang_name_t as enum('english', 'polish', 'german', 'french');
+CREATE type lang_level_t as enum('Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient', 'Native speaker');
+CREATE type perm_level_t as enum(1, 2, 3);
 
 CREATE OR REPLACE FUNCTION get_user_languages(id varchar) RETURNS varchar[] AS
 $$
@@ -27,16 +24,14 @@ $$ language plpgsql;
 CREATE TABLE "users" (
   "facebookID" varchar PRIMARY KEY,
   "nickname" varchar NOT NULL,
-  "permissionLevel" int NOT NULL,
-  CHECK ("permissionLevel" IN (1,2,3))
+  "permissionLevel" perm_level_t NOT NULL
 );
 
 CREATE TABLE "languages" (
   "userID" varchar NOT NULL,
-  "langName" varchar NOT NULL,
-  "levelName" varchar NOT NULL,
-  CONSTRAINT lang_pr_key PRIMARY KEY ("userID", "langName"),
-  CHECK ("levelName" = ANY(get_language_levels()))
+  "langName" lang_name_t NOT NULL,
+  "levelName" lang_level_t NOT NULL,
+  CONSTRAINT lang_pr_key PRIMARY KEY ("userID", "langName")
 );
 
 CREATE TABLE "meetings" (
@@ -53,16 +48,17 @@ CREATE TABLE "meetings" (
 CREATE TABLE "meetingVisitors" (
   "userID" varchar NOT NULL,
   "meetingID" int NOT NULL,
-  "isPresent" boolean NOT NULL
+  "isPresent" boolean NOT NULL,
+  CONSTRAINT unique_user_meeting UNIQUE ("userID", "meetingID") 
 );
 
 CREATE TABLE "places" (
   "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
   "city" varchar NOT NULL,
-  "adres" varchar NOT NULL,
+  "adress" varchar NOT NULL,
   "description" varchar,
-  "foto" varchar
+  "photo" varchar
 );
 
 CREATE TABLE "conversations" (
