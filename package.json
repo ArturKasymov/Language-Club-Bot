@@ -1,12 +1,12 @@
 {
   "name": "Language-Club-Bot",
   "version": "1.0.0",
-  "main": "bot.js",
+  "main": "index.js",
   "repository": "https://github.com/ArturKasymov/Language-Club-Bot.git",
   "author": "Artur Kasymov <art.kasymov@gmail.com>",
   "license": "MIT",
   "scripts": {
-	"start": "node bot.js"
+	"start": "node index.js"
 	},
   "dependencies": {
     "body-parser": "^1.19.0",
