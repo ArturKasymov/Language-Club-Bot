@@ -2,7 +2,10 @@
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
 
+// postbacks
 const GREETING = 'GREETING';
+const START_REGISTRATION_YES = 'START_REGISTRATION_YES';
+const START_REGISTRATION_NO = 'START_REGISTRATION_NO';
 
 //temp
 const RESEND = 'RESEND';
@@ -121,13 +124,13 @@ function handleGreetingPostback(sender_psid){
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"Yes!"//,
-          //"payload": START_REGISTRATION_YES
+          "title":"Yes!",
+          "payload": START_REGISTRATION_YES
         },
         {
           "content_type":"text",
-          "title":"No, thanks."//,
-          //"payload": START_REGISTRATION_NO
+          "title":"No, thanks.",
+          "payload": START_REGISTRATION_NO
         }
       ]
     };
