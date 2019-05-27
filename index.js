@@ -130,6 +130,11 @@ function handleGreetingPostback(sender_psid){
                 "type":"postback",
                 "title":"Start Registration",
                 "payload": START_REGISTRATION_YES
+              },
+              {
+                "type":"postback",
+                "title":"Connect with support",
+                "payload": START_REGISTRATION_NO
               }
             ]
           }      
