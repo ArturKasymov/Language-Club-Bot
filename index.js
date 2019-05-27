@@ -123,18 +123,18 @@ function handleGreetingPostback(sender_psid){
       "attachment":{
         "type": "template",
         "payload": {
-            "template_type": "generic",
+            "template_type": "button",
             "text": message,
             "buttons":[
               {
                 "type": "postback",
                 "title": "Start Registration",
-                "payload": START_REGISTRATION_YES
+                "payload": START_REGISTRATION_YES,
               },
               {
                 "type": "postback",
                 "title": "Connect with support",
-                "payload": START_REGISTRATION_NO
+                "payload": START_REGISTRATION_NO,
               }
             ]
           }      
