@@ -120,20 +120,18 @@ function handleGreetingPostback(sender_psid){
     //Greeting message
     const message = greeting + "Would you like to join our Language Club?";
     const greetingPayload = {
-      "template_type":"generic",
-      "text": message,
-      "buttons":[
-        {
-          "type":"postback",
-          "title":"Yes!",
-          "payload": START_REGISTRATION_YES
-        },
-        {
-          "type":"postback",
-          "title":"No, thanks.",
-          "payload": START_REGISTRATION_NO
-        }
-      ]
+      "attachment":{
+        "type": "template",
+        "payload": {
+            "template_type": "button",
+            "text": message,
+            "buttons":[
+                "type":"postback",
+                "title":"Start Registration",
+                "payload": START_REGISTRATION_YES
+            ]
+          }      
+      }
     };
     callSendAPI(sender_psid, greetingPayload);
   });
