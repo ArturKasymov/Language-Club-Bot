@@ -8,8 +8,7 @@ const START_REGISTRATION_YES = 'START_REGISTRATION_YES';
 const START_REGISTRATION_NO = 'START_REGISTRATION_NO';
 const CANCEL = 'CANCEL';
 
-//temp
-const RESEND = 'RESEND';
+
 
 const
   request = require('request'),
@@ -17,7 +16,24 @@ const
   body_parser = require('body-parser'),
   app = express().use(body_parser.json());
 
-  //here should be init db
+var pg =require('pg');
+
+var config = {
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD, 
+  host: process.env.DB_HOST, 
+  port: process.env.DB_PORT,
+  max: 10, 
+  idleTimeoutMillis: 30000,
+};
+
+var pool = new pg.Pool(config);
+
+pool.query('SELECT NOW()', (err, res) => {
+  console.log(err, res)
+  pool.end()
+})
 
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
