@@ -126,9 +126,11 @@ function handleGreetingPostback(sender_psid){
             "template_type": "button",
             "text": message,
             "buttons":[
+              {
                 "type":"postback",
                 "title":"Start Registration",
                 "payload": START_REGISTRATION_YES
+              }
             ]
           }      
       }
