@@ -87,17 +87,17 @@ function handleMessage(sender_psid, message) {
   	console.log('handleMEssage message:', JSON.stringify(message));
 
   
-  	if(Math.random() >= 0.5){
+    //if(Math.random() >= 0.5){
    		handlePostback(sender_psid, {payload: GREETING});
    		return;
-	}else {
+	/*}else {
 		//temp
 		const resendPayload = {
 			"text": message.text.substring(0, 200)
 		}
 		callSendAPI(sender_psid, resendPayload);
 		return;
-	}
+	}*/
 }
 
 function handleGreetingPostback(sender_psid){
@@ -120,15 +120,16 @@ function handleGreetingPostback(sender_psid){
     //Greeting message
     const message = greeting + "Would you like to join our Language Club?";
     const greetingPayload = {
+      "template_type":"button",
       "text": message,
-      "quick_replies":[
+      "buttons":[
         {
-          "content_type":"text",
+          "type":"text",
           "title":"Yes!",
           "payload": START_REGISTRATION_YES
         },
         {
-          "content_type":"text",
+          "type":"text",
           "title":"No, thanks.",
           "payload": START_REGISTRATION_NO
         }
