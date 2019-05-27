@@ -120,16 +120,16 @@ function handleGreetingPostback(sender_psid){
     //Greeting message
     const message = greeting + "Would you like to join our Language Club?";
     const greetingPayload = {
-      "template_type":"button",
+      "template_type":"generic",
       "text": message,
       "buttons":[
         {
-          "type":"text",
+          "type":"postback",
           "title":"Yes!",
           "payload": START_REGISTRATION_YES
         },
         {
-          "type":"text",
+          "type":"postback",
           "title":"No, thanks.",
           "payload": START_REGISTRATION_NO
         }
