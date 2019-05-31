@@ -3,6 +3,7 @@
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
 
+var handlers = require('./models/handlers.js');
 
 const
   request = require('request'),
@@ -48,7 +49,7 @@ app.post('/webhook', (req, res) => {
         pageEntry.messaging.forEach((messagingEvent) => {
           console.log({messagingEvent});
           if (messagingEvent.postback) {
-            handlePostback(messagingEvent.sender.id, messagingEvent.postback);
+            handlers.handlePostback(messagingEvent.sender.id, messagingEvent.postback);
           } else if (messagingEvent.message) {
             if (messagingEvent.message.quick_reply){
               handlePostback(messagingEvent.sender.id, messagingEvent.message.quick_reply);
