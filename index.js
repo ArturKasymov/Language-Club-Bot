@@ -125,6 +125,6 @@ function callSendAPI(sender_psid, response) {
 
 
 
-module.exports = function (app, task) {
+module.exports.request = function (app, task) {
     request(app, task);
 }

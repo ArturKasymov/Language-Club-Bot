@@ -1,6 +1,6 @@
 const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
 
-var request = require('../index.js');
+var request = require('../index.js').request;
 
 // postbacks
 const GREETING = 'GREETING';
