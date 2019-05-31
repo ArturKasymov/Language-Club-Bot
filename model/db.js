@@ -58,7 +58,7 @@ function updateStatus(args) {
             return console.error('Error acquiring client', err.stack);
         } else {
             console.log(args);
-            console.log(checkIfUserExists(args[1]));
+            console.log("updateStatus - " + checkIfUserExists(args[1]));
             if (!checkIfUserExists(args[1])) return;
             client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
                 release();
@@ -77,9 +77,9 @@ function checkIfUserExists(id) {
             return console.log('Error acquiring client', err.stack);
         } else {
             client.query(CONSTANTS.GET_USER_DATA, [id], (err, result) => {
-                console.log(result.rows);
+                console.log("rows"+result.rows);
                 exists = result.rows.length > 0;
-                console.log(exists);
+                console.log("exists1"+exists);
                 release();
                 if (err) {
                     return console.error('Error GET_USER_DATA query', err.stack);
@@ -87,7 +87,7 @@ function checkIfUserExists(id) {
             })
         }
     })
-    console.log(exists);
+    console.log("exists2"+exists);
     return exists;
 }
 
