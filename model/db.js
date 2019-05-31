@@ -75,7 +75,14 @@ function checkIfUserExists(id) {
 
 function getStatus(args) {
     var status = undefined;
-    var result = pool.query(CONSTANTS.GET_STATUS_QUERY, args);
+    var result = pool.query(CONSTANTS.GET_STATUS_QUERY, args, (err, res) => {
+        if (err) {
+            return console.log('Error acquiring pool', err.stack);
+        } else {
+            status = res.rows[0].status;
+        }
+    });
+    setTimeout(() => { }, 1000);
     return status;
 };
 
