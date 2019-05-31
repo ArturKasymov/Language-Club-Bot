@@ -2,8 +2,6 @@
 const UT = require('./model/Constants.js');
 const handlers = require('./model/handlers.js');
 
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-
 const
   express = require('express'),
   body_parser = require('body-parser'),

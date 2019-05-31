@@ -14,7 +14,7 @@ function callSendAPI(sender_psid, response) {
     // Send the HTTP request to the Messenger Platform
     request({
         "url": `${UT.FACEBOOK_GRAPH_API_BASE_URL}me/messages`,
-        "qs": { "access_token": PAGE_ACCESS_TOKEN },
+        "qs": { "access_token": UT.PAGE_ACCESS_TOKEN },
         "method": "POST",
         "json": request_body
     }, (err, res, body) => {
@@ -67,7 +67,7 @@ function handleGreetingPostback(sender_psid) {
     request({
         url: `${UT.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
-            access_token: process.env.PAGE_ACCESS_TOKEN,
+            access_token: UT.PAGE_ACCESS_TOKEN,
             fields: "first_name"
         },
         method: "GET"
@@ -111,7 +111,7 @@ function handleRegistrationStart(sender_psid) {
     request({
         url: `${UT.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
-            access_token: process.env.PAGE_ACCESS_TOKEN,
+            access_token: UT.PAGE_ACCESS_TOKEN,
             fields: "first_name"
         },
         method: "GET"
