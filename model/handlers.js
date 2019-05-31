@@ -1,7 +1,7 @@
 const UT = require('./Constants.js');
 const request = UT.request;
 
-const pool = require('./model/db.js');
+const pool = require('./db.js');
 
 function callSendAPI(sender_psid, response) {
     // Construct the message body
