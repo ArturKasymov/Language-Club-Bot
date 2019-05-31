@@ -13,6 +13,8 @@ var config = {
 
 const pool = new pg.Pool(config);
 
+const client = await pool.connect();
+
 // ONLY FOR TESTING
 pool.query('DELETE FROM users WHERE 1=1')
     .then((err, res) => console.log(err, res))
@@ -72,24 +74,11 @@ function updateStatus(args) {
 
 function checkIfUserExists(id) {
     var exists = undefined;
-    pool.connect((err, client, release) => {
-        if (err) {
-            return console.log('Error acquiring client', err.stack);
-        } else {
-            client.query(CONSTANTS.GET_USER_DATA, [id], (err, result) => {
-                console.log("rows"+result.rows);
-                exists = result.rows.length > 0;
-                console.log("exists1"+exists);
-                release();
-                if (err) {
-                    return console.error('Error GET_USER_DATA query', err.stack);
-                }
-            })
-        }
-    })
-    console.log("exists2" + exists);
-    while (exists == undefined);
-    return exists;
+    const result = await client.query({
+        text: CONSTANTS.GET_USER_DATA, 
+        values: [id]
+    });
+    return result.rows.length > 0;
 }
 
 function getStatus(args) {
