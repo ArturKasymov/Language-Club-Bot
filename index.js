@@ -52,9 +52,9 @@ app.post('/webhook', (req, res) => {
             handlers.handlePostback(messagingEvent.sender.id, messagingEvent.postback);
           } else if (messagingEvent.message) {
             if (messagingEvent.message.quick_reply){
-              handlePostback(messagingEvent.sender.id, messagingEvent.message.quick_reply);
+              handlers.handlePostback(messagingEvent.sender.id, messagingEvent.message.quick_reply);
             } else{
-              handleMessage(messagingEvent.sender.id, messagingEvent.message);
+              handlers.handleMessage(messagingEvent.sender.id, messagingEvent.message);
             }
           } else {
             console.log(
