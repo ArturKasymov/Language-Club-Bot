@@ -1,3 +1,5 @@
+const request = require('../index.js').request;
+
 // postbacks
 const GREETING = 'GREETING';
 const START_REGISTRATION_YES = 'START_REGISTRATION_YES';
@@ -38,6 +40,9 @@ function handlePostback(sender_psid, received_postback) {
             console.log('Cannot differentiate the payload type');
     }
 }
+
+
+
 
 function handleGreetingPostback(sender_psid) {
     request({
