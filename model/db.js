@@ -74,7 +74,7 @@ function checkIfUserExists(id) {
 }
 
 function getStatus(args) {
-    var status = undefined;
+    /*var status = undefined;
     var result = pool.query(CONSTANTS.GET_STATUS_QUERY, args, (err, res) => {
         if (err) {
             return console.log('Error acquiring pool', err.stack);
@@ -83,7 +83,12 @@ function getStatus(args) {
         }
     });
     setTimeout(() => { }, 1000);
-    return status;
+    return status;*/
+
+    return new Promise((resolve, reject) => {
+        return pool.query(CONSTANTS.GET_STATUS_QUERY, args);
+    })
+    .then((result) => result.rows[0].status);
 };
 
 function updateNickname(args) {

@@ -30,16 +30,17 @@ function callSendAPI(sender_psid, response) {
 function handleMessage(sender_psid, message) {
     // check if it is a location message
     console.log('handleMessage message:', JSON.stringify(message));
-    
-    var status = query(CONSTANTS.GET_STATUS, [sender_psid]);
-    switch (status) {
-        case CONSTANTS.STARTED_REGISTRATION:
-            if (message.indexOf(" ") != -1) sendAlert(sender_psid);
-            else handleInputNickname(sender_psid, message);
-            break;
-        default:
-            break;
-    }
+    query(CONSTANTS.GET_STATUS, [sender_psid])
+    .then((status) => {
+        switch (status) {
+            case CONSTANTS.STARTED_REGISTRATION:
+                if (message.indexOf(" ") != -1) sendAlert(sender_psid);
+                else handleInputNickname(sender_psid, message);
+                break;
+            default:
+                break;
+        }
+    });
 }
 
 function handlePostback(sender_psid, received_postback) {
