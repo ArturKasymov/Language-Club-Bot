@@ -47,7 +47,7 @@ function handlePostback(sender_psid, received_postback) {
 
 
 function handleGreetingPostback(sender_psid) {
-    request({
+    request.request({
         url: `${FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
             access_token: process.env.PAGE_ACCESS_TOKEN,
