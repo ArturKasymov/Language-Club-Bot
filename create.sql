@@ -23,6 +23,7 @@ $$ language plpgsql;
 
 CREATE TABLE "users" (
   "facebookID" varchar PRIMARY KEY,
+  "status" varchar NOT NULL,
   "nickname" varchar NOT NULL,
   "permissionLevel" perm_level_t NOT NULL
 );
