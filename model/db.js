@@ -57,6 +57,7 @@ function updateStatus(args) {
         if (err) {
             return console.error('Error acquiring client', err.stack);
         } else {
+            console.log(checkIfUserExists(args[0]));
             if (!checkIfUserExists(args[0])) return;
             client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
                 release();
