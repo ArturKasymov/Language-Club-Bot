@@ -43,9 +43,8 @@ function handlePostback(sender_psid, received_postback) {
     const payload = received_postback.payload;
 
     switch (payload) {
-        case UT.GREETING:
-            handleGreetingPostback(sender_psid);
-            //updateStatus(sender_psid, payload, handleGreetingPostback);
+        case UT.GET_STARTED:
+            handleGetStartedPostback(sender_psid);
             break;
         case UT.START_REGISTRATION_YES:
             handleRegistrationStart(sender_psid);
@@ -58,7 +57,8 @@ function handlePostback(sender_psid, received_postback) {
 
 
 
-function handleGreetingPostback(sender_psid) {
+
+function handleGetStartedPostback(sender_psid) {
     request({
         url: `${UT.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
