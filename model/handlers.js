@@ -1,5 +1,5 @@
-const UT = require('./Constants.js');
-const request = UT.request;
+const CONSTANTS = require('./Constants.js');
+const request = CONSTANTS.request;
 
 const pool = require('./db.js');
 
@@ -15,8 +15,8 @@ function callSendAPI(sender_psid, response) {
 
     // Send the HTTP request to the Messenger Platform
     request({
-        "url": `${UT.FACEBOOK_GRAPH_API_BASE_URL}me/messages`,
-        "qs": { "access_token": UT.PAGE_ACCESS_TOKEN },
+        "url": `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}me/messages`,
+        "qs": { "access_token": CONSTANTS.PAGE_ACCESS_TOKEN },
         "method": "POST",
         "json": request_body
     }, (err, res, body) => {
@@ -35,7 +35,7 @@ function handleMessage(sender_psid, message) {
         
     })();*/
     
-    handlePostback(sender_psid, { payload: UT.GREETING });
+    handlePostback(sender_psid, { payload: CONSTANTS.GREETING });
 }
 
 function handlePostback(sender_psid, received_postback) {
@@ -43,10 +43,10 @@ function handlePostback(sender_psid, received_postback) {
     const payload = received_postback.payload;
 
     switch (payload) {
-        case UT.GET_STARTED:
+        case CONSTANTS.GET_STARTED:
             handleGetStartedPostback(sender_psid);
             break;
-        case UT.START_REGISTRATION_YES:
+        case CONSTANTS.START_REGISTRATION_YES:
             handleRegistrationStart(sender_psid);
             break;
         default:
@@ -59,10 +59,25 @@ function handlePostback(sender_psid, received_postback) {
 
 
 function handleGetStartedPostback(sender_psid) {
+    pool.connect((err, client, release) => {
+        if (err) {
+            console.log("Error acquiring client");
+            return console.error('Error acquiring client', err.stack);
+        } else {
+            client.query(text, [sender_psid], (err, result) => {
+                release();
+                if (err) {
+                    console.log("Error acquiring client");
+                    return console.error('Error acquiring client', err.stack);
+                }
+            })
+        }
+    })
+
     request({
-        url: `${UT.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
+        url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
-            access_token: UT.PAGE_ACCESS_TOKEN,
+            access_token: CONSTANTS.PAGE_ACCESS_TOKEN,
             fields: "first_name"
         },
         method: "GET"
@@ -87,12 +102,12 @@ function handleGetStartedPostback(sender_psid) {
                       {
                           "type": "postback",
                           "title": "Start Registration",
-                          "payload": UT.START_REGISTRATION_YES,
+                          "payload": CONSTANTS.START_REGISTRATION_YES,
                       },
                       {
                           "type": "postback",
-                          "title": "Connect with us",
-                          "payload": UT.START_REGISTRATION_NO,
+                          "title": "Contact us",
+                          "payload": CONSTANTS.CONTACT_US,
                       }
                     ]
                 }
@@ -104,9 +119,9 @@ function handleGetStartedPostback(sender_psid) {
 
 function handleRegistrationStart(sender_psid) {
     request({
-        url: `${UT.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
+        url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
-            access_token: UT.PAGE_ACCESS_TOKEN,
+            access_token: CONSTANTS.PAGE_ACCESS_TOKEN,
             fields: "first_name"
         },
         method: "GET"
@@ -131,7 +146,7 @@ function handleRegistrationStart(sender_psid) {
                       {
                           "type": "postback",
                           "title": "Cancel",
-                          "payload": UT.CANCEL,
+                          "payload": CONSTANTS.CANCEL,
                       },
                     ]
                 }

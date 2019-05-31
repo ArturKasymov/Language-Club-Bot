@@ -1,12 +1,12 @@
 'use strict';
-const UT = require('./model/Constants.js');
+const CONSTANTS = require('./model/Constants.js');
 const handlers = require('./model/handlers.js');
 
 const
   express = require('express'),
   body_parser = require('body-parser'),
   app = express().use(body_parser.json());
-const request = UT.request;
+const request = CONSTANTS.request;
 
 const pool = require('./model/db.js');
 

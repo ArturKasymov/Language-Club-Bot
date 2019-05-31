@@ -6,8 +6,14 @@ const request = require('request');
 // postbacks
 const GET_STARTED = 'GET_STARTED';
 const START_REGISTRATION_YES = 'START_REGISTRATION_YES';
-const START_REGISTRATION_NO = 'START_REGISTRATION_NO';
+const CONTACT_US = 'CONTACT_US';
 const CANCEL = 'CANCEL';
+
+// statuses
+const got_started = "got_started";
+
+// POSTGRESQL QUERIES
+const INSERT_USER = 'INSERT INTO users VALUES($1, ' + got_started + ', NULL, NULL)';
 
 module.exports = {
     request: request,
