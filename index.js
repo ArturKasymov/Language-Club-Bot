@@ -92,27 +92,3 @@ app.get('/webhook', (req, res) => {
     }
   }
 });
-
-function callSendAPI(sender_psid, response) {
-    // Construct the message body
-    console.log('message to be sent: ', response);
-    let request_body = {
-        "recipient": {
-            "id": sender_psid
-        },
-        "message": response
-    }
-
-    // Send the HTTP request to the Messenger Platform
-    request({
-        "url": `${UT.FACEBOOK_GRAPH_API_BASE_URL}me/messages`,
-        "qs": { "access_token": PAGE_ACCESS_TOKEN },
-        "method": "POST",
-        "json": request_body
-    }, (err, res, body) => {
-        console.log("Message Sent Response body:", body);
-        if (err) {
-            console.error("Unable to send message:", err);
-        }
-    });
-}
