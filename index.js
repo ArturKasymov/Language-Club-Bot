@@ -8,8 +8,6 @@ const
   app = express().use(body_parser.json());
 const request = CONSTANTS.request;
 
-const pool = require('./model/db.js');
-
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 app.post('/webhook', (req, res) => {

@@ -1,7 +1,7 @@
 const CONSTANTS = require('./Constants.js');
 const request = CONSTANTS.request;
 
-const pool = require('./db.js');
+const query = require('./db.js');
 
 function callSendAPI(sender_psid, response) {
     // Construct the message body
@@ -30,12 +30,16 @@ function callSendAPI(sender_psid, response) {
 function handleMessage(sender_psid, message) {
     // check if it is a location message
     console.log('handleMessage message:', JSON.stringify(message));
-
-    /*(async function() {
-        
-    })();*/
     
-    handlePostback(sender_psid, { payload: CONSTANTS.GREETING });
+    var status = query(CONSTANTS.GET_STATUS, [sender_psid]);
+    switch (status) {
+        case CONSTANTS.STARTED_REGISTRATION:
+            if (message.indexOf(" ") != -1) sendAlert(sender_psid);
+            else handleInputNickname(sender_psid, message);
+            break;
+        default:
+            break;
+    }
 }
 
 function handlePostback(sender_psid, received_postback) {
@@ -49,6 +53,9 @@ function handlePostback(sender_psid, received_postback) {
         case CONSTANTS.START_REGISTRATION_YES:
             handleRegistrationStart(sender_psid);
             break;
+        case CONSTANTS.CONTACT_US:
+            handleContactUs(sender_psid);
+            break;
         default:
             console.log('Cannot differentiate the payload type');
     }
@@ -59,21 +66,7 @@ function handlePostback(sender_psid, received_postback) {
 
 
 function handleGetStartedPostback(sender_psid) {
-    pool.connect((err, client, release) => {
-        if (err) {
-            console.log("Error acquiring client");
-            return console.error('Error acquiring client', err.stack);
-        } else {
-            const INSERT_USER = 'INSERT INTO users("facebookID", status, nickname, "permissionLevel") VALUES($1::varchar, $2::varchar, NULL, NULL)';
-            console.log(INSERT_USER);
-            client.query(INSERT_USER, [sender_psid, "got_started"], (err, result) => {
-                release();
-                if (err) {
-                    return console.error('Error acquiring client', err.stack);
-                }
-            })
-        }
-    })
+    query(CONSTANTS.INSERT_USER, [sender_psid, CONSTANTS.GOT_STARTED]);
 
     request({
         url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
@@ -118,7 +111,49 @@ function handleGetStartedPostback(sender_psid) {
     });
 }
 
+function handleInputNickname(sender_psid, nickname) {
+    query(CONSTANTS.UPDATE_NICKNAME, [nickname, sender_psid]);
+
+    request({
+        url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
+        qs: {
+            access_token: CONSTANTS.PAGE_ACCESS_TOKEN,
+            fields: "first_name"
+        },
+        method: "GET"
+    }, function (error, response, body) {
+        var nicknameRequest = "";
+        if (error) {
+            console.log("Error getting user's name: " + error);
+        } else {
+            var bodyObj = JSON.parse(body);
+            const name = bodyObj.first_name;
+            langRequest = name + ", choose your languages: ";
+        }
+        const message = langRequest;
+        const langPayload = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "button",
+                    "text": message,
+                    "buttons": [
+                      {
+                          "type": "postback",
+                          "title": "Back",
+                          "payload": CONSTANTS.BACK,
+                      },
+                    ]
+                }
+            }
+        };
+        callSendAPI(sender_psid, langPayload);
+    });
+}
+
 function handleRegistrationStart(sender_psid) {
+    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.STARTED_REGISTRATION, sender_psid]);
+
     request({
         url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
@@ -146,8 +181,8 @@ function handleRegistrationStart(sender_psid) {
                     "buttons": [
                       {
                           "type": "postback",
-                          "title": "Cancel",
-                          "payload": CONSTANTS.CANCEL,
+                          "title": "Back",
+                          "payload": CONSTANTS.BACK,
                       },
                     ]
                 }
@@ -156,19 +191,6 @@ function handleRegistrationStart(sender_psid) {
         callSendAPI(sender_psid, nickNamePayload);
     });
 }
-
-
-/*
-function updateStatus(sender_psid, status, callback){
-  const query = {user_id: sender_psid};
-  const update = {status: status};
-  const options = {upsert: status === GREETING};
-
-  ChatStatus.findOneAndUpdate(query, update, options).exec((err, cs) => {
-    console.log('update status to db: ', cs);
-    callback(sender_psid);
-  });
-}*/
 
 
 
