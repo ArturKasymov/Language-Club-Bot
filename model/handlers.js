@@ -1,6 +1,8 @@
 const UT = require('./Constants.js');
 const request = UT.request;
 
+const pool = require('./model/db.js');
+
 function callSendAPI(sender_psid, response) {
     // Construct the message body
     console.log('message to be sent: ', response);
@@ -27,20 +29,13 @@ function callSendAPI(sender_psid, response) {
 
 function handleMessage(sender_psid, message) {
     // check if it is a location message
-    console.log('handleMEssage message:', JSON.stringify(message));
+    console.log('handleMessage message:', JSON.stringify(message));
 
-
-    //if(Math.random() >= 0.5){
+    /*(async function() {
+        
+    })();*/
+    
     handlePostback(sender_psid, { payload: UT.GREETING });
-    return;
-    /*}else {
-		//temp
-		const resendPayload = {
-			"text": message.text.substring(0, 200)
-		}
-		callSendAPI(sender_psid, resendPayload);
-		return;
-	}*/
 }
 
 function handlePostback(sender_psid, received_postback) {

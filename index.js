@@ -8,25 +8,7 @@ const
   app = express().use(body_parser.json());
 const request = UT.request;
 
-const pg = require('pg');
-
-var config = {
-    user: process.env.DB_USER,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    max: 10,
-    idleTimeoutMillis: 30000,
-};
-
-const pool = new pg.Pool(config);
-
-pool.query('SELECT NOW()', (err, res) => {
-    console.log(err, res)
-    pool.end()
-})
-
+const pool = require('./model/db.js');
 
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
