@@ -11,6 +11,12 @@ const
   body_parser = require('body-parser'),
   app = express().use(body_parser.json());
 
+
+module.exports.request = function (app, task) {
+    request(app, task);
+}
+
+
 const pg = require('pg');
 
 var config = {
@@ -125,6 +131,3 @@ function callSendAPI(sender_psid, response) {
 
 
 
-module.exports.request = function (app, task) {
-    request(app, task);
-}
