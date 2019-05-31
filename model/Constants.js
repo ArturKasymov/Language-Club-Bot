@@ -13,7 +13,7 @@ const CANCEL = 'CANCEL';
 const got_started = "got_started";
 
 // POSTGRESQL QUERIES
-const INSERT_USER = 'INSERT INTO users VALUES($1, ' + got_started + ', NULL, NULL)';
+const INSERT_USER = 'INSERT INTO users VALUES($1, "' + got_started + '", NULL, NULL)';
 console.log("INSERT_USER: " + INSERT_USER);
 module.exports = {
     request: request,
