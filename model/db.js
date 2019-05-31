@@ -12,10 +12,10 @@ var config = {
 
 const pool = new pg.Pool(config);
 
-pool.query('SELECT * FROM users', (err, res) => {
-    console.log(err, res)
-    pool.end()
-})
-
+// ONLY FOR TESTING
+pool.query('DELETE FROM users WHERE 1=1')
+    .then((err, res) => { console.log(err, res); pool.end(); })
+    .catch(err => console.log(err));
+// END
 
 module.exports = pool;
