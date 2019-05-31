@@ -14,7 +14,7 @@ const got_started = "got_started";
 
 // POSTGRESQL QUERIES
 const INSERT_USER = 'INSERT INTO users VALUES($1, ' + got_started + ', NULL, NULL)';
-
+console.log("INSERT_USER: " + INSERT_USER);
 module.exports = {
     request: request,
     FACEBOOK_GRAPH_API_BASE_URL: FACEBOOK_GRAPH_API_BASE_URL,
