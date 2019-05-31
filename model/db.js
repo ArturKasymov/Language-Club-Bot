@@ -76,7 +76,7 @@ function checkIfUserExists(id) {
             return console.log('Error acquiring client', err.stack);
         } else {
             client.query(CONSTANTS.GET_USER_DATA, [id], (err, result) => {
-                exists = result.rows.length > 1;
+                exists = result.rows.length > 0;
                 release();
                 if (err) {
                     return console.error('Error GET_USER_DATA query', err.stack);
