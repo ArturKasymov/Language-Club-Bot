@@ -93,6 +93,8 @@ function getStatus(args) {
             return console.log('Error acquiring client', err.stack);
         } else {
             client.query(CONSTANTS.GET_STATUS_QUERY, args, (err, result) => {
+                console.log(result.rows);
+                if (result.rows.length == 0) return undefined;
                 status = result.rows[0].status;
                 release();
                 if (err) {
