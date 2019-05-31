@@ -64,10 +64,10 @@ function handleGetStartedPostback(sender_psid) {
             console.log("Error acquiring client");
             return console.error('Error acquiring client', err.stack);
         } else {
+            console.log(CONSTANTS.INSERT_USER);
             client.query(CONSTANTS.INSERT_USER, [sender_psid], (err, result) => {
                 release();
                 if (err) {
-                    console.log("Error acquiring client");
                     return console.error('Error acquiring client', err.stack);
                 }
             })
