@@ -19,10 +19,11 @@ pool.query('DELETE FROM users WHERE 1=1')
     .catch(err => console.log(err));
 // END
 
-function query(type, args) {
+async(function query(type, args) {
     switch (type) {
         case CONSTANTS.GET_STATUS:
-            return getStatus(args);
+            let status = await(getStatus(args));
+            return status;
         case CONSTANTS.INSERT_USER:
             insertUser(args);
             break;
@@ -34,7 +35,7 @@ function query(type, args) {
         default:
             break;
     }
-}
+});
 
 function insertUser(args) {
     pool.connect((err, client, release) => {
@@ -57,9 +58,6 @@ function updateStatus(args) {
         if (err) {
             return console.error('Error acquiring client', err.stack);
         } else {
-            console.log(args);
-            console.log("updateStatus - " + checkIfUserExists(args[1]));
-            //if (!checkIfUserExists(args[1])) return;
             client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
                 release();
                 if (err) {
@@ -76,25 +74,11 @@ function checkIfUserExists(id) {
     return exists;
 }
 
-function getStatus(args) {
+async(function getStatus(args) {
     var status = undefined;
-    pool.connect((err, client, release) => {
-        if (err) {
-            return console.log('Error acquiring client', err.stack);
-        } else {
-            client.query(CONSTANTS.GET_STATUS_QUERY, args, (err, result) => {
-                console.log(result.rows);
-                if (result.rows.length == 0) return undefined;
-                status = result.rows[0].status;
-                release();
-                if (err) {
-                    return console.error('Error GET_STATUS query', err.stack);
-                }
-            })
-        }
-    })
-    return status;
-}
+    var result = await(pool.query(CONSTANTS.GET_STATUS_QUERY, args));
+    return result.rows[0].status;
+});
 
 function updateNickname(args) {
     pool.connect((err, client, release) => {
