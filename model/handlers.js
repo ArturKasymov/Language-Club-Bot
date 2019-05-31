@@ -30,7 +30,7 @@ function callSendAPI(sender_psid, response) {
 function handleMessage(sender_psid, message) {
     // check if it is a location message
     console.log('handleMessage message:', JSON.stringify(message));
-    
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     var status = query(CONSTANTS.GET_STATUS, [sender_psid]);
     switch (status) {
         case CONSTANTS.STARTED_REGISTRATION:
