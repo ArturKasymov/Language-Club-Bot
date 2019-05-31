@@ -72,8 +72,7 @@ function updateStatus(args) {
 
 function checkIfUserExists(id) {
     var exists = undefined;
-    const client = pool.connect();
-    var query = client.query(CONSTANTS.GET_USER_DATA, [id]);
+    var query = pool.query(CONSTANTS.GET_USER_DATA, [id]);
     query.on("row", (row, result) => result.addRow(row));
     query.on("end", (result) => {
         exists = result.rows.length > 0;
