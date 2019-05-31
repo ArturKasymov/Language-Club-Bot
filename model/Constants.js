@@ -1,0 +1,18 @@
+const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
+
+const request = require('request');
+
+// postbacks
+const GREETING = 'GREETING';
+const START_REGISTRATION_YES = 'START_REGISTRATION_YES';
+const START_REGISTRATION_NO = 'START_REGISTRATION_NO';
+const CANCEL = 'CANCEL';
+
+module.exports = {
+    request: request,
+    FACEBOOK_GRAPH_API_BASE_URL: FACEBOOK_GRAPH_API_BASE_URL,
+    GREETING: GREETING,
+    START_REGISTRATION_YES: START_REGISTRATION_YES,
+    START_REGISTRATION_NO: START_REGISTRATION_NO,
+    CANCEL: CANCEL,
+}

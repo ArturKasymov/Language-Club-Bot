@@ -1,12 +1,5 @@
-const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
-
-var request = require('../index.js').request;
-console.log(request == undefined);
-// postbacks
-const GREETING = 'GREETING';
-const START_REGISTRATION_YES = 'START_REGISTRATION_YES';
-const START_REGISTRATION_NO = 'START_REGISTRATION_NO';
-const CANCEL = 'CANCEL';
+const UT = require('./Constants.js');
+const request = UT.request;
 
 function handleMessage(sender_psid, message) {
     // check if it is a location message
@@ -14,7 +7,7 @@ function handleMessage(sender_psid, message) {
 
 
     //if(Math.random() >= 0.5){
-    handlePostback(sender_psid, { payload: GREETING });
+    handlePostback(sender_psid, { payload: UT.GREETING });
     return;
     /*}else {
 		//temp
@@ -31,11 +24,11 @@ function handlePostback(sender_psid, received_postback) {
     const payload = received_postback.payload;
 
     switch (payload) {
-        case GREETING:
+        case UT.GREETING:
             handleGreetingPostback(sender_psid);
             //updateStatus(sender_psid, payload, handleGreetingPostback);
             break;
-        case START_REGISTRATION_YES:
+        case UT.START_REGISTRATION_YES:
             handleRegistrationStart(sender_psid);
             break;
         default:
@@ -48,7 +41,7 @@ function handlePostback(sender_psid, received_postback) {
 
 function handleGreetingPostback(sender_psid) {
     request({
-        url: `${FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
+        url: `${UT.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
             access_token: process.env.PAGE_ACCESS_TOKEN,
             fields: "first_name"
@@ -75,12 +68,12 @@ function handleGreetingPostback(sender_psid) {
                       {
                           "type": "postback",
                           "title": "Start Registration",
-                          "payload": START_REGISTRATION_YES,
+                          "payload": UT.START_REGISTRATION_YES,
                       },
                       {
                           "type": "postback",
                           "title": "Connect with us",
-                          "payload": START_REGISTRATION_NO,
+                          "payload": UT.START_REGISTRATION_NO,
                       }
                     ]
                 }
@@ -92,7 +85,7 @@ function handleGreetingPostback(sender_psid) {
 
 function handleRegistrationStart(sender_psid) {
     request({
-        url: `${FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
+        url: `${UT.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
             access_token: process.env.PAGE_ACCESS_TOKEN,
             fields: "first_name"
@@ -119,7 +112,7 @@ function handleRegistrationStart(sender_psid) {
                       {
                           "type": "postback",
                           "title": "Cancel",
-                          "payload": CANCEL,
+                          "payload": UT.CANCEL,
                       },
                     ]
                 }
