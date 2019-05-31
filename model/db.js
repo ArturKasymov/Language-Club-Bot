@@ -79,6 +79,7 @@ function checkIfUserExists(id) {
             client.query(CONSTANTS.GET_USER_DATA, [id], (err, result) => {
                 console.log(result.rows);
                 exists = result.rows.length > 0;
+                console.log(exists);
                 release();
                 if (err) {
                     return console.error('Error GET_USER_DATA query', err.stack);
@@ -86,6 +87,7 @@ function checkIfUserExists(id) {
             })
         }
     })
+    console.log(exists);
     return exists;
 }
 
