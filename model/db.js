@@ -19,11 +19,10 @@ pool.query('DELETE FROM users WHERE 1=1')
     .catch(err => console.log(err));
 // END
 
-async(function query(type, args) {
+function query(type, args) {
     switch (type) {
         case CONSTANTS.GET_STATUS:
-            let status = await(getStatus(args));
-            return status;
+            return getStatus(args);
         case CONSTANTS.INSERT_USER:
             insertUser(args);
             break;
@@ -35,7 +34,7 @@ async(function query(type, args) {
         default:
             break;
     }
-});
+};
 
 function insertUser(args) {
     pool.connect((err, client, release) => {
@@ -74,11 +73,11 @@ function checkIfUserExists(id) {
     return exists;
 }
 
-async(function getStatus(args) {
+function getStatus(args) {
     var status = undefined;
-    var result = await(pool.query(CONSTANTS.GET_STATUS_QUERY, args));
-    return result.rows[0].status;
-});
+    var result = pool.query(CONSTANTS.GET_STATUS_QUERY, args);
+    return status;
+};
 
 function updateNickname(args) {
     pool.connect((err, client, release) => {
