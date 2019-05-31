@@ -70,13 +70,13 @@ function updateStatus(args) {
     })
 }
 
-function checkIfUserExists(id) {
+async function checkIfUserExists(id) {
     var exists = false;
     pool.connect((err, client, release) => {
         if (err) {
             return console.log('Error acquiring client', err.stack);
         } else {
-            client.query(CONSTANTS.GET_USER_DATA, [id], (err, result) => {
+            await client.query(CONSTANTS.GET_USER_DATA, [id], (err, result) => {
                 console.log("rows"+result.rows);
                 exists = result.rows.length > 0;
                 console.log("exists1"+exists);
@@ -84,11 +84,11 @@ function checkIfUserExists(id) {
                 if (err) {
                     return console.error('Error GET_USER_DATA query', err.stack);
                 }
-                return result.rows.length > 0;
             })
         }
     })
     console.log("exists2"+exists);
+    return exists;
 }
 
 function getStatus(args) {
