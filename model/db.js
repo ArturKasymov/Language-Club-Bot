@@ -26,7 +26,7 @@ function query(type, args) {
         case CONSTANTS.INSERT_USER:
             insertUser(args);
             break;
-        case CONSTANTS.UPDATE_CYCLE_STATUS:
+        case CONSTANTS.UPDATE_STATUS:
             updateStatus(args);
             break;
         case CONSTANTS.UPDATE_NICKNAME:
