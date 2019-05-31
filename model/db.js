@@ -70,13 +70,13 @@ function updateStatus(args) {
     })
 }
 
-async function checkIfUserExists(id) {
-    var exists = false;
+function checkIfUserExists(id) {
+    var exists = undefined;
     pool.connect((err, client, release) => {
         if (err) {
             return console.log('Error acquiring client', err.stack);
         } else {
-            await client.query(CONSTANTS.GET_USER_DATA, [id], (err, result) => {
+            client.query(CONSTANTS.GET_USER_DATA, [id], (err, result) => {
                 console.log("rows"+result.rows);
                 exists = result.rows.length > 0;
                 console.log("exists1"+exists);
@@ -87,7 +87,8 @@ async function checkIfUserExists(id) {
             })
         }
     })
-    console.log("exists2"+exists);
+    console.log("exists2" + exists);
+    while (exists == undefined);
     return exists;
 }
 
