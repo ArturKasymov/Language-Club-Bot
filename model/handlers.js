@@ -1,7 +1,7 @@
 const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
 
-const request = require('../index.js');
-
+var request = require('../index.js').request;
+console.log(request);
 // postbacks
 const GREETING = 'GREETING';
 const START_REGISTRATION_YES = 'START_REGISTRATION_YES';
