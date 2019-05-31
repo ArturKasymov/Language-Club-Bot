@@ -13,8 +13,6 @@ var config = {
 
 const pool = new pg.Pool(config);
 
-const client = await pool.connect();
-
 // ONLY FOR TESTING
 pool.query('DELETE FROM users WHERE 1=1')
     .then((err, res) => console.log(err, res))
@@ -74,7 +72,7 @@ function updateStatus(args) {
 
 function checkIfUserExists(id) {
     var exists = undefined;
-    const result = await client.query({
+    const result = await pool.query({
         text: CONSTANTS.GET_USER_DATA, 
         values: [id]
     });
