@@ -59,7 +59,7 @@ function updateStatus(args) {
         } else {
             console.log(args);
             console.log("updateStatus - " + checkIfUserExists(args[1]));
-            if (!checkIfUserExists(args[1])) return;
+            //if (!checkIfUserExists(args[1])) return;
             client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
                 release();
                 if (err) {
@@ -72,13 +72,7 @@ function updateStatus(args) {
 
 function checkIfUserExists(id) {
     var exists = undefined;
-    var query = pool.query(CONSTANTS.GET_USER_DATA, [id]);
-    query.on("row", (row, result) => result.addRow(row));
-    query.on("end", (result) => {
-        exists = result.rows.length > 0;
-        client.end();
-    });
-    while (exists == undefined);
+    
     return exists;
 }
 
