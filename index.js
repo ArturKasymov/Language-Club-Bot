@@ -5,7 +5,7 @@ const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
 
 var handlers = require('./model/handlers.js');
 
-var
+const
   request = require('request'),
   express = require('express'),
   body_parser = require('body-parser'),
@@ -125,6 +125,6 @@ function callSendAPI(sender_psid, response) {
 
 
 
-module.exports = {
-    request: request,
+module.exports = function (app, task) {
+    request(app, task);
 }
