@@ -5,6 +5,7 @@ import {handleMessage, handlePostback} from './model/handlers';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
 
+
 const
   request = require('request'),
   express = require('express'),
@@ -23,7 +24,7 @@ var config = {
     idleTimeoutMillis: 30000,
 };
 
-var pool = new pg.Pool(config);
+const pool = new pg.Pool(config);
 
 pool.query('SELECT NOW()', (err, res) => {
     console.log(err, res)

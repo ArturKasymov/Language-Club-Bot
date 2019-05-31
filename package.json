@@ -6,11 +6,12 @@
   "author": "Artur Kasymov <art.kasymov@gmail.com>",
   "license": "MIT",
   "scripts": {
-	"start": "node index.js"
-	},
+    "start": "node index.js"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.0",
+    "pg": "^7.11.0",
     "request": "^2.88.0"
   }
 }
