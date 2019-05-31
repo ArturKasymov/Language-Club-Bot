@@ -1,6 +1,6 @@
 const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
 
-const index = require('../index.js');
+const request = require('../index.js');
 
 // postbacks
 const GREETING = 'GREETING';
@@ -47,7 +47,7 @@ function handlePostback(sender_psid, received_postback) {
 
 
 function handleGreetingPostback(sender_psid) {
-    index.request({
+    request({
         url: `${FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
             access_token: process.env.PAGE_ACCESS_TOKEN,
@@ -91,7 +91,7 @@ function handleGreetingPostback(sender_psid) {
 }
 
 function handleRegistrationStart(sender_psid) {
-    index.request({
+    request({
         url: `${FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
         qs: {
             access_token: process.env.PAGE_ACCESS_TOKEN,
