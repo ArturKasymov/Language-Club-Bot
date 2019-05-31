@@ -3,7 +3,7 @@ const GREETING = 'GREETING';
 const START_REGISTRATION_YES = 'START_REGISTRATION_YES';
 const START_REGISTRATION_NO = 'START_REGISTRATION_NO';
 
-export function handleMessage(sender_psid, message) {
+function handleMessage(sender_psid, message) {
     // check if it is a location message
     console.log('handleMEssage message:', JSON.stringify(message));
 
@@ -79,7 +79,7 @@ function updateStatus(sender_psid, status, callback){
 }*/
 
 
-export function handlePostback(sender_psid, received_postback) {
+function handlePostback(sender_psid, received_postback) {
     // Get the payload for the postback
     const payload = received_postback.payload;
 
@@ -91,4 +91,12 @@ export function handlePostback(sender_psid, received_postback) {
         default:
             console.log('Cannot differentiate the payload type');
     }
+}
+
+
+
+
+module.exports = {
+    handlePostback: handlePostback,
+    handleMessage: handleMessage
 }
