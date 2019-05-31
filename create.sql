@@ -1,6 +1,6 @@
 CREATE type lang_name_t as enum('english', 'polish', 'german', 'french');
 CREATE type lang_level_t as enum('Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient', 'Native speaker');
-CREATE type perm_level_t as enum(1, 2, 3);
+CREATE type perm_level_t as enum('1','2','3');
 
 CREATE OR REPLACE FUNCTION get_user_languages(id varchar) RETURNS varchar[] AS
 $$
@@ -24,8 +24,8 @@ $$ language plpgsql;
 CREATE TABLE "users" (
   "facebookID" varchar PRIMARY KEY,
   "status" varchar NOT NULL,
-  "nickname" varchar NOT NULL,
-  "permissionLevel" perm_level_t NOT NULL
+  "nickname" varchar,
+  "permissionLevel" perm_level_t
 );
 
 CREATE TABLE "languages" (
