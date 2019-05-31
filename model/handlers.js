@@ -64,8 +64,9 @@ function handleGetStartedPostback(sender_psid) {
             console.log("Error acquiring client");
             return console.error('Error acquiring client', err.stack);
         } else {
-            console.log(CONSTANTS.INSERT_USER);
-            client.query(CONSTANTS.INSERT_USER, [sender_psid, CONSTANTS.got_started], (err, result) => {
+            const INSERT_USER = 'INSERT INTO users("facebookID", status, nickname, "permissionLevel") VALUES($1::varchar, $2::varchar, NULL, NULL)';
+            console.log(INSERT_USER);
+            client.query(INSERT_USER, [sender_psid, "got_started"], (err, result) => {
                 release();
                 if (err) {
                     return console.error('Error acquiring client', err.stack);
