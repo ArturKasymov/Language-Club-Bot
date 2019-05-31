@@ -3,7 +3,7 @@
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const FACEBOOK_GRAPH_API_BASE_URL = 'https://graph.facebook.com/v2.6/';
 
-var handlers = require('./models/handlers.js');
+var handlers = require('./model/handlers.js');
 
 const
   request = require('request'),
