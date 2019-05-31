@@ -73,14 +73,13 @@ function updateStatus(args) {
 function checkIfUserExists(id) {
     var exists = false;
     pool.query(CONSTANTS.GET_USER_DATA, [id], (err, result) => {
-                console.log("rows"+result.rows);
-                exists = result.rows.length > 0;
-                console.log("exists1"+exists);
-                release();
-                if (err) {
-                    return console.error('Error GET_USER_DATA query', err.stack);
-                }
-            })
+        console.log("rows"+result.rows);
+        exists = result.rows.length > 0;
+        console.log("exists1"+exists);
+        if (err) {
+            return console.error('Error GET_USER_DATA query', err.stack);
+        }
+    })
     console.log("exists2"+exists);
     return exists;
 }
