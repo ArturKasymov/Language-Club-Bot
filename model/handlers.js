@@ -39,6 +39,9 @@ function handleMessage(sender_psid, message) {
                 if (message.text.indexOf(" ") != -1) sendAlert(sender_psid);
                 else handleInputNickname(sender_psid, message);
                 break;
+            case CONSTANTS.CONTACTING_US:
+                // forward messages
+                break;
             default:
                 console.log("handleMessage default");
                 break;
@@ -59,6 +62,9 @@ function handlePostback(sender_psid, received_postback) {
             break;
         case CONSTANTS.CONTACT_US:
             handleContactUs(sender_psid);
+            break;
+        case CONSTANTS.BACK:
+            handleBack(sender_psid);
             break;
         default:
             console.log('Cannot differentiate the payload type');
@@ -193,6 +199,110 @@ function handleRegistrationStart(sender_psid) {
             }
         };
         callSendAPI(sender_psid, nickNamePayload);
+    });
+}
+
+function handleContactUs(sender_psid) {
+    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.CONTACTING_US, sender_psid]);
+
+    request({
+        url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
+        qs: {
+            access_token: CONSTANTS.PAGE_ACCESS_TOKEN,
+            fields: "first_name"
+        },
+        method: "GET"
+    }, function (error, response, body) {
+        var nicknameRequest = "";
+        if (error) {
+            console.log("Error getting user's name: " + error);
+        } else {
+            var bodyObj = JSON.parse(body);
+            const name = bodyObj.first_name;
+            nicknameRequest = name + ", everything you will write here now will be seen by admins.";
+        }
+        const message = contactUsRequest;
+        const contactUsPayload = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "button",
+                    "text": message
+                }
+            }
+        };
+        callSendAPI(sender_psid, nickNamePayload);
+    });
+}
+
+function handleBack(sender_psid) {
+    query(CONSTANTS.BACK, sender_psid)
+    .then((status) => {
+        request({
+            url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
+            qs: {
+                access_token: CONSTANTS.PAGE_ACCESS_TOKEN,
+                fields: "first_name"
+            },
+            method: "GET"
+        }, function (error, response, body) {
+            var outputRequest = "";
+            if (error) {
+                console.log("Error getting user's name: " + error);
+                return;
+            }
+            var bodyObj = JSON.parse(body);
+            const name = bodyObj.first_name;
+            var message = "";
+            switch (status) {
+                case CONSTANTS.REGISTRATION_STARTED:
+                    outputRequest = name + ", type in your nickname: ";
+                    message = nicknameRequest;
+                    const nickNamePayload = {
+                        "attachment": {
+                            "type": "template",
+                            "payload": {
+                                "template_type": "button",
+                                "text": message,
+                                "buttons": [
+                                  {
+                                      "type": "postback",
+                                      "title": "Back",
+                                      "payload": CONSTANTS.BACK,
+                                  },
+                                ]
+                            }
+                        }
+                    };
+                    callSendAPI(sender_psid, nickNamePayload);
+                    break;
+                case CONSTANTS.GOT_NICKNAME:
+                    outputRequest = name + ", choose your languages: ";
+                    message = outputRequest;
+                    const langPayload = {
+                        "attachment": {
+                            "type": "template",
+                            "payload": {
+                                "template_type": "button",
+                                "text": message,
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "Back",
+                                        "payload": CONSTANTS.BACK,
+                                    },
+                                ]
+                            }
+                        }
+                    };
+                    callSendAPI(sender_psid, langPayload);
+                    break;
+                default:
+                    break;
+
+            }
+            
+        });
     });
 }
 

@@ -31,6 +31,8 @@ function query(type, args) {
             break;
         case CONSTANTS.UPDATE_NICKNAME:
             updateNickname(args);
+        case CONSTANTS.BACK:
+            return goBack(args);
         default:
             break;
     }
@@ -41,13 +43,17 @@ function insertUser(args) {
         if (err) {
             return console.error('Error acquiring client', err.stack);
         } else {
-            if (checkIfUserExists(args[0])) return;
-            client.query(CONSTANTS.INSERT_USER_QUERY, args, (err, result) => {
-                release();
-                if (err) {
-                    return console.error('Error INSERT_USER query', err.stack);
+            checkIfUserExists(args[0])
+            .then((exists) => {
+                if (!exists) {
+                    client.query(CONSTANTS.INSERT_USER_QUERY, args, (err, result) => {
+                        release();
+                        if (err) {
+                            return console.error('Error INSERT_USER query', err.stack);
+                        }
+                    })
                 }
-            })
+            });
         }
     })
 }
@@ -68,23 +74,15 @@ function updateStatus(args) {
 }
 
 function checkIfUserExists(id) {
-    var exists = undefined;
-    
-    return exists;
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_USER_DATA, [args]));
+    })
+    .then((result) => {
+        return result.rows.length > 0;
+    });
 }
 
 function getStatus(args) {
-    /*var status = undefined;
-    var result = pool.query(CONSTANTS.GET_STATUS_QUERY, args, (err, res) => {
-        if (err) {
-            return console.log('Error acquiring pool', err.stack);
-        } else {
-            status = res.rows[0].status;
-        }
-    });
-    setTimeout(() => { }, 1000);
-    return status;*/
-
     return new Promise((resolve, reject) => {
         resolve(pool.query(CONSTANTS.GET_STATUS_QUERY, args));
     })
@@ -110,10 +108,30 @@ function updateNickname(args) {
     })
 }
 
+function goBack(id) {
+    return getStatus([id])
+    .then((status) => {
+        const prevSt = prevStatus(status);
+        updateStatus([prevSt, id]);
+        return nextSt;
+    });
+}
+
 function nextStatus(status) {
     switch (status) {
         case CONSTANTS.STARTED_REGISTRATION:
             return CONSTANTS.GOT_NICKNAME;
+        default:
+            return undefined;
+    }
+}
+
+function prevStatus(status) {
+    switch (status) {
+        case CONSTANTS.GOT_NICKNAME:
+            return CONSTANTS.REGISTRATION_STARTED;
+        case CONSTANTS.REGISTRATION_STARTED:
+            return CONSTANTS.GOT_STARTED;
         default:
             return undefined;
     }
