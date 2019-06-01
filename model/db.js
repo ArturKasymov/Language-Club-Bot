@@ -146,8 +146,8 @@ function prevStatus(status, id) {
     switch (status) {
         case CONSTANTS.GOT_NICKNAME:
             return CONSTANTS.STARTED_REGISTRATION;
-        case CONSTANTS.REGISTRATION_STARTED:
-            return CONSTANTS.STARTED_REGISTRATION;
+        case CONSTANTS.STARTED_REGISTRATION:
+            return CONSTANTS.GOT_STARTED;
         default:
             if (status.indexOf(CONSTANTS.CONTACTING_US) == 0) return status.split(':')[1];
             return undefined;
