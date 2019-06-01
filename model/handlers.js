@@ -280,10 +280,9 @@ function handleBack(sender_psid) {
             const name = bodyObj.first_name;
             var message = "";
             var outputPayload = {};
-            console.log("SWITCHING VIEW TO " + status);
             switch (status) {
                 case CONSTANTS.GOT_STARTED:
-                    outputRequest = "Hi" + name + ". Would you like to join our Language Club?";
+                    outputRequest = "Hi " + name + ". Would you like to join our Language Club?";
                     message = outputRequest;
                     outputPayload = {
                         "attachment": {
@@ -307,6 +306,7 @@ function handleBack(sender_psid) {
                         }
                     };
                     callSendAPI(sender_psid, outputPayload);
+                    break;
                 case CONSTANTS.REGISTRATION_STARTED:
                     outputRequest = name + ", type in your nickname: ";
                     message = outputRequest;
