@@ -119,7 +119,9 @@ function updateNickname(args) {
 function goBack(id) {
     return getStatus([id])
     .then((status) => {
-        const prevSt = prevStatus(status, id);
+        console.log("GOING BACK FROM " + status);
+        var prevSt = prevStatus(status, id);
+        console.log("TO " + prevSt);
         updateStatus([prevSt, id]);
         return prevSt;
     });
