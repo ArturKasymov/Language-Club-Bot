@@ -37,7 +37,7 @@ function handleMessage(sender_psid, message) {
         switch (status) {
             case CONSTANTS.STARTED_REGISTRATION:
                 if (message.text.indexOf(" ") != -1) sendAlert(sender_psid);
-                else handleInputNickname(sender_psid, message);
+                else handleInputNickname(sender_psid, message.text);
                 break;
             default:
                 console.log("handleMessage default");
