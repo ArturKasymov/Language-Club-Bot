@@ -75,7 +75,7 @@ function updateStatus(args) {
 
 function checkIfUserExists(id) {
     return new Promise((resolve, reject) => {
-        resolve(pool.query(CONSTANTS.GET_USER_DATA, [args]));
+        resolve(pool.query(CONSTANTS.GET_USER_DATA, [id]));
     })
     .then((result) => {
         if (result == undefined) {
