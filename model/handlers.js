@@ -32,6 +32,7 @@ function handleMessage(sender_psid, message) {
     console.log('handleMessage message:', JSON.stringify(message));
     query(CONSTANTS.GET_STATUS, [sender_psid])
     .then((status) => {
+        console.log("status: " + status);
         switch (status) {
             case CONSTANTS.STARTED_REGISTRATION:
                 if (message.indexOf(" ") != -1) sendAlert(sender_psid);

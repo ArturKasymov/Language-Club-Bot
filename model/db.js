@@ -88,7 +88,10 @@ function getStatus(args) {
     return new Promise((resolve, reject) => {
         return pool.query(CONSTANTS.GET_STATUS_QUERY, args);
     })
-    .then((result) => result.rows[0].status);
+    .then((result) => {
+        console.log("innerStatus: " + result.rows[0].status);
+        return result.rows[0].status;
+    });
 };
 
 function updateNickname(args) {
