@@ -90,7 +90,7 @@ function getStatus(args) {
         resolve(pool.query(CONSTANTS.GET_STATUS_QUERY, args));
     })
     .then((result) => {
-        if (result == undefined) {
+        if (result == undefined || result.rows.length == 0) {
             console.log("UNDEFINED STATUS");
             return undefined;
         }
