@@ -67,15 +67,28 @@ function updateStatus(args) {
                 getStatus([args[1]])
                 .then((status) => {
                     args[0] += ":" + status;
+                    console.log("NEW STATUS: " + args[0]);
+                })
+                .then(() => {
+                    console.log("NEW STATUS: " + args[0]);
+                    client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
+                        console.log("SETTING STATUS TO: " + args[0]);
+                        release();
+                        if (err) {
+                            return console.error('Error UPDATE_STATUS query', err.stack);
+                        }
+                    })
                 });
+            } else {
+                client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
+                    console.log("SETTING STATUS TO: " + args[0]);
+                    release();
+                    if (err) {
+                        return console.error('Error UPDATE_STATUS query', err.stack);
+                    }
+                })
             }
-            client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
-                console.log("SETTING STATUS TO: " + args[0]);
-                release();
-                if (err) {
-                    return console.error('Error UPDATE_STATUS query', err.stack);
-                }
-            })
+                
         }
     })
 }
