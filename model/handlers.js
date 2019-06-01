@@ -199,7 +199,6 @@ function handleRegistrationStart(sender_psid) {
             const name = bodyObj.first_name;
             nicknameRequest = name + ", type in your nickname: ";
         }
-        //Greeting message
         const message = nicknameRequest;
         const nickNamePayload = {
             "attachment": {
@@ -232,13 +231,13 @@ function handleContactUs(sender_psid) {
         },
         method: "GET"
     }, function (error, response, body) {
-        var nicknameRequest = "";
+        var contactUsRequest = "";
         if (error) {
             console.log("Error getting user's name: " + error);
         } else {
             var bodyObj = JSON.parse(body);
             const name = bodyObj.first_name;
-            nicknameRequest = name + ", everything you will write here now will be seen by admins.";
+            contactUsRequest = name + ", everything you will write here now will be seen by admins.";
         }
         const message = contactUsRequest;
         const contactUsPayload = {
@@ -246,11 +245,18 @@ function handleContactUs(sender_psid) {
                 "type": "template",
                 "payload": {
                     "template_type": "button",
-                    "text": message
+                    "text": message,
+                    "buttons": [
+                      {
+                          "type": "postback",
+                          "title": "Back",
+                          "payload": CONSTANTS.BACK,
+                      },
+                    ]
                 }
             }
         };
-        callSendAPI(sender_psid, nickNamePayload);
+        callSendAPI(sender_psid, contactUsPayload);
     });
 }
 
@@ -275,6 +281,30 @@ function handleBack(sender_psid) {
             var message = "";
             var outputPayload = {};
             switch (status) {
+                case CONSTANTS.GOT_STARTED:
+                    outputRequest = "Hi" + name + ". Would you like to join our Language Club?";
+                    outputPayload = {
+                        "attachment": {
+                            "type": "template",
+                            "payload": {
+                                "template_type": "button",
+                                "text": message,
+                                "buttons": [
+                                  {
+                                      "type": "postback",
+                                      "title": "Start Registration",
+                                      "payload": CONSTANTS.START_REGISTRATION_YES,
+                                  },
+                                  {
+                                      "type": "postback",
+                                      "title": "Contact us",
+                                      "payload": CONSTANTS.CONTACT_US,
+                                  }
+                                ]
+                            }
+                        }
+                    };
+                    callSendAPI(sender_psid, outputPayload);
                 case CONSTANTS.REGISTRATION_STARTED:
                     outputRequest = name + ", type in your nickname: ";
                     message = outputRequest;
