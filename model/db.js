@@ -87,7 +87,6 @@ function getStatus(args) {
 
     return new Promise((resolve, reject) => {
         resolve(pool.query(CONSTANTS.GET_STATUS_QUERY, args));
-        console.log("resolved");
     })
     .then((result) => {
         console.log("innerStatus: " + result.rows[0].status);
