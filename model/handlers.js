@@ -30,6 +30,7 @@ function callSendAPI(sender_psid, response) {
 function handleMessage(sender_psid, message) {
     // check if it is a location message
     console.log('handleMessage message:', JSON.stringify(message));
+
     query(CONSTANTS.GET_STATUS, [sender_psid])
     .then((status) => {
         console.log("status: " + status);
@@ -39,6 +40,7 @@ function handleMessage(sender_psid, message) {
                 else handleInputNickname(sender_psid, message);
                 break;
             default:
+                console.log("handleMessage default");
                 break;
         }
     });
