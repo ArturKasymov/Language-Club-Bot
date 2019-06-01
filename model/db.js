@@ -31,6 +31,7 @@ function query(type, args) {
             break;
         case CONSTANTS.UPDATE_NICKNAME:
             updateNickname(args);
+            break;
         case CONSTANTS.BACK:
             return goBack(args);
         default:
