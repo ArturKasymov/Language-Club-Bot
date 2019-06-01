@@ -64,6 +64,7 @@ function updateStatus(args) {
             return console.error('Error acquiring client', err.stack);
         } else {
             client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
+                console.log("SETTING STATUS TO: " + args[0]);
                 release();
                 if (err) {
                     return console.error('Error UPDATE_STATUS query', err.stack);
@@ -91,7 +92,6 @@ function getStatus(args) {
     })
     .then((result) => {
         if (result == undefined || result.rows.length == 0) {
-            console.log("UNDEFINED STATUS");
             return undefined;
         }
         console.log("innerStatus: " + result.rows[0].status);
@@ -119,7 +119,7 @@ function updateNickname(args) {
 function goBack(id) {
     return getStatus([id])
     .then((status) => {
-        const prevSt = prevStatus(status);
+        const prevSt = prevStatus(status, id);
         updateStatus([prevSt, id]);
         return prevSt;
     });
@@ -134,7 +134,7 @@ function nextStatus(status) {
     }
 }
 
-function prevStatus(status) {
+function prevStatus(status, id) {
     switch (status) {
         case CONSTANTS.GOT_NICKNAME:
             return CONSTANTS.REGISTRATION_STARTED;
