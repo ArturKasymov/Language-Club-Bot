@@ -105,7 +105,8 @@ function updateNickname(args) {
             return console.log('Error acquiring client', err.stack);
         } else {
             client.query(CONSTANTS.UPDATE_NICKNAME_QUERY, args, (err, result) => {
-                updateStatus(nextStatus(args[0]));
+                getStatus([args[1]])
+                .then((status) => updateStatus([nextStatus(status), args[1]]));
                 release();
                 if (err) {
                     return console.error('Error UPDATE_NICKNAME query', err.stack);
@@ -120,7 +121,7 @@ function goBack(id) {
     .then((status) => {
         const prevSt = prevStatus(status);
         updateStatus([prevSt, id]);
-        return nextSt;
+        return prevSt;
     });
 }
 
