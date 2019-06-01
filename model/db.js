@@ -63,6 +63,12 @@ function updateStatus(args) {
         if (err) {
             return console.error('Error acquiring client', err.stack);
         } else {
+            if (args[0] == CONSTANTS.CONTACTING_US) {
+                getStatus([args[1]])
+                .then((status) => {
+                    args[0] += ":" + status;
+                });
+            }
             client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
                 console.log("SETTING STATUS TO: " + args[0]);
                 release();
@@ -139,10 +145,11 @@ function nextStatus(status) {
 function prevStatus(status, id) {
     switch (status) {
         case CONSTANTS.GOT_NICKNAME:
-            return CONSTANTS.REGISTRATION_STARTED;
+            return CONSTANTS.STARTED_REGISTRATION;
         case CONSTANTS.REGISTRATION_STARTED:
-            return CONSTANTS.GOT_STARTED;
+            return CONSTANTS.STARTED_REGISTRATION;
         default:
+            if (status.indexOf(CONSTANTS.CONTACTING_US) == 0) return status.split(':')[1];
             return undefined;
     }
 }
