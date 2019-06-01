@@ -140,11 +140,11 @@ function handleInputNickname(sender_psid, nickname) {
         var elements= [];
         for(i in languages){
             elements.push({
-                "title": '',
+                "title": languages[i],
                 "subtitle": '',
                 "buttons": [
                     {
-                        "title": languages[i],
+                        "title": "add",
                         "type":"postback",
                         "payload": languages[i]
                     },
