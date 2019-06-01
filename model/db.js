@@ -78,7 +78,10 @@ function checkIfUserExists(id) {
         resolve(pool.query(CONSTANTS.GET_USER_DATA, [args]));
     })
     .then((result) => {
-        return result.rows.length > 0;
+        if (result == undefined) {
+            console.log("UNDEFINED STATUS");
+        }
+        return result == undefined || result.rows.length > 0;
     });
 }
 
@@ -87,6 +90,10 @@ function getStatus(args) {
         resolve(pool.query(CONSTANTS.GET_STATUS_QUERY, args));
     })
     .then((result) => {
+        if (result == undefined) {
+            console.log("UNDEFINED STATUS");
+            return undefined;
+        }
         console.log("innerStatus: " + result.rows[0].status);
         return result.rows[0].status;
     });
