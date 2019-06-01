@@ -273,11 +273,12 @@ function handleBack(sender_psid) {
             var bodyObj = JSON.parse(body);
             const name = bodyObj.first_name;
             var message = "";
+            var outputPayload = {};
             switch (status) {
                 case CONSTANTS.REGISTRATION_STARTED:
                     outputRequest = name + ", type in your nickname: ";
-                    message = nicknameRequest;
-                    const nickNamePayload = {
+                    message = outputRequest;
+                    outputPayload = {
                         "attachment": {
                             "type": "template",
                             "payload": {
@@ -293,28 +294,43 @@ function handleBack(sender_psid) {
                             }
                         }
                     };
-                    callSendAPI(sender_psid, nickNamePayload);
+                    callSendAPI(sender_psid, outputPayload);
                     break;
                 case CONSTANTS.GOT_NICKNAME:
                     outputRequest = name + ", choose your languages: ";
                     message = outputRequest;
-                    const langPayload = {
+                    var elements = [];
+                    for (i in languages) {
+                        elements.push({
+                            "title": languages[i],
+                            "subtitle": '',
+                            "buttons": [
+                                {
+                                    "title": "add",
+                                    "type": "postback",
+                                    "payload": languages[i]
+                                },
+                            ]
+                        });
+                    };
+                    outputPayload = {
                         "attachment": {
                             "type": "template",
                             "payload": {
-                                "template_type": "button",
-                                "text": message,
+                                "template_type": "list",
+                                "top_element_style": "compact",
+                                "elements": elements,
                                 "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "Back",
-                                        "payload": CONSTANTS.BACK,
-                                    },
+                                  {
+                                      "type": "postback",
+                                      "title": "Back",
+                                      "payload": CONSTANTS.BACK,
+                                  },
                                 ]
                             }
                         }
                     };
-                    callSendAPI(sender_psid, langPayload);
+                    callSendAPI(sender_psid, outputPayload);
                     break;
                 default:
                     break;
