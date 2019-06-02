@@ -5,6 +5,7 @@ const request = CONSTANTS.request;
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
+import favicon from 'serve-favicon';
 import logger from 'morgan';
 import path from 'path';
 
@@ -14,7 +15,7 @@ import webhooks from './routes/webhooks';
 
 const app = express();
 
-app.set('views', path.join(__dirname, 'views'));
+//app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 console.log("FAVICON: " + path.join(__dirname, 'public', 'favicon.ico'));
