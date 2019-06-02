@@ -6,12 +6,22 @@
   "author": "Artur Kasymov <art.kasymov@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node ./bin/www",
+    "build:watch": "webpack --watch",
+    "build": "webpack -p --progress --colors",
   },
   "dependencies": {
+    "babel-register": "^6.23.0",
     "body-parser": "^1.19.0",
+    "cookie-parser": "~1.4.3",
     "express": "^4.17.0",
+    "lodash": "^4.17.4",
+    "morgan": "~1.7.0",
     "pg": "^7.11.0",
-    "request": "^2.88.0"
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-weui": "^1.0.3",
+    "request": "^2.88.0",
+    "webpack": "^3.6.0"
   }
 }

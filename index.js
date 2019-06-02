@@ -1,72 +1,42 @@
 'use strict';
 const CONSTANTS = require('./model/Constants.js');
 const handlers = require('./model/handlers.js');
-
-const
-  express = require('express'),
-  body_parser = require('body-parser'),
-  app = express().use(body_parser.json());
 const request = CONSTANTS.request;
 
-app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import logger from 'morgan';
+import path from 'path';
 
-app.post('/webhook', (req, res) => {
+import index from './routes/index';
+import webhooks from './routes/webhooks';
 
-  // Return a '200 OK' response to all events
-  res.status(200).send('EVENT_RECEIVED');
+const app = express();
 
-  const body = req.body;
+app.set('view engine', 'ejs');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(logger('dev'));
 
-  if (body.object === 'page') {
-      if (body.entry && body.entry.length <= 0){
-        return;
-      }
-      body.entry.forEach((pageEntry) => {
-        // Iterate over each messaging event and handle accordingly
-        pageEntry.messaging.forEach((messagingEvent) => {
-          console.log({messagingEvent});
-          if (messagingEvent.postback) {
-            handlers.handlePostback(messagingEvent.sender.id, messagingEvent.postback);
-          } else if (messagingEvent.message) {
-            if (messagingEvent.message.quick_reply){
-              handlers.handlePostback(messagingEvent.sender.id, messagingEvent.message.quick_reply);
-            } else{
-              handlers.handleMessage(messagingEvent.sender.id, messagingEvent.message);
-            }
-          } else {
-            console.log(
-              'Webhook received unknown messagingEvent: ',
-              messagingEvent
-            );
-          }
-        });
-      });
-    }
+app.use('/', index);
+app.use('/webhook', webhooks);
+
+app.use(function(req, res, next) {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
-app.get('/webhook', (req, res) => {
+app.use(function(err, req, res) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  /** UPDATE YOUR VERIFY TOKEN **/
-  const VERIFY_TOKEN = process.env.VERIFICATION_TOKEN;
-
-  // Parse params from the webhook verification request
-  let mode = req.query['hub.mode'];
-  let token = req.query['hub.verify_token'];
-  let challenge = req.query['hub.challenge'];
-
-  // Check if a token and mode were sent
-  if (mode && token) {
-
-    // Check the mode and token sent are correct
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-
-      // Respond with 200 OK and challenge token from the request
-      console.log('WEBHOOK_VERIFIED');
-      res.status(200).send(challenge);
-
-    } else {
-      // Responds with '403 Forbidden' if verify tokens do not match
-      res.sendStatus(403);
-    }
-  }
+    res.status(err.status || 500);
+    res.render('error');
 });
+
+app.listen(app.get('port'), () => console.log('Node app is running on port', app.get('port')));
+
+module.exports = app;
