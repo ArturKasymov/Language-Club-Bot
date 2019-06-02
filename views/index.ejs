@@ -14,24 +14,21 @@
     <script>
     /*window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
-		var h = document.createElement("H1")                // Create a <h1> element
-		var t = document.createTextNode("Hello World");     // Create a text node
-		h.appendChild(t); 
         MessengerExtensions.getUserID(function success(uids) {
 			console.log("PSID " + uids.psid);
 			window.attachApp(uids.psid);
         }, function error(err) {
 			window.attachApp();
         });
-    };
+    };*/
     (function(doc, script, domId){
         var js, fjs = doc.getElementsByTagName(script)[0];
-        if (doc.getElementById(domId)) { return; }
+        if (doc.getElementById(domId)) { doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "messenger still"; return; }
         js = doc.createElement(script);
         js.id = domId;
         js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'Messenger'));*/
+    }(document, 'script', 'Messenger'));
     </script>
   </body>
 </html>
