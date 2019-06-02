@@ -58,9 +58,17 @@ const contactingUsMessage = {
     }
 };
 
-const chooseYourLanguagesMessage = {
-    text: "Click on this url to choose your languages: "
-}
+const chooseLanguagesTemplate = {
+    "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "button",
+            "text": "Click on this url to choose your languages: ",
+            "buttons": [chooseLanguagesButton]
+        }
+    }
+};
+
 
 const chooseLanguagesButton = {
     "type": "web_url",
@@ -74,5 +82,5 @@ export default {
     greetingMessage,
     nicknameReqMessage,
     contactingUsMessage,
-    chooseLanguagesButton,
+    chooseLanguagesTemplate,
 }

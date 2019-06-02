@@ -59,10 +59,7 @@ function sendNicknameReqMessage(id) {
 }
 
 function sendLanguagesChoose(id) {
-    sendMessage(id, [
-        messages.chooseYourLanguagesMessage,
-        messages.chooseLanguagesButton
-    ])
+    sendMessage(id, messages.chooseLanguagesTemplate)
 }
 
 function sendContactingUsMessage(id) {
