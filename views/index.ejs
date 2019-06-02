@@ -13,14 +13,13 @@
     <div id="content"><h1>HELLO WORLD</h1></div>
     <script>
     window.extAsyncInit = function() {
-        // the Messenger Extensions JS SDK is done loading
-		doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "init";
+		document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "init";
         MessengerExtensions.getUserID(function success(uids) {
-			doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = uids.psid;
+			document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = uids.psid;
 			window.attachApp(uids.psid);
         }, function error(err) {
 			window.attachApp();
-			doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "ERROR";
+			document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "ERROR";
         });
     };
     (function(doc, script, domId){
