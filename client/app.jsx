@@ -1,14 +1,6 @@
 import React from 'react';
 import 'whatwg-fetch';
 
-const CONSTANTS = require('../model/Constants.js');
-
-import WebviewControls from '../api/webview-controls';
-
-import Lang from '../entities/lang';
-
-import Language from './language.jsx';
-
 import {
   Button,
   ButtonArea,
@@ -20,6 +12,14 @@ import {
   FormCell,
   Input,
 } from 'react-weui';
+
+const CONSTANTS = require('../model/Constants.js');
+
+import WebviewControls from '../api/webview-controls';
+
+import Lang from '../entities/lang';
+
+import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 

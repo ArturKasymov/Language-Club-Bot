@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import 'weui';
-import 'react-weui/lib/react-weui.min.css';
-
 import App from './app.jsx';
 import Oops from './oops.jsx';
+
+import 'weui';
+import 'react-weui/lib/react-weui.min.css';
 
 window.attachApp = (userId) => {
    if (userId) {

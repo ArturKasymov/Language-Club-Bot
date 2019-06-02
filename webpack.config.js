@@ -24,7 +24,10 @@ module.exports = [{
         modules: [
           path.join(__dirname, 'client'),
           'node_modules'
-        ]
+        ],
+        alias: {
+            'react-weui-css': path.join(__dirname, 'node_modules/react-weui/lib/react-weui.min.css')
+        }
     },
     externals: ['tls', 'net', 'fs'],
     plugins: [
