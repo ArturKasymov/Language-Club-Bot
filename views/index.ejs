@@ -23,11 +23,12 @@
     };*/
     (function(doc, script, domId){
         var js, fjs = doc.getElementsByTagName(script)[0];
-        if (doc.getElementById(domId)) { doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "messenger still"; return; }
+        if (doc.getElementById(domId)) { return; }
         js = doc.createElement(script);
         js.id = domId;
         js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
         fjs.parentNode.insertBefore(js, fjs);
+		doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "here";
     }(document, 'script', 'Messenger'));
     </script>
   </body>
