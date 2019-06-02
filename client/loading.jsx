@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Toast} from 'react-weui';
 
 const Loading = ({text = 'Loading...'}) => {
-	return <Toast show icon='loading'>{text}</Toast>;
+	return <Toast show>{text}</Toast>;
 };
 
 Loading.propTypes = {

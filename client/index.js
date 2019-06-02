@@ -8,7 +8,8 @@ import 'weui';
 //import 'react-weui-css';
 
 window.attachApp = (userId) => {
-   if (userId) {
+    if (userId) {
+        console.log("RENDERING APP");
         const app = <App userId={userId} />;
         ReactDOM.render(app, document.getElementById('content'));
     } else {

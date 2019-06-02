@@ -84,6 +84,7 @@ export default class App extends React.PureComponent {
 
 	render() {
 		if (languages.length == 0) {
+			console.log("LENGZTH OF LANGS === 0");
 			return <Loading />;
 		}
 
