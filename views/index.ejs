@@ -12,15 +12,10 @@
   <body>
     <div id="content"></div>
     <script>
-     <% if (locals.gift) { %>
-     const gift = JSON.parse('<%- locals.gift  %>');
-     <% } else { %>
-     const gift = null;
-     <% } %>
     window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
         MessengerExtensions.getUserID(function success(uids) {
-        window.attachApp(uids.psid, gift);
+        window.attachApp(uids.psid);
         }, function error(err) {
         window.attachApp();
         });

@@ -5,6 +5,10 @@
   "repository": "https://github.com/ArturKasymov/Language-Club-Bot.git",
   "author": "Artur Kasymov <art.kasymov@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">7.10.1",
+    "npm": "4.0.x"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "build:watch": "webpack --watch",
