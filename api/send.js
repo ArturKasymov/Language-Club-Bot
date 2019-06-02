@@ -4,7 +4,7 @@ import api from './api';
 import messages from './messages';
 
 function sendMessage(id, payloads) {
-    const payloadsArray = caseArray(payloads).map((payload) => messageToJSON(id, payload));
+    const payloadsArray = castArray(payloads).map((payload) => messageToJSON(id, payload));
     api.callMessagesApi([
         typingOn(id),
         ...payloadsArray,
