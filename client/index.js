@@ -16,3 +16,5 @@ window.attachApp = (userId) => {
         ReactDOM.render(<Oops />, document.getElementById('content'));
     }
 }
+
+module.exports = window.attachApp;
