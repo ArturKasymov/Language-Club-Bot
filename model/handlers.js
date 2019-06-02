@@ -310,7 +310,7 @@ function handleBack(sender_psid) {
                     };
                     callSendAPI(sender_psid, outputPayload);
                     break;
-                case CONSTANTS.REGISTRATION_STARTED:
+                case CONSTANTS.STARTED_REGISTRATION:
                     outputRequest = name + ", type in your nickname: ";
                     message = outputRequest;
                     outputPayload = {
