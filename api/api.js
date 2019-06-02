@@ -23,6 +23,7 @@ function callAPI(endPoint, dataArray, queryParams, retries) {
     const query = Object.assign({access_token: PAGE_ACCESS_TOKEN}, queryParams);
 
     const [messageToSend, ...queue] = castArray(dataArray);
+    console.log("SENDING... " + JSON.stringify(messageToSend));
     request({
         uri: `https://graph.facebook.com/v3.2/me/${endPoint}`,
         qs: query,
