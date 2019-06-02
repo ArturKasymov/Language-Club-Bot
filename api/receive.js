@@ -1,5 +1,6 @@
 import sendApi from './send';
 const CONSTANTS = require('../model/Constants.js');
+const query = require('../model/db.js');
 
 const util = require('util');
 
@@ -84,235 +85,34 @@ function handleGetStartedPostback(sender_psid) {
 
 function handleInputNickname(sender_psid, nickname) {
     query(CONSTANTS.UPDATE_NICKNAME, [nickname, sender_psid]);
-
-    request({
-        url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
-        qs: {
-            access_token: CONSTANTS.PAGE_ACCESS_TOKEN,
-            fields: "first_name"
-        },
-        method: "GET"
-    }, function (error, response, body) {
-        var langRequest = "";
-        if (error) {
-            console.log("Error getting user's name: " + error);
-        } else {
-            var bodyObj = JSON.parse(body);
-            const name = bodyObj.first_name;
-            langRequest = name + ", click on this url to choose your languages: ";
-        }
-        const message = langRequest;
-        const langPayload = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "button",
-                    "text": message,
-                    "buttons": [
-                      {
-                          "type": "web_url",
-                          "url": "https://language-club-bot.herokuapp.com/",
-                          "title": "Languages",
-                          "webview_height_ratio": "full"
-                      }
-                    ]
-                }
-            }
-        };
-        callSendAPI(sender_psid, langPayload);
-    });
+    sendApi.sendLanguagesChoose(sender_psid);
 }
 
 function handleRegistrationStart(sender_psid) {
     query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.STARTED_REGISTRATION, sender_psid]);
-
-    request({
-        url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
-        qs: {
-            access_token: CONSTANTS.PAGE_ACCESS_TOKEN,
-            fields: "first_name"
-        },
-        method: "GET"
-    }, function (error, response, body) {
-        var nicknameRequest = "";
-        if (error) {
-            console.log("Error getting user's name: " + error);
-        } else {
-            var bodyObj = JSON.parse(body);
-            const name = bodyObj.first_name;
-            nicknameRequest = name + ", type in your nickname: ";
-        }
-        const message = nicknameRequest;
-        const nickNamePayload = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "button",
-                    "text": message,
-                    "buttons": [
-                      {
-                          "type": "postback",
-                          "title": "Back",
-                          "payload": CONSTANTS.BACK,
-                      },
-                    ]
-                }
-            }
-        };
-        callSendAPI(sender_psid, nickNamePayload);
-    });
+    sendApi.sendNicknameReqMessage(sender_psid);
 }
 
 function handleContactUs(sender_psid) {
     query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.CONTACTING_US, sender_psid]);
-
-    request({
-        url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
-        qs: {
-            access_token: CONSTANTS.PAGE_ACCESS_TOKEN,
-            fields: "first_name"
-        },
-        method: "GET"
-    }, function (error, response, body) {
-        var contactUsRequest = "";
-        if (error) {
-            console.log("Error getting user's name: " + error);
-        } else {
-            var bodyObj = JSON.parse(body);
-            const name = bodyObj.first_name;
-            contactUsRequest = name + ", everything you will write here now will be seen by admins.";
-        }
-        const message = contactUsRequest;
-        const contactUsPayload = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "button",
-                    "text": message,
-                    "buttons": [
-                      {
-                          "type": "postback",
-                          "title": "Back",
-                          "payload": CONSTANTS.BACK,
-                      },
-                    ]
-                }
-            }
-        };
-        callSendAPI(sender_psid, contactUsPayload);
-    });
+    sendApi.sendContactingUsMessage(sender_psid);
 }
 
 function handleBack(sender_psid) {
     query(CONSTANTS.BACK, sender_psid)
     .then((status) => {
-        request({
-            url: `${CONSTANTS.FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
-            qs: {
-                access_token: CONSTANTS.PAGE_ACCESS_TOKEN,
-                fields: "first_name"
-            },
-            method: "GET"
-        }, function (error, response, body) {
-            var outputRequest = "";
-            if (error) {
-                console.log("Error getting user's name: " + error);
-                return;
-            }
-            var bodyObj = JSON.parse(body);
-            const name = bodyObj.first_name;
-            var message = "";
-            var outputPayload = {};
-            switch (status) {
-                case CONSTANTS.GOT_STARTED:
-                    outputRequest = "Hi " + name + ". Would you like to join our Language Club?";
-                    message = outputRequest;
-                    outputPayload = {
-                        "attachment": {
-                            "type": "template",
-                            "payload": {
-                                "template_type": "button",
-                                "text": message,
-                                "buttons": [
-                                  {
-                                      "type": "postback",
-                                      "title": "Start Registration",
-                                      "payload": CONSTANTS.START_REGISTRATION_YES,
-                                  },
-                                  {
-                                      "type": "postback",
-                                      "title": "Contact us",
-                                      "payload": CONSTANTS.CONTACT_US,
-                                  }
-                                ]
-                            }
-                        }
-                    };
-                    callSendAPI(sender_psid, outputPayload);
-                    break;
-                case CONSTANTS.STARTED_REGISTRATION:
-                    outputRequest = name + ", type in your nickname: ";
-                    message = outputRequest;
-                    outputPayload = {
-                        "attachment": {
-                            "type": "template",
-                            "payload": {
-                                "template_type": "button",
-                                "text": message,
-                                "buttons": [
-                                  {
-                                      "type": "postback",
-                                      "title": "Back",
-                                      "payload": CONSTANTS.BACK,
-                                  },
-                                ]
-                            }
-                        }
-                    };
-                    callSendAPI(sender_psid, outputPayload);
-                    break;
-                case CONSTANTS.GOT_NICKNAME:
-                    outputRequest = name + ", choose your languages: ";
-                    message = outputRequest;
-                    var elements = [];
-                    for (i in languages) {
-                        elements.push({
-                            "title": languages[i],
-                            "subtitle": '',
-                            "buttons": [
-                                {
-                                    "title": "add",
-                                    "type": "postback",
-                                    "payload": languages[i]
-                                },
-                            ]
-                        });
-                    };
-                    outputPayload = {
-                        "attachment": {
-                            "type": "template",
-                            "payload": {
-                                "template_type": "list",
-                                "top_element_style": "compact",
-                                "elements": elements,
-                                "buttons": [
-                                  {
-                                      "type": "postback",
-                                      "title": "Back",
-                                      "payload": CONSTANTS.BACK,
-                                  },
-                                ]
-                            }
-                        }
-                    };
-                    callSendAPI(sender_psid, outputPayload);
-                    break;
-                default:
-                    break;
-
-            }
-            
-        });
+        switch (status) {
+            case CONSTANTS.GOT_STARTED:
+                sendApi.sendGreetingMessage(sender_psid);
+                break;
+            case CONSTANTS.STARTED_REGISTRATION:
+                sendApi.sendNicknameReqMessage(sender_psid);
+                break;
+            case CONSTANTS.GOT_NICKNAME:
+                break;
+            default:
+                break;
+        }         
     });
 }
 

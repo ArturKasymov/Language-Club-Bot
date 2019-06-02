@@ -43,7 +43,25 @@ function sendGreetingMessage(id) {
     sendMessage(id, messages.greetingMessage);
 }
 
+function sendNicknameReqMessage(id) {
+    sendMessage(id, messages.nicknameReqMessage);
+}
+
+function sendLanguagesChoose(id) {
+    sendMessage(id, [
+        messages.chooseYourLanguagesMessage,
+        messages.chooseLanguagesButton
+    ])
+}
+
+function sendContactingUsMessage(id) {
+    sendMessage(id, messages.contactingUsMessage);
+}
+
 export default {
     sendMessage,
-    sendGreetingMessage
+    sendGreetingMessage,
+    sendNicknameReqMessage,
+    sendLanguagesChoose,
+    sendContactingUsMessage
 };
