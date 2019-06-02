@@ -14,7 +14,7 @@ function callAPI(endPoint, dataArray, queryParams, retries) {
     if (retries < 0) {
         console.error(
           'No more retries left.',
-          {endPoint, messageDataArray, queryParams}
+          {endPoint, dataArray, queryParams}
         );
 
         return;
@@ -39,7 +39,7 @@ function callAPI(endPoint, dataArray, queryParams, retries) {
 
             // Continue sending payloads until queue empty.
             if (!isEmpty(queue)) {
-                callAPI(endPoint, queue, queryParams);
+                callAPI(endPoint, queue, queryParams, 5);
             }
         } else {
             // Message has not been successfully received by Facebook.
@@ -53,7 +53,7 @@ function callAPI(endPoint, dataArray, queryParams, retries) {
 
             // Retry the request
             console.error(`Retrying Request: ${retries} left`);
-            callAPI(endPoint, messageDataArray, queryParams, retries - 1);
+            callAPI(endPoint, dataArray, queryParams, retries - 1);
         }
     });
 }
