@@ -3,7 +3,7 @@ const request = CONSTANTS.request;
 
 const query = require('./db.js');
 
-const languages=['english', 'deutsch','polish','ukrainian','russian'];
+const languages=['english', 'deutsch','polish'];
 
 function callSendAPI(sender_psid, response) {
     // Construct the message body
