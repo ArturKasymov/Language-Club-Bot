@@ -97,13 +97,14 @@ export default class App extends React.PureComponent {
 
 		const languages = App.languages.map((lang, index) => {
 			const value = Lang.TYPES[index];
+			const checked = value in this.state.languages;
 
 			return (
 				<Language 
 					key={value}
 					value={value}
 					label={lang}
-					checked=false
+					checked={checked}
 					addLanguage={this.addLanguage.bind(this)}
 					removeLanguage={this.removeLanguage.bind(this)}
 				/>
