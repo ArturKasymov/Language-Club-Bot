@@ -24,8 +24,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(logger('dev'));
 
-//app.use('/', index);
-//app.use('/langs', languages);
+app.use('/', index);
+app.use('/langs', languages);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {

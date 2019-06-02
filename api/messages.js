@@ -74,7 +74,11 @@ const chooseLanguagesTemplate = {
         "payload": {
             "template_type": "button",
             "text": "Click on this url to choose your languages: ",
-            "buttons": [chooseLanguagesButton]
+            "buttons": [chooseLanguagesButton, {
+                "type": "postback",
+                "title": "Back",
+                "payload": CONSTANTS.BACK,
+            },]
         }
     }
 };
