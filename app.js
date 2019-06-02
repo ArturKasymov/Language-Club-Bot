@@ -10,6 +10,7 @@ import logger from 'morgan';
 import path from 'path';
 
 import index from './routes/index';
+import languages from './routes/languages';
 import webhooks from './routes/webhooks';
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(cookieParser());
 app.use(logger('dev'));
 
 app.use('/', index);
+app.use('/langs', languages);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {

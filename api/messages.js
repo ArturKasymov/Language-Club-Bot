@@ -1,5 +1,7 @@
 const CONSTANTS = require('../model/Constants.js');
 
+const SERVER_URL = process.env.SERVER_URL;
+
 const greetingMessage = {
     "attachment": {
         "type": "template",
@@ -62,7 +64,7 @@ const chooseYourLanguagesMessage = {
 
 const chooseLanguagesButton = {
     "type": "web_url",
-    "url": "https://language-club-bot.herokuapp.com/",
+    "url": `${SERVER_URL}/langs`,
     "title": "Languages",
     "webview_height_ratio": "full",
     messenger_extensions: true,
