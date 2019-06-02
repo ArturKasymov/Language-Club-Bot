@@ -21,19 +21,19 @@ function messageToJSON(psid, payload) {
     };
 };
 
-const typingOn = (id) => {
+const typingOn = (psid) => {
     return {
         recipient: {
-            id: recipientId,
+            id: psid,
         },
         sender_action: 'typing_on', // eslint-disable-line camelcase
     };
 }
 
-const typingOff = (id) => {
+const typingOff = (psid) => {
     return {
         recipient: {
-            id: recipientId,
+            id: psid,
         },
         sender_action: 'typing_off', // eslint-disable-line camelcase
     };
