@@ -59,7 +59,7 @@ function sendNicknameReqMessage(id) {
 }
 
 function sendLanguagesChoose(id) {
-    console.log("URL " + messages.chooseLanguagesTemplate.attachment.payload.buttons[0].url);
+    console.log(process.env.SERVER_URL);
     sendMessage(id, messages.chooseLanguagesTemplate)
 }
 

@@ -52,6 +52,7 @@ function handleReceiveMessage(messaging_event) {
 
     query(CONSTANTS.GET_STATUS, [sender_psid])
     .then((status) => {
+        console.log("STATUS: " + status);
         switch (status) {
             case CONSTANTS.STARTED_REGISTRATION:
                 if (message.text.indexOf(" ") != -1) sendAlert(sender_psid);
