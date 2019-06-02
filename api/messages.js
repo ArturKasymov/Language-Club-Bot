@@ -7,7 +7,7 @@ const chooseLanguagesButton = {
     "url": `${SERVER_URL}/langs`,
     "title": "Languages",
     "webview_height_ratio": "full",
-    //messenger_extensions: true,
+    messenger_extensions: true,
 };
 
 
