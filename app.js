@@ -1,6 +1,5 @@
 'use strict';
 const CONSTANTS = require('./model/Constants.js');
-const handlers = require('./model/handlers.js');
 const request = CONSTANTS.request;
 
 import bodyParser from 'body-parser';
@@ -16,6 +15,9 @@ import webhooks from './routes/webhooks';
 const app = express();
 
 app.set('view engine', 'ejs');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
