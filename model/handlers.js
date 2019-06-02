@@ -134,7 +134,7 @@ function handleInputNickname(sender_psid, nickname) {
         },
         method: "GET"
     }, function (error, response, body) {
-        var nicknameRequest = "";
+        var langRequest = "";
         if (error) {
             console.log("Error getting user's name: " + error);
         } else {
