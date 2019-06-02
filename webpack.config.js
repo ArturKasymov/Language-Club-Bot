@@ -1,3 +1,4 @@
+/* eslint-disable */
 var path = require('path');
 const webpack = require('webpack');
 
@@ -10,6 +11,7 @@ module.exports = [{
     },
     module: {
         loaders: [
+          { test: /\.css$/, loader: 'style-loader!css-loader?-svgo' },
           {
               test: /\.jsx?$/,
               exclude: /node_modules/,
@@ -22,7 +24,7 @@ module.exports = [{
         modules: [
           path.join(__dirname, 'client'),
           'node_modules'
-        ],
+        ]
     },
     plugins: [
       new webpack.DefinePlugin({
