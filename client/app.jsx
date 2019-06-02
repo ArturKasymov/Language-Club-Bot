@@ -2,7 +2,7 @@ import React from 'react';
 import 'whatwg-fetch';
 
 const CONSTANTS = require('../model/Constants.js');
-const query = require('../models/db.js');
+const query = require('../model/db.js');
 
 import WebviewControls from '../api/webview-controls';
 
