@@ -71,6 +71,7 @@ function sendContactingUsMessage(id) {
 
 export default {
     sendMessage,
+    sendReadReceipt,
     sendGreetingMessage,
     sendNicknameReqMessage,
     sendLanguagesChoose,
