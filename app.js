@@ -29,8 +29,8 @@ app.use('/langs', languages);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {
-    console.log(req);
-    console.log(res);
+    console.log("REQ: " + req);
+    console.log("RES " + res);
     const err = new Error('Not Found');
     err.status = 404;
     next(err);
