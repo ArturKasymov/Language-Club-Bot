@@ -12,7 +12,10 @@
   <body>
     <div id="content"></div>
     <script>
-    window.extAsyncInit = function() {
+	var h = document.createElement("H1")                // Create a <h1> element
+	var t = document.createTextNode("Hello World");     // Create a text node
+	h.appendChild(t); 
+    /*window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
 		var h = document.createElement("H1")                // Create a <h1> element
 		var t = document.createTextNode("Hello World");     // Create a text node
@@ -25,14 +28,13 @@
         });
     };
     (function(doc, script, domId){
-		console.log('SCRIPT');
         var js, fjs = doc.getElementsByTagName(script)[0];
         if (doc.getElementById(domId)) { return; }
         js = doc.createElement(script);
         js.id = domId;
         js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'Messenger'));
+    }(document, 'script', 'Messenger'));*/
     </script>
   </body>
 </html>
