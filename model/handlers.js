@@ -3,8 +3,6 @@ const request = CONSTANTS.request;
 
 const query = require('./db.js');
 
-const languages=['english', 'deutsch','polish'];
-
 function callSendAPI(sender_psid, response) {
     // Construct the message body
     console.log('message to be sent: ', response);
@@ -143,38 +141,22 @@ function handleInputNickname(sender_psid, nickname) {
         } else {
             var bodyObj = JSON.parse(body);
             const name = bodyObj.first_name;
-            langRequest = name + ", choose your languages: ";
+            langRequest = name + ", click on this url to choose your languages: ";
         }
-
-        var elements= [];
-        for(i in languages){
-            elements.push({
-                "title": languages[i],
-                "subtitle": '',
-                "buttons": [
-                    {
-                        "title": "add",
-                        "type":"postback",
-                        "payload": languages[i]
-                    },
-                ]
-            })
-        }
-
         const message = langRequest;
         const langPayload = {
             "attachment": {
                 "type": "template",
                 "payload": {
-                    "template_type": "list",
-                    "top_element_style": "compact",
-                    "elements": elements,
+                    "template_type": "button",
+                    "text": message,
                     "buttons": [
                       {
-                          "type": "postback",
-                          "title": "Back",
-                          "payload": CONSTANTS.BACK,
-                      },
+                          "type": "web_url",
+                          "url": "https://language-club-bot.herokuapp.com/",
+                          "title": "Languages",
+                          "webview_height_ratio": "full"
+                      }
                     ]
                 }
             }
