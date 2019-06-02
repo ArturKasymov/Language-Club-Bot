@@ -12,15 +12,17 @@
   <body>
     <div id="content"><h1>HELLO WORLD</h1></div>
     <script>
-    /*window.extAsyncInit = function() {
+    window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
+		doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "init";
         MessengerExtensions.getUserID(function success(uids) {
-			console.log("PSID " + uids.psid);
+			doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = uids.psid;
 			window.attachApp(uids.psid);
         }, function error(err) {
 			window.attachApp();
+			doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "ERROR";
         });
-    };*/
+    };
     (function(doc, script, domId){
         var js, fjs = doc.getElementsByTagName(script)[0];
         if (doc.getElementById(domId)) { return; }
@@ -28,7 +30,6 @@
         js.id = domId;
         js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
         fjs.parentNode.insertBefore(js, fjs);
-		doc.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "here";
     }(document, 'script', 'Messenger'));
     </script>
   </body>
