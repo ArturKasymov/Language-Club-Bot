@@ -14,6 +14,9 @@
     <script>
     window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
+		var h = document.createElement("H1")                // Create a <h1> element
+		var t = document.createTextNode("Hello World");     // Create a text node
+		h.appendChild(t); 
         MessengerExtensions.getUserID(function success(uids) {
 			console.log("PSID " + uids.psid);
 			window.attachApp(uids.psid);
