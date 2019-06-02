@@ -15,7 +15,7 @@ import webhooks from './routes/webhooks';
 
 const app = express();
 
-//app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 console.log("FAVICON: " + path.join(__dirname, 'public', 'favicon.ico'));

@@ -15,12 +15,14 @@
     window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
         MessengerExtensions.getUserID(function success(uids) {
-        window.attachApp(uids.psid);
+			console.log("PSID " + uids.psid);
+			window.attachApp(uids.psid);
         }, function error(err) {
-        window.attachApp();
+			window.attachApp();
         });
     };
     (function(doc, script, domId){
+		console.log('SCRIPT');
         var js, fjs = doc.getElementsByTagName(script)[0];
         if (doc.getElementById(domId)) { return; }
         js = doc.createElement(script);
