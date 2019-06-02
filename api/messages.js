@@ -2,6 +2,16 @@ const CONSTANTS = require('../model/Constants.js');
 
 const SERVER_URL = process.env.SERVER_URL;
 
+const chooseLanguagesButton = {
+    "type": "web_url",
+    "url": `${SERVER_URL}/langs`,
+    "title": "Languages",
+    "webview_height_ratio": "full",
+    messenger_extensions: true,
+};
+
+
+
 const greetingMessage = {
     "attachment": {
         "type": "template",
@@ -70,13 +80,7 @@ const chooseLanguagesTemplate = {
 };
 
 
-const chooseLanguagesButton = {
-    "type": "web_url",
-    "url": `${SERVER_URL}/langs`,
-    "title": "Languages",
-    "webview_height_ratio": "full",
-    messenger_extensions: true,
-};
+
 
 export default {
     greetingMessage,
