@@ -12,6 +12,17 @@ function sendMessage(id, payloads) {
     ], {});
 }
 
+function sendReadReceipt(psid) {
+    const messageData = {
+        recipient: {
+            id: psid
+        },
+        sender_action: 'mark_seen'
+    };
+
+    api.callMessagesApi(messageData);
+}
+
 function messageToJSON(psid, payload) {
     return {
         recipient: {
