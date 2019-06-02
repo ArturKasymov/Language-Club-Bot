@@ -68,6 +68,9 @@ function handlePostback(sender_psid, received_postback) {
         case CONSTANTS.BACK:
             handleBack(sender_psid);
             break;
+        case CONSTANTS.MENU:
+            //handleMenu(sender_psid);
+            break;
         default:
             console.log('Cannot differentiate the payload type');
     }
