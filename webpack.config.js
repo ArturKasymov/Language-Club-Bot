@@ -23,10 +23,6 @@ module.exports = [{
           path.join(__dirname, 'client'),
           'node_modules'
         ],
-        alias: {
-            'pg-native': path.join(__dirname, 'aliases/pg-native.js'),
-            'pgpass$': path.join(__dirname, 'aliases/pgpass.js'),
-        },
     },
     plugins: [
       new webpack.DefinePlugin({

@@ -2,7 +2,6 @@ import React from 'react';
 import 'whatwg-fetch';
 
 const CONSTANTS = require('../model/Constants.js');
-const query = require('../model/db.js');
 
 import WebviewControls from '../api/webview-controls';
 
@@ -37,10 +36,7 @@ export default class App extends React.PureComponent {
 	}
 
 	pullData() {
-		query(CONSTANTS.GET_LANGUAGES, [])
-		.then((langs) => {
-			languages = langs;
-		});
+		// SOMEHOW GET DATA FROM Server
 	}
 
 
