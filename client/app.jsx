@@ -23,10 +23,6 @@ import {
 } from 'react-weui';
 
 export default class App extends React.PureComponent {
-	static dateConfig = {
-		month: 'long',
-		day: 'numeric',
-	}
 
 	static languages = [];
 
@@ -91,13 +87,13 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		if (languages === {}) {
+		if (languages.length == 0) {
 			return <Loading />;
 		}
 
 		const languages = App.languages.map((lang, index) => {
 			const value = Lang.TYPES[index];
-			const checked = value in this.state.languages;
+			const checked = (value in this.state.languages);
 
 			return (
 				<Language 
