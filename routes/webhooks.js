@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
                 console.log({messagingEvent});
                 if (messagingEvent.message) {
                     receiveApi.handleReceiveMessage(messagingEvent);
-                } else if (messagingEvent.message) {
+                } else if (messagingEvent.postback) {
                     receiveApi.handleReceivePostback(messagingEvent);
                 } else if (messagingEvent.referral) {
                     receiveApi.handleReceiveReferral(messagingEvent);
