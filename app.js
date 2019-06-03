@@ -1,4 +1,4 @@
-'use strict';
+
 const CONSTANTS = require('./model/Constants.js');
 const request = CONSTANTS.request;
 
@@ -18,8 +18,6 @@ const app = express();
 //app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-console.log("FAVICON: " + path.join(__dirname, 'public', 'favicon.ico'));
-
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -32,13 +30,13 @@ app.use('/', index);
 app.use('/langs', languages);
 app.use('/webhook', webhooks);
 
-/*app.use(function(req, res, next) {
+app.use(function(req, res, next) {
     console.log("REQ: " + req);
     console.log("RES " + res);
     const err = new Error('Not Found');
     err.status = 404;
     next(err);
-});*/
+});
 
 app.use(function(err, req, res) {
     res.locals.message = err.message;

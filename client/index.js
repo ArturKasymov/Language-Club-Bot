@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+
 //import React from 'react';
 //import ReactDOM from 'react-dom';
 
@@ -6,8 +8,6 @@
 
 //import 'weui';
 //import 'react-weui/lib/react-weui.min.css';
-
-document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = window.attachApp;
 
 window.attachApp = (userId) => {
     if (userId) {
