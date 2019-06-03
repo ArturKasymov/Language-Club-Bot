@@ -25,7 +25,13 @@ import WebviewControls from '../api/webview-controls';
 
 export default class App extends React.PureComponent {
 
-	//static languages = [];
+	static languages = [
+		'English',
+		'Deutsch',
+		'Polish',
+		'Franch',
+		'Spanish',
+	];
 
 
 	static propTypes = {
@@ -74,29 +80,15 @@ export default class App extends React.PureComponent {
 
 	componentWillMount() {
 		//this.pullData();
-		// TEMP
-		/*languages = [
-			'English',
-			'Deutsch',
-			'Polish',
-			'Franch',
-			'Spanish',
-		];*/
 	}
 
 	render() {
-		/*if (languages.length == 0) {
-			console.log("LENGTH OF LANGS === 0");
-			return <Loading />;
-		}
-
-		const languages = App.languages.map((lang, index) => {
+		const languagesFactory = App.languages.map((lang, index) => {
 			const value = Lang.TYPES[index];
-			const checked = (value in this.state.languages);
+			const checked = this.state.languages.includes(value);
 
 			return (
 				<Language 
-					key={value}
 					value={value}
 					label={lang}
 					checked={checked}
@@ -105,10 +97,14 @@ export default class App extends React.PureComponent {
 				/>
 			);
 		});
-		*/
 
 		return (
 			<div className='app'>
+				<section>
+					<CellsTitle>What languages do you speak?</CellsTitle>
+					<Form checkbox>{languagesFactory}</Form>
+				</section>
+
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>
 				</ButtonArea>
