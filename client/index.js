@@ -12,7 +12,7 @@ import App from './app.jsx';
 window.attachApp = (userId) => {
     if (userId) {
         //document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "userId-HERR";
-        const app = <App/>;
+        const app = <App />;
         ReactDOM.render(app, document.getElementById('content'));
     } else {
         //document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "nouserId-HERR";
