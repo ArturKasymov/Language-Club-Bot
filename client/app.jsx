@@ -92,8 +92,8 @@ export default class App extends React.PureComponent {
 
 	render() {
 		const languagesFactory = App.languages.map((lang, index) => {
-			const value = Lang.TYPES[index];
-			//const value = lang;
+			//const value = Lang.TYPES[index];
+			const value = lang;
 			const checked = this.state.languages.has(value);
 
 			return (
