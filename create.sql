@@ -43,7 +43,6 @@ CREATE TABLE "users" (
 CREATE TABLE "languages" (
   "userID" varchar NOT NULL,
   "langName" lang_name_t NOT NULL,
-  "levelName" lang_level_t NOT NULL,
   CONSTRAINT lang_pr_key PRIMARY KEY ("userID", "langName")
 );
 
