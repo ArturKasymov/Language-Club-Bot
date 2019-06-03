@@ -19,7 +19,7 @@ pool.query('DELETE FROM users WHERE 1=1')
     .catch(err => console.log(err));
 
 pool.query(CONSTANTS.GET_ALL_LANGUAGES_QUERY)
-    .then((err, res) => console.log(err, res))
+    .then((err, res) => console.log(err, res.rows[0].getlanguagesarray))
     .catch(err => console.log(err));
 // END
 
