@@ -162,12 +162,17 @@ function insertUserLanguages(args) {
         if (err) {
             return console.log('Error acquiring client', err.stack);
         } else {
+            /*var lang;
             for (lang in args[1]) {
                 client.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], lang], (err, result) => {
                     release();
                     if (err) return console.error('Error INSERT_LANGUAGES query', err.stack);
                 })
-            }
+            }*/
+            client.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], 'elphish'], (err, result) => {
+                release();
+                if (err) return console.error('Error INSERT_LANGUAGES query', err.stack);
+            })
         }
     })
 }
