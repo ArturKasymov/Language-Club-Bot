@@ -8,7 +8,7 @@ const query = require('../model/db.js');
 
 const router = express.Router();
 
-router.get('/:userID', ({params: {userID}}, res) => {
+/*router.get('/:userID', ({params: {userID}}, res) => {
     console.log("IN GET /USERS/"+userID);
     query(CONSTANTS.GET_ALL_LANGUAGES, [])
     .then((array) => {
@@ -19,7 +19,7 @@ router.get('/:userID', ({params: {userID}}, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(langsJSON);
     }).catch((err) => console.log(err));
-});
+});*/
 
 /*router.put('/:userID', ({body, params: {userID}}, res) => {
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, JSON.parse(body)]);

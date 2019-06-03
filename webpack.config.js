@@ -26,6 +26,7 @@ module.exports = [{
           'node_modules'
         ]
     },
+    externals: ['fs', 'net', 'tls'],
     plugins: [
       new webpack.DefinePlugin({
           'process.env': {

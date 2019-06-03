@@ -26,17 +26,18 @@ import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 
+	static languages = [];
+
 	static propTypes = {
 		userId: React.PropTypes.string.isRequired,
 	}
 
 	state = {
-		languages: [],
-		all_languages: []
+		languages: []
 	}
 
 	pullData() {
-		const endpoint = `/users/${this.props.userId}`;
+		/*const endpoint = `/users/${this.props.userId}`;
 		console.log(`Pulling data from ${endpoint}...`);
 
 		fetch(endpoint)
@@ -55,8 +56,8 @@ export default class App extends React.PureComponent {
 
 				this.setState({languages: [], all_languages: JSON.parse(jsonResponse).map((x) => (x[0].toUpperCase() + x.slice(1)))});
 
-		}).catch((err) => console.error('Error pulling data', err));
-
+		}).catch((err) => console.error('Error pulling data', err));*/
+		//App.languages = CONSTANTS.ALL_LANGUAGES;
 	}
 
 
@@ -113,11 +114,11 @@ export default class App extends React.PureComponent {
 
 	render() {
 		console.log("RENDERING LOADING");
-		if (this.state.all_languages.length == 0) {
+		if (App.languages.length == 0) {
 		  return <Loading />;
 		}
 		console.log("RENDERING APP");
-		const languagesFactory = this.state.all_languages.map((lang, index) => {
+		const languagesFactory = App.languages.map((lang, index) => {
 			//const value = Lang.TYPES[index];
 			const value = lang;
 			const checked = this.state.languages.includes(value);
