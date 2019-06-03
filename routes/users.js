@@ -20,9 +20,9 @@ router.get('/', (req, res) => {
     }).catch((err) => console.log(err));
 });
 
-router.put('/:userID', ({body, params: {userID}}, res) => {
+/*router.put('/:userID', ({body, params: {userID}}, res) => {
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, JSON.parse(body)]);
-});
+});*/
 
 
 export default router;

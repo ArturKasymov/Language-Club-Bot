@@ -37,7 +37,7 @@ export default class App extends React.PureComponent {
 	}
 
 	pullData() {
-		const endpoint = `/users/${this.props.userId}`;
+		const endpoint = `/users`;
 		console.log(`Pulling data from ${endpoint}...`);
 
 		fetch(endpoint)
