@@ -41,7 +41,7 @@ export default class App extends React.PureComponent {
 		const endpoint = `/users/${this.props.userId}`;
 		console.log(`Pulling data from ${endpoint}...`);
 
-		fetch(endpoint)
+		return fetch(endpoint)
 		.then((response) => {
 			console.log("RESPONSE "+ response.status + " " + response.json());
 			if (response.status == 200) {
@@ -93,7 +93,7 @@ export default class App extends React.PureComponent {
 	}
 
 	componentWillMount() {
-		this.pullData();
+		this.pullData().then(() => console.log("MOUNTING"));
 	}
 
 	addLanguage(lang) {
