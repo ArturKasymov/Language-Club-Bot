@@ -15,13 +15,13 @@ import {
   Input,
 } from 'react-weui';
 
-const CONSTANTS = require('../model/Constants.js');
+//const CONSTANTS = require('../model/Constants.js');
 
 import WebviewControls from '../api/webview-controls';
 
-import Lang from '../entities/lang';
+//import Lang from '../entities/lang';
 
-import Language from './language.jsx';
+//import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 
@@ -114,7 +114,7 @@ export default class App extends React.PureComponent {
 				</section>
 				
 				<ButtonArea className='submit'>
-					<Button onClick={() => this.pushData()}>Submit</Button>
+					<Button>Submit</Button>
 				</ButtonArea>
 			</div>
 		);

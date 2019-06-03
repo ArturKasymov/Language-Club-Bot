@@ -3,11 +3,7 @@
 import React from 'react';  // eslint-disable-line
 import ReactDOM from 'react-dom';
 
-import {
-    Button
-} from 'react-weui';
-
-//import App from './app.jsx';
+import App from './app.jsx';
 //import Oops from './oops.jsx';
 
 //import 'weui';
@@ -16,7 +12,7 @@ import {
 window.attachApp = (userId) => {
     if (userId) {
         //document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "userId-HERR";
-        const app = <Button>HERR</Button>;
+        const app = <App/>;
         ReactDOM.render(app, document.getElementById('content'));
     } else {
         //document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "nouserId-HERR";
