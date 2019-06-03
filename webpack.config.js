@@ -24,9 +24,8 @@ module.exports = [{
         modules: [
           path.join(__dirname, 'client'),
           'node_modules'
-        ],
+        ]
     },
-    externals: ['tls', 'net', 'fs'],
     plugins: [
       new webpack.DefinePlugin({
           'process.env': {
