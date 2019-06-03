@@ -1,13 +1,14 @@
 {
   "name": "Language-Club-Bot",
   "version": "1.0.0",
-  "repository": "https://github.com/ArturKasymov/Language-Club-Bot.git",
-  "author": "Artur Kasymov <art.kasymov@gmail.com>",
-  "license": "MIT",
   "engines": {
     "node": ">7.10.1",
     "npm": "4.0.x"
   },
+  "repository": "https://github.com/ArturKasymov/Language-Club-Bot.git",
+  "author": "Artur Kasymov <art.kasymov@gmail.com>",
+  "license": "MIT",
+  "private":  true,
   "scripts": {
     "start": "node ./bin/www",
     "build:watch": "webpack --watch",
