@@ -33,7 +33,6 @@ export default class App extends React.PureComponent {
 	}
 
 	state = {
-		nickname: null,
 		languages: {}
 	}
 
@@ -43,7 +42,7 @@ export default class App extends React.PureComponent {
 
 
 	pushData() {
-		const content = this.jsonState();
+		/*const content = this.jsonState();
 		console.log(`Push data: ${content}`);
 
 		fetch(`/users/${this.props.userId}`, {
@@ -62,14 +61,14 @@ export default class App extends React.PureComponent {
 			);
 		}).catch((err) => console.log('Error pushing data', err)).then(() => {
 			WebviewControls.close();
-		});
+		});*/
 	}
 
 	jsonState() {
-		return JSON.stringify({
+		/*return JSON.stringify({
 			...this.state,
 
-		});
+		});*/
 	}
 
 	componentWillMount() {
@@ -85,8 +84,8 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		if (languages.length == 0) {
-			console.log("LENGZTH OF LANGS === 0");
+		/*if (languages.length == 0) {
+			console.log("LENGTH OF LANGS === 0");
 			return <Loading />;
 		}
 
@@ -105,7 +104,7 @@ export default class App extends React.PureComponent {
 				/>
 			);
 		});
-
+		*/
 
 		return (
 			<div className='app'>
@@ -113,12 +112,7 @@ export default class App extends React.PureComponent {
 					<CellsTitle>Nickname</CellsTitle>
 					<Input type="text" placeholder="Nickname..." />
 				</section>
-
-				<section>
-					<CellsTitle>What languages do you speak?</CellsTitle>
-					<Form checkbox>{languages}</Form>
-				</section>
-
+				
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>
 				</ButtonArea>
