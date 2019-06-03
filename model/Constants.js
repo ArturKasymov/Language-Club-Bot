@@ -35,11 +35,6 @@ const GET_STATUS_QUERY = 'SELECT status FROM users WHERE "facebookID"=$1::varcha
 const UPDATE_NICKNAME_QUERY = 'UPDATE users SET nickname=$1::varchar WHERE "facebookID"=$2::varchar';
 const GET_ALL_LANGUAGES_QUERY = 'SELECT getLanguagesArray()';
 
-
-// REACT CONSTANTS
-var ALL_LANGUAGES = [];
-query(GET_ALL_LANGUAGES, []).then((array) => ALL_LANGUAGES = array);
-
 module.exports = {
     request: request,
     FACEBOOK_GRAPH_API_BASE_URL: FACEBOOK_GRAPH_API_BASE_URL,
@@ -70,6 +65,4 @@ module.exports = {
     GET_STATUS_QUERY: GET_STATUS_QUERY,
     UPDATE_NICKNAME_QUERY: UPDATE_NICKNAME_QUERY,
     GET_ALL_LANGUAGES_QUERY: GET_ALL_LANGUAGES_QUERY,
-
-    ALL_LANGUAGES: ALL_LANGUAGES,
 }
