@@ -15,8 +15,6 @@ import {
   Input,
 } from 'react-weui';
 
-//const CONSTANTS = require('../model/Constants.js');
-
 import WebviewControls from '../api/webview-controls';
 
 import Lang from '../entities/lang';
@@ -26,7 +24,11 @@ import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 
-	static languages = [];
+	static languages = ['english', 'arabic', 'polish', 'german', 'french', 'chinese', 'russian',
+                                'ukrainian', 'spanish', 'hindi', 'portuguese', 'japanese', 'korean',
+                                'turkish', 'italian', 'hebrew', 'finnish', 'swedish', 'norwegian',
+                                'danish', 'irish', 'hungarian', 'bulgarian', 'persian', 'serbian',
+                                'slovak', 'czech', 'greek', 'latin', 'lithuanian', 'latvian', 'estonian'];
 
 	static propTypes = {
 		userId: React.PropTypes.string.isRequired,
@@ -57,7 +59,6 @@ export default class App extends React.PureComponent {
 				this.setState({languages: [], all_languages: JSON.parse(jsonResponse).map((x) => (x[0].toUpperCase() + x.slice(1)))});
 
 		}).catch((err) => console.error('Error pulling data', err));*/
-		//App.languages = CONSTANTS.ALL_LANGUAGES;
 	}
 
 
@@ -92,7 +93,6 @@ export default class App extends React.PureComponent {
 	}
 
 	componentWillMount() {
-		console.log("WillMount");
 		this.pullData();
 	}
 
@@ -113,11 +113,10 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		console.log("RENDERING LOADING");
-		if (App.languages.length == 0) {
+		/*if (App.languages.length == 0) {
 		  return <Loading />;
-		}
-		console.log("RENDERING APP");
+		}*/
+		
 		const languagesFactory = App.languages.map((lang, index) => {
 			//const value = Lang.TYPES[index];
 			const value = lang;
