@@ -21,6 +21,7 @@ import WebviewControls from '../api/webview-controls';
 
 import Lang from '../entities/lang';
 
+import Loading from './loading.jsx';
 import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
@@ -55,7 +56,7 @@ export default class App extends React.PureComponent {
 				console.log(`Data fetched successfully: ${jsonResponse}`);
 
 				App.languages = JSON.parse(jsonResponse).map((x) => (x[0].toUpperCase() + x.slice(1)));
-
+				thie.render();
 		}).catch((err) => console.error('Error pulling data', err));
 
 	}
@@ -112,6 +113,10 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
+		if (App.languages.length == 0) {
+		  return <Loading />;
+		}
+
 		const languagesFactory = App.languages.map((lang, index) => {
 			//const value = Lang.TYPES[index];
 			const value = lang;
