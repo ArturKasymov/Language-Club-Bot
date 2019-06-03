@@ -24,6 +24,11 @@ import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 
+	constructor(props) {
+		super(props);
+		this.ref = React.createRef();
+	}
+
 	static languages = ['english', 'arabic', 'polish', 'german', 'french', 'chinese', 'russian',
                                 'ukrainian', 'spanish', 'hindi', 'portuguese', 'japanese', 'korean',
                                 'turkish', 'italian', 'hebrew', 'finnish', 'swedish', 'norwegian',
@@ -134,7 +139,7 @@ export default class App extends React.PureComponent {
 		return (
 			<div className='app'>
 				<section>
-					<CellsTitle>What languages do you speak?</CellsTitle>
+					<CellsTitle ref={this.ref}>What languages do you speak?</CellsTitle>
 					<Form checkbox>{languagesFactory}</Form>
 				</section>
 
