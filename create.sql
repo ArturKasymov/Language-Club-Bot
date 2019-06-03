@@ -1,4 +1,16 @@
-CREATE type lang_name_t as enum('english', 'polish', 'german', 'french');
+CREATE type lang_name_t as enum('english', 'arabic', 'polish', 'german', 'french', 'chinese', 'russian',
+                                'ukrainian', 'spanish', 'hindi', 'portuguese', 'japanese', 'korean',
+                                'turkish', 'italian', 'hebrew', 'finnish', 'swedish', 'norwegian',
+                                'danish', 'irish', 'hungarian', 'bulgarian', 'persian', 'serbian',
+                                'slovak', 'czech', 'greek', 'latin', 'lithuanian', 'latvian', 'estonian');
+
+CREATE OR REPLACE FUNCTION getLanguagesArray() RETURNS varchar [] AS
+$$
+BEGIN
+    RETURN (SELECT enum_range(NULL::lang_name_t));
+END
+$$ language plpgsql; 
+
 CREATE type lang_level_t as enum('Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient', 'Native speaker');
 CREATE type perm_level_t as enum('1','2','3');
 
@@ -31,7 +43,6 @@ CREATE TABLE "users" (
 CREATE TABLE "languages" (
   "userID" varchar NOT NULL,
   "langName" lang_name_t NOT NULL,
-  "levelName" lang_level_t NOT NULL,
   CONSTRAINT lang_pr_key PRIMARY KEY ("userID", "langName")
 );
 
