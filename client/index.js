@@ -5,7 +5,7 @@ import App from './app.jsx';
 import Oops from './oops.jsx';
 
 import 'weui';
-//import 'react-weui-css';
+//import 'react-weui/lib/react-weui.min.css';
 
 window.attachApp = (userId) => {
     console.log("RENDERING APP");
