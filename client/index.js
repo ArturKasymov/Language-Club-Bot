@@ -7,7 +7,7 @@ import Oops from './oops.jsx';
 //import 'weui';
 //import 'react-weui/lib/react-weui.min.css';
 
-const load = (userId) => {
+window.attachApp = (userId) => {
     console.log("RENDERING APP");
     if (userId) {
         const app = <App userId={userId} />;
@@ -17,4 +17,4 @@ const load = (userId) => {
     }
 };
 
-export default load;
+document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = window.attachApp;
