@@ -97,6 +97,7 @@ export default class App extends React.PureComponent {
 
 			return (
 				<Language 
+					key={value}
 					value={value}
 					label={lang}
 					checked={checked}

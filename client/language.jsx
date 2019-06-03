@@ -12,17 +12,17 @@ const Language = ({label, value, checked, addLanguage, removeLanguage}) => {
 				<Checkbox name={value} value={value} defaultChecked={checked} onClick={() => toggle(value)} />
 			</CellHeader>
 
-			<CellBody>label</CellBody>
+			<CellBody>{label}</CellBody>
 		</FormCell>
 	);
 };
 
 Language.propTypes = {
-	value: React.PropTypes.string.isRequired,
-	label: React.PropTypes.string.isRequired,
-	checked: React.PropTypes.bool.isRequired,
-	addLanguage: React.PropTypes.func.isRequired,
-	removeLanguage: React.PropTypes.func.isRequired,
+  label: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string.isRequired,
+  checked: React.PropTypes.bool.isRequired,
+  addSkinType: React.PropTypes.func.isRequired,
+  removeSkinType: React.PropTypes.func.isRequired,
 };
 
 export default Language;
