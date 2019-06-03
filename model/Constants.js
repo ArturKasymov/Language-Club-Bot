@@ -17,6 +17,7 @@ const GET_STATUS = "GET_STATUS";
 const UPDATE_STATUS = "UPDATE_STATUS";
 const UPDATE_NICKNAME = "UPDATE_NICKNAME";
 const CONTACT_US_REDIRECT = "CONTACT_US_REDIRECT";
+const GET_ALL_LANGUAGES = "GET_ALL_LANGUAGES";
 
 // statuses
 const GOT_STARTED = "GOT_STARTED";
@@ -30,6 +31,7 @@ const INSERT_USER_QUERY = 'INSERT INTO users("facebookID", status, nickname, "pe
 const UPDATE_CYCLE_STATUS = 'UPDATE users SET status=$1::varchar WHERE "facebookID"=$2::varchar';
 const GET_STATUS_QUERY = 'SELECT status FROM users WHERE "facebookID"=$1::varchar';
 const UPDATE_NICKNAME_QUERY = 'UPDATE users SET nickname=$1::varchar WHERE "facebookID"=$2::varchar';
+const GET_ALL_LANGUAGES_QUERY = 'SELECT getLanguagesArray()';
 
 module.exports = {
     request: request,
@@ -48,6 +50,7 @@ module.exports = {
     UPDATE_STATUS: UPDATE_STATUS,
     UPDATE_NICKNAME: UPDATE_NICKNAME,
     CONTACT_US_REDIRECT: CONTACT_US_REDIRECT,
+    GET_ALL_LANGUAGES : GET_ALL_LANGUAGES,
 
     GOT_STARTED: GOT_STARTED,
     GOT_NICKNAME: GOT_NICKNAME,
@@ -58,4 +61,5 @@ module.exports = {
     UPDATE_CYCLE_STATUS: UPDATE_CYCLE_STATUS,
     GET_STATUS_QUERY: GET_STATUS_QUERY,
     UPDATE_NICKNAME_QUERY: UPDATE_NICKNAME_QUERY,
+    GET_ALL_LANGUAGES_QUERY: GET_ALL_LANGUAGES_QUERY,
 }

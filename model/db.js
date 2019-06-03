@@ -34,6 +34,8 @@ function query(type, args) {
             break;
         case CONSTANTS.BACK:
             return goBack(args);
+        case CONSTANTS.GET_ALL_LANGUAGES:
+            return getAllLanguages();
         default:
             break;
     }
@@ -118,6 +120,20 @@ function getStatus(args) {
         return result.rows[0].status;
     });
 };
+
+function getAllLanguages() {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_ALL_LANGUAGES_QUERY));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("innerStatus: " + result.rows[0].status);
+        return result.rows[0].status;
+    });
+};
+
 
 function updateNickname(args) {
     pool.connect((err, client, release) => {
