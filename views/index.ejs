@@ -12,6 +12,7 @@
   <body>
     <div id="content"><h1>HELLO WORLD</h1></div>
     <script>
+	window.attachApp = (id) => {};
     window.extAsyncInit = function() {
         MessengerExtensions.getUserID(function success(uids) {
 			document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = window.attachApp;
@@ -27,10 +28,6 @@
         js.id = domId;
         js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
         fjs.parentNode.insertBefore(js, fjs);
-		var jss = doc.createElement(script);
-        jss.id = 'temp';
-        js.src = "/../client/index.js";
-        fjs.parentNode.insertBefore(jss, fjs);
     }(document, 'script', 'Messenger'));
     </script>
   </body>
