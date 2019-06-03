@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './app.jsx';
 import Oops from './oops.jsx';
 
-import 'weui';
+//import 'weui';
 //import 'react-weui/lib/react-weui.min.css';
 
 const load = (userId) => {
