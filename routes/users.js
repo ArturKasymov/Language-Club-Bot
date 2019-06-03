@@ -23,3 +23,6 @@ router.get('/', (req, res) => {
 router.put('/:userID', ({body, params: {userID}}, res) => {
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, JSON.parse(body)]);
 });
+
+
+export default router;
