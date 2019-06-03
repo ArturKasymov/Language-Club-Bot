@@ -10,6 +10,7 @@ import logger from 'morgan';
 import path from 'path';
 
 import index from './routes/index';
+import users from './routes/users';
 import languages from './routes/languages';
 import webhooks from './routes/webhooks';
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use(logger('dev'));
 
 app.use('/', index);
+app.use('/users', users);
 app.use('/langs', languages);
 app.use('/webhook', webhooks);
 
