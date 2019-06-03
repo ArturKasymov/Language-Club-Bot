@@ -21,9 +21,14 @@ const router = express.Router();
     }).catch((err) => console.log(err));
 });*/
 
-/*router.put('/:userID', ({body, params: {userID}}, res) => {
+router.put('/:userID', ({body, params: {userID}}, res) => {
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, JSON.parse(body)]);
-});*/
+
+    const userJSON = JSON.stringify(body);
+    console.log(`PUT User response: ${userJSON}`);
+
+    res.sendStatus(204);
+});
 
 
 export default router;

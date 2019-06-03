@@ -17,17 +17,6 @@ const pool = new pg.Pool(config);
 pool.query('DELETE FROM users WHERE 1=1')
     .then((err, res) => console.log(err, res))
     .catch(err => console.log(err));
-
-new Promise((resolve, reject) => {
-        resolve(pool.query(CONSTANTS.GET_ALL_LANGUAGES_QUERY));
-    })
-    .then((result) => {
-        if (result == undefined || result.rows.length == 0) {
-            return undefined;
-        }
-        console.log("array: " + result.rows[0].getlanguagesarray[0]);
-        //return result.rows[0].getlanguagesarray;
-    });
 // END
 
 function query(type, args) {
@@ -47,6 +36,8 @@ function query(type, args) {
             return goBack(args);
         case CONSTANTS.GET_ALL_LANGUAGES:
             return getAllLanguages();
+        case CONSTANTS.INSERT_USER_LANGUAGES:
+            insertUserLanguage(args);
         default:
             break;
     }
@@ -159,6 +150,21 @@ function updateNickname(args) {
                     return console.error('Error UPDATE_NICKNAME query', err.stack);
                 }
             })
+        }
+    })
+}
+
+function insertUserLanguages(args) {
+    pool.connect((err, client, release) => {
+        if (err) {
+            return console.log('Error acquiring client', err.stack);
+        } else {
+            for (lang in args[1]) {
+                client.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], lang], (err, result) => {
+                    release();
+                    if (err) return console.error('Error INSERT_LANGUAGES query', err.stack);
+                })
+            }
         }
     })
 }
