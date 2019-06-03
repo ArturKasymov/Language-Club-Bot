@@ -1,4 +1,4 @@
-export default class Lang {
+class Lang {
     //TEMP
     static TYPES = [
         'english',
@@ -6,15 +6,26 @@ export default class Lang {
         'polish',
         'franch',
         'spanish'
-    ]
+    ];
 
     //TODO
     static LEVELS = [
         
-    ]
+    ];
 
-    constructor(id, name) {
+    static DEFAULT_ATTRIBUTES = {
+        id: "0",
+        name: "USER",
+    };
+
+    constructor(attributes) {
+        const {
+            id,
+            name
+        } = Object.assign({}, User.DEFAULT_ATTRIBUTES, attributes);
         this.id = id;
         this.name = name;
     };
-}
+};
+
+export default Lang;
