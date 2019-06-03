@@ -56,7 +56,7 @@ export default class App extends React.PureComponent {
 				console.log(`Data fetched successfully: ${jsonResponse}`);
 
 				App.languages = JSON.parse(jsonResponse).map((x) => (x[0].toUpperCase() + x.slice(1)));
-				thie.render();
+				this.render();
 		}).catch((err) => console.error('Error pulling data', err));
 
 	}
