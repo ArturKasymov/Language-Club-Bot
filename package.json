@@ -8,7 +8,7 @@
   "repository": "https://github.com/ArturKasymov/Language-Club-Bot.git",
   "author": "Artur Kasymov <art.kasymov@gmail.com>",
   "license": "MIT",
-  "private":  true,
+  "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "build:watch": "webpack --watch",
