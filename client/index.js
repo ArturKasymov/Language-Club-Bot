@@ -7,12 +7,11 @@ import App from './app.jsx';
 import Oops from './oops.jsx';
 
 import 'weui';
-import 'react-weui/build/packages/react-weui.css';
-import '../public/style.css';
+//import 'react-weui/build/packages/react-weui.css';
+//import '../public/style.css';
 
 window.attachApp = (userId) => {
     if (userId) {
-        //document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = "userId-HERR";
         const app = <App userId={userId} />;
         ReactDOM.render(app, document.getElementById('content'));
     } else {

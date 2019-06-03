@@ -14,8 +14,9 @@
     "build:watch": "webpack --watch",
     "build": "webpack -p --progress --colors",
     "lint-js": "eslint . --ignore-path ./public/bundle.js",
+    "lint-css": "recess ./public/style.css --noIDs false --noUnderscores false",
     "test": "mocha --timeout 10000 --compilers js:babel-core/register --recursive",
-    "quality": "yarn lint-js; yarn test"
+    "quality": "yarn lint-js; yarn lint-css; yarn test"
   },
   "dependencies": {
     "babel-cli": "^6.23.0",
