@@ -17,6 +17,9 @@ const pool = new pg.Pool(config);
 pool.query('DELETE FROM users WHERE 1=1')
     .then((err, res) => console.log(err, res))
     .catch(err => console.log(err));
+pool.query('DELETE FROM languages WHERE 1=1')
+    .then((err, res) => console.log(err, res))
+    .catch(err => console.log(err));
 // END
 
 function query(type, args) {
