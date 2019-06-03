@@ -91,7 +91,7 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		const languagesFactory = App.languages.map((lang, index) => {
+		/*const languagesFactory = App.languages.map((lang, index) => {
 			const value = Lang.TYPES[index];
 			const checked = this.state.languages.has(value);
 
@@ -105,13 +105,14 @@ export default class App extends React.PureComponent {
 					removeLanguage={this.removeLanguage.bind(this)}
 				/>
 			);
-		});
+		});*/
 
 		return (
 			<div className='app'>
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
-					<Form checkbox>{languagesFactory}</Form>
+					<Form checkbox><Language key={"english"} value={"english"} label={"English"} checked={false} 
+					addLanguage={this.addLanguage.bind(this)} removeLanguage={this.removeLanguage.bind(this)} /></Form>
 				</section>
 
 				<ButtonArea className='submit'>
