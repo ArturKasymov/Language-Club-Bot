@@ -12,28 +12,10 @@
   <body>
     <div id="content"><h1>HELLO WORLD</h1></div>
     <script>
-	import React from 'react';
-	import ReactDOM from 'react-dom';
-
-	import App from '../client/app.jsx';
-	import Oops from '../client/oops.jsx';
-
-	//import 'weui';
-	//import 'react-weui/lib/react-weui.min.css';
-
-	window.attachApp = (userId) => {
-		console.log("RENDERING APP");
-		if (userId) {
-			const app = <App userId={userId} />;
-			ReactDOM.render(app, document.getElementById('content'));
-		} else {
-			ReactDOM.render(<Oops />, document.getElementById('content'));
-		}
-	};
     window.extAsyncInit = function() {
         MessengerExtensions.getUserID(function success(uids) {
 			document.getElementById('content').getElementsByTagName('h1')[0].innerHTML = window.attachApp;
-			window.attachApp(uids.psid);
+			template(uids.psid);
         }, function error(err) {
 			window.attachApp();
         });
