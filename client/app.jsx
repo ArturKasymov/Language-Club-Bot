@@ -81,7 +81,7 @@ export default class App extends React.PureComponent {
 			'Polish',
 			'Franch',
 			'Spanish',
-		];/
+		];*/
 	}
 
 	render() {
