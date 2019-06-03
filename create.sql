@@ -53,7 +53,7 @@ CREATE TABLE "meetings" (
   "description" varchar NOT NULL,
   "startDate" timestamp with time zone NOT NULL,
   "endDate" timestamp with time zone NOT NULL
-  check ("startDate" < NOW()),
+  check ("startDate" > NOW()),
   check ("startDate" < "endDate")
 );
 
@@ -74,14 +74,15 @@ CREATE TABLE "places" (
 );
 
 CREATE TABLE "conversations" (
-  "conversationID" SERIAL PRIMARY KEY,
   "meetingID" int NOT NULL,
   "rowNumber" int NOT NULL,
   "firstUser" varchar NOT NULL,
   "secondUser" varchar NOT NULL,
   CHECK ("firstUser" != "secondUser"),
-  CHECK (common_languages("firstUser", "secondUser")::text != '{}')
+  CHECK (common_languages("firstUser", "secondUser")::text != '{}'),
+  CONSTRAINT pk_conversations PRIMARY KEY ("rowNumber", "meetingID", "firstUser", "secondUser") 
 );
+  
 
 ALTER TABLE "languages" ADD FOREIGN KEY ("userID") REFERENCES "users" ("facebookID");
 
@@ -99,10 +100,18 @@ ALTER TABLE "conversations" ADD FOREIGN KEY ("firstUser") REFERENCES "users" ("f
 
 ALTER TABLE "conversations" ADD FOREIGN KEY ("secondUser") REFERENCES "users" ("facebookID");
 
-CREATE INDEX user_in_languages ON languages("userID");
-CREATE INDEX user_in_users ON users("facebookID");
-CREATE INDEX meeting_in_meetings ON meetings(id);
-
+CREATE OR REPLACE FUNCTION onInsertConversations() returns trigger as $onInsertConversations$
+DECLARE
+r record;
+BEGIN
+    r= (SELECT * FROM "conversations" WHERE rowNumber=NEW.rowNumber AND "firstUser"=NEW.secondUser AND secondUser=NEW.firstUser);
+    END IF;
+    IF(r IS NULL) THEN return NEW; else RETURN NULL; END IF;
+END;
+$onInsertConversations$ language plpgsql;
+  
+CREATE TRIGGER onInsertConversations BEFORE INSERT OR UPDATE ON "conversations" FOR EACH ROW EXECUTE PROCEDURE onInsertConversations();
+  
 CREATE OR REPLACE FUNCTION meetings_insert() returns trigger as $meetings_insert$
 DECLARE
 k record;
@@ -174,11 +183,11 @@ INSERT INTO "places" VALUES (DEFAULT, 'Galeria Echo', 'Kielce', 'Ul. Swietokrzys
 
 INSERT INTO "meetings" VALUES (DEFAULT, 1,'abcdef1234zzzzz','First Club Meeting', NOW()-'1 year'::interval, NOW()-'11 months 30 days 18 hours 30 min'::interval);
 
-INSERT INTO "languages" VALUES ('abcdef1234zzzzz', 'English', 'Advanced');
-INSERT INTO "languages" VALUES ('abcdef1234zzzzz', 'Polish', 'Upper-Intermediate');
-INSERT INTO "languages" VALUES ('123456789101112', 'English', 'Advanced');
-INSERT INTO "languages" VALUES ('123456789101112', 'Polish', 'Intermediate');
-INSERT INTO "languages" VALUES ('a1b2c3d4e5f6g7h', 'Polish', 'Proficient');
+INSERT INTO "languages" VALUES ('abcdef1234zzzzz', 'english');
+INSERT INTO "languages" VALUES ('abcdef1234zzzzz', 'polish');
+INSERT INTO "languages" VALUES ('123456789101112', 'english');
+INSERT INTO "languages" VALUES ('123456789101112', 'polish');
+INSERT INTO "languages" VALUES ('a1b2c3d4e5f6g7h', 'polish');
 
 INSERT INTO "conversations" VALUES (DEFAULT, 1, 1 ,'abcdef1234zzzzz', '123456789101112');
 
