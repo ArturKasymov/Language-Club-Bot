@@ -82,6 +82,14 @@ export default class App extends React.PureComponent {
 		//this.pullData();
 	}
 
+	addLanguage(lang) {
+	
+	}
+
+	removeLanguage(lang) {
+	
+	}
+
 	render() {
 		const languagesFactory = App.languages.map((lang, index) => {
 			const value = Lang.TYPES[index];
