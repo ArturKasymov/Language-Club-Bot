@@ -25,13 +25,7 @@ import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 
-	static languages = [
-		'English',
-		'Deutsch',
-		'Polish',
-		'Franch',
-		'Spanish',
-	];
+	static languages = [];
 
 
 	static propTypes = {
@@ -43,12 +37,31 @@ export default class App extends React.PureComponent {
 	}
 
 	pullData() {
-		// SOMEHOW GET DATA FROM Server
+		const endpoint = `/users/${this.props.userId}`;
+		console.log(`Pulling data from ${endpoint}...`);
+
+		fetch(endpoint)
+		.then((response) => {
+			if (response.status == 200) {
+				return response.json();
+			}
+
+			console.error(
+				  status,
+				  `Unable to fetch user data for User ${this.props.userId}'`
+				);
+		}).then((jsonResponse) => {
+				console.log(`Data fetched successfully: ${jsonResponse}`);
+
+				App.languages = JSON.parse(jsonResponse).map((x) => (x[0].toUpperCase() + x.slice(1)));
+
+		}).catch((err) => console.error('Error pulling data', err));
+
 	}
 
 
 	pushData() {
-		/*const content = this.jsonState();
+		const content = this.jsonState();
 		console.log(`Push data: ${content}`);
 
 		fetch(`/users/${this.props.userId}`, {
@@ -67,27 +80,31 @@ export default class App extends React.PureComponent {
 			);
 		}).catch((err) => console.log('Error pushing data', err)).then(() => {
 			WebviewControls.close();
-		});*/
-		WebviewControls.close();
+		});
 	}
 
-	/*jsonState() {
-		return JSON.stringify({
-			...this.state,
-
-		});
-	}*/
+	jsonState() {
+		return JSON.stringify(this.state.languages);
+	}
 
 	componentWillMount() {
-		//this.pullData();
+		this.pullData();
 	}
 
 	addLanguage(lang) {
-	
+		console.log(`Add language: ${lang}`);
+		const oldLanguages = this.state.languages;
+		const languages = new Set(oldLanguages);
+		languages.add(lang);
+		this.setState({languages});
 	}
 
 	removeLanguage(lang) {
-	
+		console.log(`Remove language: ${lang}`);
+		const oldLanguages = this.state.languages;
+		const languages = new Set(oldLanguages);
+		languages.delete(lang);
+		this.setState({languages});
 	}
 
 	render() {
@@ -107,11 +124,6 @@ export default class App extends React.PureComponent {
 				/>
 			);
 		});
-
-		/*
-		<Form checkbox><Language key={"english"} value={"english"} label={"English"} checked={false} 
-					addLanguage={this.addLanguage.bind(this)} removeLanguage={this.removeLanguage.bind(this)} /></Form>
-		*/
 
 		return (
 			<div className='app'>
