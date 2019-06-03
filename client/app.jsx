@@ -19,9 +19,9 @@ import {
 
 import WebviewControls from '../api/webview-controls';
 
-//import Lang from '../entities/lang';
+import Lang from '../entities/lang';
 
-//import Language from './language.jsx';
+import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 
@@ -85,7 +85,7 @@ export default class App extends React.PureComponent {
 	render() {
 		const languagesFactory = App.languages.map((lang, index) => {
 			const value = Lang.TYPES[index];
-			const checked = this.state.languages.includes(value);
+			const checked = this.state.languages.has(value);
 
 			return (
 				<Language 
