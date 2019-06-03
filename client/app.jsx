@@ -25,7 +25,7 @@ import WebviewControls from '../api/webview-controls';
 
 export default class App extends React.PureComponent {
 
-	static languages = [];
+	//static languages = [];
 
 
 	static propTypes = {
@@ -33,7 +33,7 @@ export default class App extends React.PureComponent {
 	}
 
 	state = {
-		languages: {}
+		languages: []
 	}
 
 	pullData() {
@@ -75,13 +75,13 @@ export default class App extends React.PureComponent {
 	componentWillMount() {
 		//this.pullData();
 		// TEMP
-		languages = [
+		/*languages = [
 			'English',
 			'Deutsch',
 			'Polish',
 			'Franch',
 			'Spanish',
-		];
+		];/
 	}
 
 	render() {
