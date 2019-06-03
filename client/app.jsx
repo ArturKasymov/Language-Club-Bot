@@ -17,7 +17,7 @@ import {
 
 //const CONSTANTS = require('../model/Constants.js');
 
-import WebviewControls from '../api/webview-controls';
+//import WebviewControls from '../api/webview-controls';
 
 //import Lang from '../entities/lang';
 
@@ -25,24 +25,24 @@ import WebviewControls from '../api/webview-controls';
 
 export default class App extends React.PureComponent {
 
-	static languages = [];
+	//static languages = [];
 
 
-	static propTypes = {
+	/*static propTypes = {
 		userId: React.PropTypes.string.isRequired,
-	}
+	}*/
 
 	state = {
 		languages: {}
 	}
 
-	pullData() {
+	/*pullData() {
 		// SOMEHOW GET DATA FROM Server
-	}
+	}*/
 
 
-	pushData() {
-		/*const content = this.jsonState();
+	/*pushData() {
+		const content = this.jsonState();
 		console.log(`Push data: ${content}`);
 
 		fetch(`/users/${this.props.userId}`, {
@@ -61,26 +61,26 @@ export default class App extends React.PureComponent {
 			);
 		}).catch((err) => console.log('Error pushing data', err)).then(() => {
 			WebviewControls.close();
-		});*/
-	}
+		});
+	}*/
 
-	jsonState() {
-		/*return JSON.stringify({
+	/*jsonState() {
+		return JSON.stringify({
 			...this.state,
 
-		});*/
-	}
+		});
+	}*/
 
 	componentWillMount() {
 		//this.pullData();
 		// TEMP
-		languages = [
+		/*languages = [
 			'English',
 			'Deutsch',
 			'Polish',
 			'Franch',
 			'Spanish',
-		];
+		];*/
 	}
 
 	render() {
@@ -108,11 +108,6 @@ export default class App extends React.PureComponent {
 
 		return (
 			<div className='app'>
-				<section>
-					<CellsTitle>Nickname</CellsTitle>
-					<Input type="text" placeholder="Nickname..." />
-				</section>
-				
 				<ButtonArea className='submit'>
 					<Button>Submit</Button>
 				</ButtonArea>
