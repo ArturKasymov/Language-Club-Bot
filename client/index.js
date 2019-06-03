@@ -17,4 +17,4 @@ window.attachApp = (userId) => {
     }
 };
 
-module.exports = window.attachApp;
+export default window.attachApp;
