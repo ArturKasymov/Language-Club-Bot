@@ -13,16 +13,14 @@ class Lang {
         
     ];
 
-    static DEFAULT_ATTRIBUTES = {
-        id: "0",
-        name: "USER",
-    };
-
     constructor(attributes) {
         const {
             id,
             name
-        } = Object.assign({}, User.DEFAULT_ATTRIBUTES, attributes);
+        } = Object.assign({}, {
+            id: "0",
+            name: "USER",
+        }, attributes);
         this.id = id;
         this.name = name;
     };
