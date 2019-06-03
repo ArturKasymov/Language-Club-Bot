@@ -18,9 +18,16 @@ pool.query('DELETE FROM users WHERE 1=1')
     .then((err, res) => console.log(err, res))
     .catch(err => console.log(err));
 
-pool.query(CONSTANTS.GET_ALL_LANGUAGES_QUERY)
-    .then((err, res) => console.log(err + "\nRESULTTTTTT " + res))
-    .catch(err => console.log("ERR"+err));
+new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_ALL_LANGUAGES_QUERY));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("array: " + result.rows[0].getlanguagesarray);
+        //return result.rows[0].getlanguagesarray;
+    });
 // END
 
 function query(type, args) {
@@ -133,8 +140,8 @@ function getAllLanguages() {
         if (result == undefined || result.rows.length == 0) {
             return undefined;
         }
-        console.log("innerStatus: " + result.rows[0].status);
-        return result.rows[0].status;
+        console.log("array: " + result.rows[0].getlanguagesarray);
+        return result.rows[0].getlanguagesarray;
     });
 };
 
