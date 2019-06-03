@@ -50,20 +50,4 @@ app.use(function(err, req, res) {
 
 app.listen(app.get('port'), () => console.log('Node app is running on port', app.get('port')));
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import App from './client/app.jsx';
-import Oops from './client/oops.jsx';
-
-window.attachApp = (userId) => {
-    console.log("RENDERING APP");
-    if (userId) {
-        const appp = <App userId={userId} />;
-        ReactDOM.render(appp, document.getElementById('content'));
-    } else {
-        ReactDOM.render(<Oops />, document.getElementById('content'));
-    }
-};
-
 module.exports = app;
