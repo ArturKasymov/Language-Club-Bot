@@ -24,11 +24,6 @@ import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 
-	constructor(props) {
-		super(props);
-		this.ref = React.createRef();
-	}
-
 	static languages = ['english', 'arabic', 'polish', 'german', 'french', 'chinese', 'russian',
                                 'ukrainian', 'spanish', 'hindi', 'portuguese', 'japanese', 'korean',
                                 'turkish', 'italian', 'hebrew', 'finnish', 'swedish', 'norwegian',
@@ -103,7 +98,7 @@ export default class App extends React.PureComponent {
 		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.add(lang);
-		this.setState({languages});
+		this.setState({languages: languages});
 	}
 
 	removeLanguage(lang) {
@@ -111,7 +106,7 @@ export default class App extends React.PureComponent {
 		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.delete(lang);
-		this.setState({languages});
+		this.setState({languages: languages});
 	}
 
 	render() {
@@ -139,7 +134,7 @@ export default class App extends React.PureComponent {
 		return (
 			<div className='app'>
 				<section>
-					<CellsTitle ref={this.ref}>What languages do you speak?</CellsTitle>
+					<CellsTitle>What languages do you speak?</CellsTitle>
 					<Form checkbox>{languagesFactory}</Form>
 				</section>
 
