@@ -42,6 +42,7 @@ export default class App extends React.PureComponent {
 
 		fetch(endpoint)
 		.then((response) => {
+			console.log("RESPONSE "+ response.status + " " + response.json());
 			if (response.status == 200) {
 				return response.json();
 			}
