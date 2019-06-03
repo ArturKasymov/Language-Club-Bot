@@ -25,7 +25,7 @@ new Promise((resolve, reject) => {
         if (result == undefined || result.rows.length == 0) {
             return undefined;
         }
-        console.log("array: " + result.rows[0].getlanguagesarray);
+        console.log("array: " + result.rows[0].getlanguagesarray[0]);
         //return result.rows[0].getlanguagesarray;
     });
 // END
