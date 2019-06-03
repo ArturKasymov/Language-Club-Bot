@@ -1,4 +1,6 @@
-﻿import React from 'react';
+﻿/* eslint-disable react/react-in-jsx-scope */
+
+import React from 'react';
 import {CellBody, CellHeader, Checkbox, FormCell} from 'react-weui';
 
 const Language = ({label, value, checked, addLanguage, removeLanguage}) => {

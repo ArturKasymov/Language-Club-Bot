@@ -1,10 +1,10 @@
 /* eslint-disable react/react-in-jsx-scope */
 
-import React from 'react';
+import React from 'react';  // eslint-disable-line
 import ReactDOM from 'react-dom';
 
-//import App from './app.jsx';
-//import Oops from './oops.jsx';
+import App from './app.jsx';
+import Oops from './oops.jsx';
 
 //import 'weui';
 //import 'react-weui/lib/react-weui.min.css';
