@@ -91,6 +91,7 @@ export default class App extends React.PureComponent {
 	}
 
 	componentWillMount() {
+		console.log("WillMount");
 		this.pullData();
 	}
 
@@ -111,10 +112,11 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
+		console.log("RENDERING LOADING");
 		if (this.state.all_languages.length == 0) {
 		  return <Loading />;
 		}
-	
+		console.log("RENDERING APP");
 		const languagesFactory = this.state.all_languages.map((lang, index) => {
 			//const value = Lang.TYPES[index];
 			const value = lang;
