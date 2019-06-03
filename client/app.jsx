@@ -61,6 +61,7 @@ export default class App extends React.PureComponent {
 
 
 	pushData() {
+	/*
 		const content = this.jsonState();
 		console.log(`Push data: ${content}`);
 
@@ -81,6 +82,8 @@ export default class App extends React.PureComponent {
 		}).catch((err) => console.log('Error pushing data', err)).then(() => {
 			WebviewControls.close();
 		});
+		*/
+		WebviewControls.close();
 	}
 
 	jsonState() {
