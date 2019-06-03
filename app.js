@@ -55,8 +55,8 @@ module.exports = app;
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './app.jsx';
-import Oops from './oops.jsx';
+import App from './client/app.jsx';
+import Oops from './client/oops.jsx';
 
 import 'weui';
 //import 'react-weui/lib/react-weui.min.css';
