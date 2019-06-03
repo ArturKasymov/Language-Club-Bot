@@ -16,5 +16,3 @@ window.attachApp = (userId) => {
         ReactDOM.render(<Oops />, document.getElementById('content'));
     }
 };
-
-export default window.attachApp;
