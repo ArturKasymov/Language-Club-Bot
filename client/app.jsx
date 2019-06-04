@@ -69,7 +69,7 @@ export default class App extends React.PureComponent {
 		console.log(`Push data: ${content}`);
 		
 		this.setState({
-      			text: `Push data: ${content}`
+      			text: content
     	});
 
 
@@ -90,7 +90,7 @@ export default class App extends React.PureComponent {
 		}).catch((err) => console.log('Error pushing data', err) ).then(() => {
 			//try handle
 			this.setState({
-      			text: err
+      			text: 'error'
     		});
 			//WebviewControls.close();
 		});
