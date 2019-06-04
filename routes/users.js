@@ -35,7 +35,7 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
 });
 
 router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
-    query(CONSTANTS.UPDATE_NICKNAME, [body, userID]);
+    query(CONSTANTS.UPDATE_NICKNAME, [body.nickname, userID]);
 
     res.sendStatus(204);
 

@@ -8,8 +8,8 @@ import Nickname from './nickname.jsx';
 import Oops from './oops.jsx';
 
 import 'weui';
-//import 'react-weui/build/packages/react-weui.css';
-import '../public/style.css';
+import 'react-weui/build/packages/react-weui.css';
+//import '../public/style.css';
 
 window.attachApp = (first_time, userId) => {
     if (userId) {
