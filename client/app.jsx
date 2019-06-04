@@ -154,7 +154,7 @@ export default class App extends React.PureComponent {
 					<Form checkbox>{languagesFactory}</Form>
 				</section>
 
-				<p>{this.addLanguage.toString()}</p>
+				<p>{this.state.text}</p>
 
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>

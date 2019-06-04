@@ -12,7 +12,7 @@ const Language = ({label, value, checked, addLanguage, removeLanguage}) => {
 				<Checkbox name={value} value={value} defaultChecked={checked} onClick={() => toggle(value)} />
 			</CellHeader>
 
-			<CellBody>{addLanguage}</CellBody>
+			<CellBody>{addLanguage.toString()}</CellBody>
 		</FormCell>
 	);
 };
