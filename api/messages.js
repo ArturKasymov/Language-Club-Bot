@@ -36,10 +36,28 @@ const myAccountButton = {
   "payload": CONSTANTS.MY_ACCOUNT
 }
 
+const changeNicknameButton = {
+  "type": "postback",
+  "title": " Change Nickname",
+  "payload": CONSTANTS.CHANGE_NICKNAME
+}
+
 const meetingsButton = {
   "type": "postback",
   "title": "      Meetings",
   "payload": CONSTANTS.MEETINGS
+}
+
+const myMeetingsButton = {
+  "type": "postback",
+  "title": "      My meetings",
+  "payload": CONSTANTS.MY_MEETINGS
+}
+
+const adminPanelButton = {
+  "type": "postback",
+  "title": "   Admin panel",
+  "payload": CONSTANTS.ADMIN_PANEL
 }
 
 const createMeetingButton = {
@@ -48,17 +66,13 @@ const createMeetingButton = {
   "payload": CONSTANTS.CREATE_MEETING
 }
 
-const adminPanelButton = {
-  "type": "postback",
-  "title": "   Admin panel   ",
-  "payload": CONSTANTS.ADMIN_PANEL
-}
-
 const addOrganizatorButton = {
   "type": "postback",
-  "title": "   Add Organizator   ",
-  "payload": CONSTANTS.ADMIN_PANEL
+  "title": "   Add Organizator",
+  "payload": CONSTANTS.ADDING_ORGANIZATOR
 }
+
+
 
 //Messages
 const greetingMessage = {
