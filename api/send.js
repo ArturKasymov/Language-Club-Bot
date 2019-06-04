@@ -62,10 +62,15 @@ function sendNeedRegistrationMessage(id) {
     sendMessage(id, messages.registrationNeedMessage);
 }
 
+function sendOrganizatorPanelMessage(id) {
+    sendMessage(id, messages.organizatorPanelMessage);
+}
+
 export default {
     sendMessage,
     sendReadReceipt,
     sendGreetingMessage,
     sendContactingUsMessage,
-    sendNeedRegistrationMessage
+    sendNeedRegistrationMessage,
+    sendOrganizatorPanelMessage
 };

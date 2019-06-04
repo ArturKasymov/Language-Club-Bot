@@ -69,10 +69,22 @@ function handleNeedRegistration(sender_psid){
 }
 
 function handleContactUs(sender_psid) {
-
-    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.CONTACTING_US, sender_psid]);
-
-    sendApi.sendContactingUsMessage(sender_psid);
+    query(CONSTANTS.GET_PERMISSION_LEVEL, [sender_psid])
+    .then( (permissionLevel) => {
+        switch(permissionLevel) {
+            case '3':
+                //sendApi.sendAdminMenu(sender_psid);
+            break;
+            case '2':
+                sendApi.sendOrganizatorPanelMessage(sender_psid);
+                break;
+            case '0':
+            case '1':
+                query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.CONTACTING_US, sender_psid]);
+                sendApi.sendContactingUsMessage(sender_psid);
+                break;
+        }
+    }); 
 }
 
 export default {

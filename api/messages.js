@@ -15,6 +15,7 @@ const registrationButton = {
   "title": "Register",
   "url": `${SERVER_URL}/registration`,
   "webview_height_ratio":"full",
+  "webview_share_button": "hide",
   "messenger_extensions": true
 }
 
@@ -23,6 +24,7 @@ const createMeetingButton = {
   "title": "   Create meeting",
   "url": `${SERVER_URL}/createmeeting`,
   "webview_height_ratio":"full",
+  "webview_share_button": "hide",
   "messenger_extensions": true
 }
 
@@ -31,6 +33,7 @@ const addOrganizatorButton = {
   "title": "   Organizators",
   "url": `${SERVER_URL}/organizators`,
   "webview_height_ratio":"full",
+  "webview_share_button": "hide",
   "messenger_extensions": true
 }
 
@@ -39,6 +42,7 @@ const meetingsListButton = {
   "title": "   Meetings List",
   "url": `${SERVER_URL}/meetingsadmList`,
   "webview_height_ratio":"full",
+  "webview_share_button": "hide",
   "messenger_extensions": true
 }
 
@@ -47,10 +51,9 @@ const administrateMeetingButton = {
   "title": "   Administrate meeting",
   "url": `${SERVER_URL}/meetingsadm`,
   "webview_height_ratio":"full",
+  "webview_share_button": "hide",
   "messenger_extensions": true
 }
-
-
 
 //Messages
 const greetingMessage = {
@@ -58,7 +61,7 @@ const greetingMessage = {
         "type": "template",
         "payload": {
             "template_type": "button",
-            "text": "Welcome to our Language Club!\nRegister for joining",
+            "text": "Welcome to our Language Club! Register for joining",
             "buttons": [registrationButton]
         }
     }
@@ -100,5 +103,6 @@ const organizatorPanelMessage = {
 export default {
     greetingMessage,
     contactingUsMessage,
-    registrationNeedMessage
+    registrationNeedMessage,
+    organizatorPanelMessage
 }
