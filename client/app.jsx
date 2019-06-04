@@ -67,8 +67,9 @@ export default class App extends React.PureComponent {
 	pushData() {
 		const content = this.jsonState();
 		console.log(`Push data: ${content}`);
+		
 		this.setState({
-      			text: 'hello PUSH'
+      			text: 'Push data: ${content}'
     	});
 
 
@@ -143,12 +144,12 @@ export default class App extends React.PureComponent {
 
 		return (
 			<div className='app'>
-				<h1>{this.state.text}</h1>
-
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
 					<Form checkbox>{languagesFactory}</Form>
 				</section>
+
+				<h1>{this.state.text}</h1>
 
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>
