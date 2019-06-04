@@ -23,6 +23,7 @@ router.get('/:userID', ({params: {userID}}, res) => {
 });
 
 router.put('/:userID', ({body, params: {userID}}, res) => {
+    console.log("RECEIVED OBJECT: " + body.toString());
     if (body.nickname) query(CONSTANTS.UPDATE_NICKNAME, [body.nickname, userID]);
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, body.languages]);
 
@@ -34,7 +35,7 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
 });
 
 router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
-    query(CONSTANTS.UPDATE_NICKNAME, [body.nickname, userID]);
+    query(CONSTANTS.UPDATE_NICKNAME, [body, userID]);
 
     res.sendStatus(204);
 

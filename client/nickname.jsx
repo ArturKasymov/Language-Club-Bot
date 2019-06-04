@@ -54,7 +54,7 @@ export default class Nickname extends React.PureComponent {
 
 
 	jsonState() {
-		return JSON.stringify({nickname: this.state.nickname});
+		return this.state.nickname;
 	}
 
 	updateNickname(name) {
