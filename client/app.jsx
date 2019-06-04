@@ -35,6 +35,8 @@ export default class App extends React.PureComponent {
 	}
 
 	state = {
+		//todo handle
+		text: 'init text',
 		languages: []
 	}
 
@@ -65,6 +67,10 @@ export default class App extends React.PureComponent {
 	pushData() {
 		const content = this.jsonState();
 		console.log(`Push data: ${content}`);
+		this.setState({
+      			text: 'hello PUSH'
+    	});
+
 
 		fetch(`/users/${this.props.userId}`, {
 			method: 'PUT',
