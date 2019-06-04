@@ -32,13 +32,13 @@ const contactUsButton = {
 
 const myAccountButton = {
   "type": "postback",
-  "title": "  My Account  ",
+  "title": "   My Account   ",
   "payload": CONSTANTS.MY_ACCOUNT
 }
 
 const meetingsButton = {
   "type": "postback",
-  "title": "  Meetings  ",
+  "title": "   Meetings   ",
   "payload": CONSTANTS.MEETINGS
 }
 
