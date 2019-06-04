@@ -77,7 +77,7 @@ function handleReceiveMessage(messaging_event) {
 
 
 function handleMenu(sender_psid){
-    query(CONSTANTS.GET_PERMISSION_LEVEL, sender_psid)
+    query(CONSTANTS.GET_PERMISSION_LEVEL, [sender_psid])
     .then( (permissionLevel) => {
         switch(permissionLevel) {
             case '0':
