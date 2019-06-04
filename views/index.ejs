@@ -10,7 +10,7 @@
     <script>
     window.extAsyncInit = function() {
         MessengerExtensions.getUserID(function success(uids) {
-			window.attachApp(first_time, uids.psid);
+			window.attachApp(true, uids.psid);
         }, function error(err) {
 			window.attachApp();
         });
