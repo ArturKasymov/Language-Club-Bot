@@ -125,7 +125,9 @@ export default class App extends React.PureComponent {
 			<div className='app'>
 				<section>
 					<CellsTitle>Your Nickname</CellsTitle>
+					<Form><CellHeader>
 					<Input type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
+					</CellHeader></Form>
 				</section>
 
 				<section>
