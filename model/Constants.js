@@ -46,7 +46,7 @@ const GET_STATUS_QUERY = 'SELECT status FROM users WHERE "facebookID"=$1::varcha
 const GET_PERMISSION_LEVEL_QUERY ='SELECT "permissionLevel" FROM users WHERE "facebookID"=$1::varchar';
 const UPDATE_NICKNAME_QUERY = 'UPDATE users SET nickname=$1::varchar WHERE "facebookID"=$2::varchar';
 const GET_ALL_LANGUAGES_QUERY = 'SELECT getLanguagesArray()';
-const INSERT_USER_LANGUAGES_QUERY = 'INSERT INTO languages("userID", "langName") VALUES($1::varchar, $2::varchar)';
+const INSERT_USER_LANGUAGES_QUERY = 'INSERT INTO languages("userID", "langName") VALUES($1::varchar, $2::lang_name_t)';
 
 module.exports = {
     request: request,
