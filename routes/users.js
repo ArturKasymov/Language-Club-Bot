@@ -25,9 +25,6 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
     console.log(body);
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, JSON.parse(body)]);
 
-    const userJSON = JSON.stringify(body);
-    console.log(`PUT User response: ${userJSON}`);
-
     res.sendStatus(204);
 });
 

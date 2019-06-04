@@ -82,11 +82,8 @@ export default class App extends React.PureComponent {
 				return;
 			}
 
-			/*console.error(
-				response.status,
-				`Unable to save user data for User ${this.props.userId}'`
-			);*/
-		}).catch((err) => console.log(err) ).then(() => {
+			setTextFieldData(response.status);
+		}).catch((err) => setTextFieldData(err) ).then(() => {
 			//WebviewControls.close();
 		});
 	}
@@ -106,19 +103,19 @@ export default class App extends React.PureComponent {
 		this.pullData();
 	}
 
-	addLanguage(self, lang) {
-		const oldLanguages = self.state.languages;
+	addLanguage(lang) {
+		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.add(lang);
-		self.setState({languages: languages});
-		self.setState({text: languages.toString()});
+		this.setState({languages: languages});
+		this.setState({text: this.jsonState});
 	}
 
-	removeLanguage(self, lang) {
-		/*const oldLanguages = self.state.languages;
+	removeLanguage(lang) {
+		/*const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.delete(lang);
-		self.setState({languages: languages});*/
+		this.setState({languages: languages});*/
 	}
 
 	render() {
@@ -137,9 +134,8 @@ export default class App extends React.PureComponent {
 					value={value}
 					label={lang}
 					checked={checked}
-					addLanguage={this.addLanguage}
-					removeLanguage={this.removeLanguage}
-					self={this}
+					addLanguage={this.addLanguage.bind(this)}
+					removeLanguage={this.removeLanguage.bind(this)}
 				/>
 			);
 		});
