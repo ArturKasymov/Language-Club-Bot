@@ -44,6 +44,9 @@ function query(type, args) {
             break;
         case CONSTANTS.GET_PERMISSION_LEVEL:
             return getPermLvl(args);
+        case CONSTANTS.UPDATE_PERMISSION_LEVEL:
+            updatePermLvl(args);
+            break;
         default:
             break;
     }
@@ -187,6 +190,19 @@ function insertUserLanguages(args) {
             }
         }
     })
+}
+
+function updatePermLvl(args) {
+    pool.connect((err, client, release) => {
+        if (err) {
+            return console.log('Error acquiring client', err.stack);
+        } else {
+            client.query(CONSTANTS.UPDATE_PERMISSION_LEVEL_QUERY, args, (err, result) => {
+                release();
+                if (err) return console.error('Error UPDATE_PERMISSION_LEVEL query', err.stack);
+            });
+        }
+    });
 }
 
 function goBack(id) {

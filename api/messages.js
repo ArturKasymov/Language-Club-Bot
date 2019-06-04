@@ -4,10 +4,10 @@ const SERVER_URL = process.env.SERVER_URL;
 
 
 //Buttons
-const chooseLanguagesButton = {
+const profileSetUpButton = {
     "type": "web_url",
     "url": `${SERVER_URL}/langs`,
-    "title": "Languages",
+    "title": "My Profile",
     "webview_height_ratio": "full",
     messenger_extensions: true,
 };
@@ -86,17 +86,6 @@ const greetingMessage = {
     }
 };
 
-const nicknameReqMessage = {
-    "attachment": {
-        "type": "template",
-        "payload": {
-            "template_type": "button",
-            "text": "Please, type in your nickname: ",
-            "buttons": [backButton]
-        }
-    }
-};
-
 const contactingUsMessage = {
     "attachment": {
         "type": "template",
@@ -108,13 +97,13 @@ const contactingUsMessage = {
     }
 };
 
-const chooseLanguagesTemplate = {
+const profileSetUpTemplate = {
     "attachment": {
         "type": "template",
         "payload": {
             "template_type": "button",
-            "text": "Click on this url to choose your languages: ",
-            "buttons": [chooseLanguagesButton, backButton]
+            "text": "Set up your profile by choosing nickname and the languages your speak: ",
+            "buttons": [profileSetUpButton, backButton]
         }
     }
 };
@@ -153,9 +142,8 @@ const adminMenu ={
 };
 export default {
     greetingMessage,
-    nicknameReqMessage,
     contactingUsMessage,
-    chooseLanguagesTemplate,
+    profileSetUpTemplate,
     userMenu,
     organizatorMenu,
     adminMenu

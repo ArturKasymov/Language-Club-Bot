@@ -24,17 +24,12 @@ import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 
-	static languages = ['english', 'arabic', 'polish', 'german', 'french', 'chinese', 'russian',
-                                'ukrainian', 'spanish', 'hindi', 'portuguese', 'japanese', 'korean',
-                                'turkish', 'italian', 'hebrew', 'finnish', 'swedish', 'norwegian',
-                                'danish', 'irish', 'hungarian', 'bulgarian', 'persian', 'serbian',
-                                'slovak', 'czech', 'greek', 'latin', 'lithuanian', 'latvian', 'estonian'];
-
 	static propTypes = {
 		userId: React.PropTypes.string.isRequired,
 	}
 
 	state = {
+		nickname: '',
 		languages: new Set(),
 		ALL_LANGUAGES: [],
 		//TEMP
@@ -79,7 +74,7 @@ export default class App extends React.PureComponent {
 
 
 	jsonState() {
-		return JSON.stringify([...this.state.languages]);
+		return JSON.stringify({nickname: this.state.nickname, languages: [...this.state.languages]});
 	}
 
 	componentWillMount() {
@@ -98,6 +93,10 @@ export default class App extends React.PureComponent {
 		const languages = new Set(oldLanguages);
 		languages.delete(lang);
 		this.setState({languages: languages});
+	}
+
+	updateNickname(name) {
+		this.setState({nickname: name});
 	}
 
 	render() {
@@ -124,6 +123,11 @@ export default class App extends React.PureComponent {
 
 		return (
 			<div className='app'>
+				<section>
+					<CellsTitle>Your Nickname</CellsTitle>
+					<Input type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
+				</section>
+
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
 					<Form checkbox>{languagesFactory}</Form>

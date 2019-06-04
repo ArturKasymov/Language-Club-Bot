@@ -54,13 +54,8 @@ function sendGreetingMessage(id) {
     sendMessage(id, messages.greetingMessage);
 }
 
-function sendNicknameReqMessage(id) {
-    sendMessage(id, messages.nicknameReqMessage);
-}
-
-function sendLanguagesChoose(id) {
-    console.log(process.env.SERVER_URL);
-    sendMessage(id, messages.chooseLanguagesTemplate)
+function sendProfileSetUp(id) {
+    sendMessage(id, messages.profileSetUpTemplate)
 }
 
 function sendContactingUsMessage(id) {
@@ -83,8 +78,7 @@ export default {
     sendMessage,
     sendReadReceipt,
     sendGreetingMessage,
-    sendNicknameReqMessage,
-    sendLanguagesChoose,
+    sendProfileSetUp,
     sendContactingUsMessage,
     sendUserMenu,
     sendOrganizatorMenu,

@@ -50,14 +50,10 @@ function handleReceiveMessage(messaging_event) {
     // check if it is a location message
     console.log('handleMessage message:', JSON.stringify(message));
 
-    query(CONSTANTS.GET_STATUS, [sender_psid])
+    /*query(CONSTANTS.GET_STATUS, [sender_psid])
     .then((status) => {
         console.log("STATUS: " + status);
         switch (status) {
-            case CONSTANTS.STARTED_REGISTRATION:
-                if (message.text.indexOf(" ") != -1) sendAlert(sender_psid);
-                else handleInputNickname(sender_psid, message.text);
-                break;
             case CONSTANTS.CONTACTING_US:
                 // forward messages
                 break;
@@ -65,7 +61,7 @@ function handleReceiveMessage(messaging_event) {
                 console.log("handleMessage default");
                 break;
         }
-    });
+    });*/
 }
 
 
@@ -103,14 +99,9 @@ function handleGetStartedPostback(sender_psid) {
     sendApi.sendGreetingMessage(sender_psid);
 }
 
-function handleInputNickname(sender_psid, nickname) {
-    query(CONSTANTS.UPDATE_NICKNAME, [nickname, sender_psid]);
-    sendApi.sendLanguagesChoose(sender_psid);
-}
-
 function handleRegistrationStart(sender_psid) {
     query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.STARTED_REGISTRATION, sender_psid]);
-    sendApi.sendNicknameReqMessage(sender_psid);
+    sendApi.sendProfileSetUp(sender_psid);
 }
 
 function handleContactUs(sender_psid) {
