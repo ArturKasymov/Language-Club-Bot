@@ -22,7 +22,7 @@ Language.propTypes = {
   value: React.PropTypes.string.isRequired,
   checked: React.PropTypes.bool.isRequired,
   addLanguage: React.PropTypes.func.isRequired,
-  removeLanguage: React.PropTypes.func.isRequired
+  removeLanguage: React.PropTypes.func.isRequired,
 };
 
 export default Language;
