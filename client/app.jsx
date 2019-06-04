@@ -59,7 +59,7 @@ export default class App extends React.PureComponent {
 
 	pushData() {
 		this.setState({text: this.props.first_time.toString()});
-		if ((!this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.length == 0) {
+		if ((this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.length == 0) {
 			this.showAlert();
 			return;
 		}
