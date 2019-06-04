@@ -59,7 +59,7 @@ export default class App extends React.PureComponent {
 
 	pushData() {
 		this.setState({text: this.state.alert.toString()});
-		if ((this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.length == 0) {
+		if ((this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.size == 0) {
 			this.showAlert();
 			return;
 		}
@@ -138,12 +138,12 @@ export default class App extends React.PureComponent {
 		if (this.props.first_time && this.state.alert) {
 			input = <section><CellsTitle>Your Nickname</CellsTitle>
 					<Form><CellHeader>
-					<Input className='nicknameInput alert' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
+					<Input className='nickname-input alert' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
 			</CellHeader></Form></section>
 		} else if (this.props.first_time) {
 			input = <section><CellsTitle>Your Nickname</CellsTitle>
 					<Form><CellHeader>
-					<Input className='nicknameInput' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
+					<Input className='nickname-input' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
 			</CellHeader></Form></section>
 		}
 

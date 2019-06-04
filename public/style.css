@@ -342,9 +342,10 @@ section {
     height: 1.3rem;
 }
 
-.nicknameInput {
+.nickname-input {
     margin-left: 10px;
-    font-size: 1.1rem;
+    color: black;
+    font-size: 2rem;
 }
 
 .alert {
