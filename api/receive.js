@@ -73,7 +73,7 @@ function handleContactUs(sender_psid) {
     .then( (permissionLevel) => {
         switch(permissionLevel) {
             case '3':
-                //sendApi.sendAdminMenu(sender_psid);
+                sendApi.sendAdminPanelMessage(sender_psid);
             break;
             case '2':
                 sendApi.sendOrganizatorPanelMessage(sender_psid);

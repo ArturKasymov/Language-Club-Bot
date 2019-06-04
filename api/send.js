@@ -66,11 +66,16 @@ function sendOrganizatorPanelMessage(id) {
     sendMessage(id, messages.organizatorPanelMessage);
 }
 
+function sendAdminPanelMessage(id) {
+    sendMessage(id, messages.adminPanelMessage);
+}
+
 export default {
     sendMessage,
     sendReadReceipt,
     sendGreetingMessage,
     sendContactingUsMessage,
     sendNeedRegistrationMessage,
-    sendOrganizatorPanelMessage
+    sendOrganizatorPanelMessage,
+    sendAdminPanelMessage
 };

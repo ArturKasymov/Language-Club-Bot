@@ -30,7 +30,7 @@ const createMeetingButton = {
 
 const addOrganizatorButton = {
   "type": "web_url",
-  "title": "   Organizators",
+  "title": "  Organizators",
   "url": `${SERVER_URL}/organizators`,
   "webview_height_ratio":"full",
   "webview_share_button": "hide",
@@ -39,7 +39,7 @@ const addOrganizatorButton = {
 
 const meetingsListButton = {
   "type": "web_url",
-  "title": "   Meetings List",
+  "title": "  Meetings List",
   "url": `${SERVER_URL}/meetingsadmList`,
   "webview_height_ratio":"full",
   "webview_share_button": "hide",
@@ -48,7 +48,7 @@ const meetingsListButton = {
 
 const administrateMeetingButton = {
   "type": "web_url",
-  "title": "   Administrate meeting",
+  "title": "Administrate meeting",
   "url": `${SERVER_URL}/meetingsadm`,
   "webview_height_ratio":"full",
   "webview_share_button": "hide",
@@ -94,8 +94,20 @@ const organizatorPanelMessage = {
         "type": "template",
         "payload": {
             "template_type": "button",
-            "text": "Organizator panel",
+            "text": "ORGANIZATOR PANEL",
             "buttons": [createMeetingButton, meetingsListButton, administrateMeetingButton]
+        }
+    }
+};
+
+const adminPanelMessage = {
+    "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "button",
+            "text": "ADMIN PANEL",
+            "buttons": [addOrganizatorButton ,createMeetingButton, 
+            meetingsListButton, administrateMeetingButton]
         }
     }
 };
@@ -104,5 +116,6 @@ export default {
     greetingMessage,
     contactingUsMessage,
     registrationNeedMessage,
-    organizatorPanelMessage
+    organizatorPanelMessage,
+    adminPanelMessage
 }
