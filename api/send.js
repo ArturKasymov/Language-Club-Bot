@@ -54,33 +54,18 @@ function sendGreetingMessage(id) {
     sendMessage(id, messages.greetingMessage);
 }
 
-function sendProfileSetUp(id) {
-    sendMessage(id, messages.profileSetUpTemplate)
-}
-
 function sendContactingUsMessage(id) {
     sendMessage(id, messages.contactingUsMessage);
 }
 
-function sendUserMenu(id){
-    sendMessage(id,messages.userMenu);
-}
-
-function sendOrganizatorMenu(id){
-    sendMessage(id,messages.organizatorMenu);
-}
-
-function sendAdminMenu(id){
-    sendMessage(id,messages.adminMenu);
+function sendNeedRegistrationMessage(id) {
+    sendMessage(id, messages.registrationNeedMessage);
 }
 
 export default {
     sendMessage,
     sendReadReceipt,
     sendGreetingMessage,
-    sendProfileSetUp,
     sendContactingUsMessage,
-    sendUserMenu,
-    sendOrganizatorMenu,
-    sendAdminMenu
+    sendNeedRegistrationMessage
 };

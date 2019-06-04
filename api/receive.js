@@ -23,17 +23,11 @@ function handleReceivePostback(messaging_event) {
         case CONSTANTS.GET_STARTED:
             handleGetStartedPostback(sender_psid);
             break;
-        case CONSTANTS.START_REGISTRATION_YES:
-            handleRegistrationStart(sender_psid);
+        case CONSTANTS.REGISTRATION:
+            handleNeedRegistration(sender_psid);
             break;
         case CONSTANTS.CONTACT_US:
             handleContactUs(sender_psid);
-            break;
-        case CONSTANTS.BACK:
-            handleBack(sender_psid);
-            break;
-        case CONSTANTS.MENU:
-            handleMenu(sender_psid);
             break;
         default:
             console.log('Cannot differentiate the payload type');
@@ -65,66 +59,20 @@ function handleReceiveMessage(messaging_event) {
 }
 
 
-
-
-
-
-
-
-
-function handleMenu(sender_psid){
-    query(CONSTANTS.GET_PERMISSION_LEVEL, [sender_psid])
-    .then( (permissionLevel) => {
-        switch(permissionLevel) {
-            case '0':
-            //TODO rewrite
-            sendApi.sendGreetingMessage(sender_psid);
-            break;
-            case '1':
-            sendApi.sendUserMenu(sender_psid);
-            break;
-            case '2':
-            sendApi.sendOrganizatorMenu(sender_psid);
-            break;
-            case '3':
-            sendApi.sendAdminMenu(sender_psid);
-            break;
-        }
-    });
-}
-
-
 function handleGetStartedPostback(sender_psid) {
     query(CONSTANTS.INSERT_USER, [sender_psid, CONSTANTS.GOT_STARTED]);
     sendApi.sendGreetingMessage(sender_psid);
 }
 
-function handleRegistrationStart(sender_psid) {
-    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.STARTED_REGISTRATION, sender_psid]);
-    sendApi.sendProfileSetUp(sender_psid);
+function handleNeedRegistration(sender_psid){
+    sendApi.sendNeedRegistrationMessage(sender_psid);
 }
 
 function handleContactUs(sender_psid) {
-    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.CONTACTING_US, sender_psid]);
-    sendApi.sendContactingUsMessage(sender_psid);
-}
 
-function handleBack(sender_psid) {
-    query(CONSTANTS.BACK, sender_psid)
-    .then((status) => {
-        switch (status) {
-            case CONSTANTS.GOT_STARTED:
-                sendApi.sendGreetingMessage(sender_psid);
-                break;
-            case CONSTANTS.STARTED_REGISTRATION:
-                sendApi.sendNicknameReqMessage(sender_psid);
-                break;
-            case CONSTANTS.GOT_NICKNAME:
-                break;
-            default:
-                break;
-        }         
-    });
+    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.CONTACTING_US, sender_psid]);
+
+    sendApi.sendContactingUsMessage(sender_psid);
 }
 
 export default {
