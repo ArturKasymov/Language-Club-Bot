@@ -69,7 +69,7 @@ export default class App extends React.PureComponent {
 		console.log(`Push data: ${content}`);
 		
 		this.setState({
-      			text: 'Push data: ${content}'
+      			text: `Push data: ${content}`
     	});
 
 
