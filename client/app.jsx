@@ -66,7 +66,6 @@ export default class App extends React.PureComponent {
 
 	pushData() {
 		const content = this.jsonState();
-		console.log(`Push data: ${content}`);
 		//this.addLanguage('kazah');
 
 		//this.setTextFieldData(this.jsonState());
@@ -101,7 +100,7 @@ export default class App extends React.PureComponent {
 	}
 
 	jsonState() {
-		return JSON.stringify(this.state.languages);
+		return JSON.stringify([...this.state.languages]);
 	}
 
 	componentWillMount() {
@@ -117,7 +116,6 @@ export default class App extends React.PureComponent {
 	}
 
 	removeLanguage(self, lang) {
-		console.log(`Remove language: ${lang}`);
 		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.delete(lang);
