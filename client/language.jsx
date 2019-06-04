@@ -21,8 +21,8 @@ Language.propTypes = {
   label: React.PropTypes.string.isRequired,
   value: React.PropTypes.string.isRequired,
   checked: React.PropTypes.bool.isRequired,
-  addSkinType: React.PropTypes.func.isRequired,
-  removeSkinType: React.PropTypes.func.isRequired,
+  addLanguage: React.PropTypes.func.isRequired,
+  removeLanguage: React.PropTypes.func.isRequired,
 };
 
 export default Language;
