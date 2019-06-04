@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get('/:userID', ({params: {userID}}, res) => {
     console.log("IN GET /USERS/" + userID);
-
+    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.REGISTRATION, userID]);
     query(CONSTANTS.GET_ALL_LANGUAGES, [])
     .then((array) => {
         const langsJSON = JSON.stringify(array);
