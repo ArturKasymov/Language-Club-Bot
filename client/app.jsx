@@ -69,7 +69,7 @@ export default class App extends React.PureComponent {
 		//console.log(`Push data: ${content}`);
 		this.addLanguage('kazah');
 
-		this.setTextFieldData(this.jsonState());
+		//this.setTextFieldData(this.jsonState());
 		
 		//this.setTextFieldData(content.toString());
 
@@ -88,7 +88,7 @@ export default class App extends React.PureComponent {
 				response.status,
 				`Unable to save user data for User ${this.props.userId}'`
 			);*/
-		}).catch((err) => this.setTextFieldData(err.toString()) ).then(() => {
+		}).catch((err) => console.log(err) ).then(() => {
 			//try handle
 
 			//WebviewControls.close();
@@ -155,7 +155,7 @@ export default class App extends React.PureComponent {
 					<Form checkbox>{languagesFactory}</Form>
 				</section>
 
-				<h1>{this.state.text}</h1>
+				<p>{this.state.text}</p>
 
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>
