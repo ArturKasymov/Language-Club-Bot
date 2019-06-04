@@ -35,30 +35,28 @@ export default class App extends React.PureComponent {
 	}
 
 	state = {
-		languages: new Set()
+		languages: new Set(),
+		ALL_LANGUAGES: [],
+		//TEMP
+		text: 'init text'
 	}
 
 	pullData() {
-		/*const endpoint = `/users/${this.props.userId}`;
-		console.log(`Pulling data from ${endpoint}...`);
+		const endpoint = `/users/${this.props.userId}`;
 
 		fetch(endpoint)
 		.then((response) => {
-			console.log("RESPONSE "+ response.status + " " + response.json());
 			if (response.status == 200) {
 				return response.json();
 			}
 
-			console.error(
-				  status,
-				  `Unable to fetch user data for User ${this.props.userId}'`
-				);
+			const text = response.status.toString();
+			this.setState({text});
 		}).then((jsonResponse) => {
-				console.log(`Data fetched successfully: ${jsonResponse}`);
+				
+				this.setState({languages: new Set(), ALL_LANGUAGES: jsonResponse, text: 'success'});
 
-				this.setState({languages: [], all_languages: JSON.parse(jsonResponse).map((x) => (x[0].toUpperCase() + x.slice(1)))});
-
-		}).catch((err) => console.error('Error pulling data', err));*/
+		}).catch((err) => console.error('Error pulling data', err));
 	}
 
 
@@ -127,6 +125,8 @@ export default class App extends React.PureComponent {
 					<CellsTitle>What languages do you speak?</CellsTitle>
 					<Form checkbox>{languagesFactory}</Form>
 				</section>
+
+				<p>{this.state.text}</p>
 
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>
