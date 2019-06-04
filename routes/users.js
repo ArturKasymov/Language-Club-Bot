@@ -22,8 +22,10 @@ const router = express.Router();
 });*/
 
 router.put('/:userID', ({body, params: {userID}}, res) => {
+    const jackson = JSON.stringify(body);
     console.log(body);
-    query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, JSON.parse(body)]);
+    console.log(jackson);
+    query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, body]);
 
     res.sendStatus(204);
 });
