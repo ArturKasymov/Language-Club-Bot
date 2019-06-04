@@ -12,7 +12,7 @@ END
 $$ language plpgsql; 
 
 CREATE type lang_level_t as enum('Beginner', 'Elementary', 'Intermediate', 'Upper-Intermediate', 'Advanced', 'Proficient', 'Native speaker');
-CREATE type perm_level_t as enum('1','2','3');
+CREATE OR REPLACE type perm_level_t as enum('0','1','2','3');
 
 CREATE OR REPLACE FUNCTION get_user_languages(id varchar) RETURNS varchar[] AS
 $$

@@ -29,7 +29,7 @@ const CONTACTING_US = "CONTACTING_US";
 
 // POSTGRESQL QUERIES
 const GET_USER_DATA = 'SELECT * FROM users WHERE "facebookID"=$1::varchar';
-const INSERT_USER_QUERY = 'INSERT INTO users("facebookID", status, nickname, "permissionLevel") VALUES($1::varchar, $2::varchar, NULL, 0)';
+const INSERT_USER_QUERY = 'INSERT INTO users("facebookID", status, nickname, "permissionLevel") VALUES($1::varchar, $2::varchar, NULL, \'0\')';
 const UPDATE_CYCLE_STATUS = 'UPDATE users SET status=$1::varchar WHERE "facebookID"=$2::varchar';
 const GET_STATUS_QUERY = 'SELECT status FROM users WHERE "facebookID"=$1::varchar';
 const UPDATE_NICKNAME_QUERY = 'UPDATE users SET nickname=$1::varchar WHERE "facebookID"=$2::varchar';
