@@ -40,7 +40,7 @@ function query(type, args) {
         case CONSTANTS.GET_ALL_LANGUAGES:
             return getAllLanguages();
         case CONSTANTS.INSERT_USER_LANGUAGES:
-            insertUserLanguage(args);
+            insertUserLanguages(args);
             break;
         case CONSTANTS.GET_PERMISSION_LEVEL:
             return getPermLvl(args);
