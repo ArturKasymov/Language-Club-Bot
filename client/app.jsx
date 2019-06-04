@@ -69,14 +69,14 @@ export default class App extends React.PureComponent {
 		//console.log(`Push data: ${content}`);
 
 
-		this.setTextFieldData(this.state.languages.toString());
+		this.setTextFieldData(this.jsonState());
 		
 		//this.setTextFieldData(content.toString());
 
 		fetch(`/users/${this.props.userId}`, {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json'},
-			body: content,
+			body: ' ',
 		}).then((response) => {
 			if (response.ok) {
 				console.log('Data successfully updated on the server!');
