@@ -3,13 +3,52 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "persistent_menu":[
   {
   	"locale":"default",
-  	"composer_input_disabled": false,
   	"call_to_actions":[
   		{
-  			"title":"Menu",
-  			"type":"postback",
-  			"payload":"MENU"
+  			"title":"My profile",
+  			"type":"nested",
+  			"call_to_actions":[
+          { 
+            "title": "Nickname",
+            "type": "web_url",
+            "url": "https://language-club-bot.herokuapp.com/nickname",
+            "webview_height_ratio":"compact",
+            "messenger_extensions": true,
+            "webview_share_button": "hide"
+          },
+          {
+            "title": "Languages",
+            "type": "web_url",
+            "url": "https://language-club-bot.herokuapp.com/languages",
+            "webview_height_ratio":"full",
+            "messenger_extensions": true,
+            "webview_share_button": "hide"
+          }
+        ]
   		},
+      {
+        "title": "Meetings",
+        "type":"nested",
+        "payload" : "MEETINGS",
+        "call_to_actions":[
+          {
+            "title": "Future meetings",
+            "type": "web_url",
+            "url": "https://language-club-bot.herokuapp.com/futuremeetings",
+            "webview_height_ratio":"full",
+            "messenger_extensions": true,
+            "webview_share_button": "hide"
+          },
+          {
+            "title": "History",
+            "type": "web_url",
+            "url": "https://language-club-bot.herokuapp.com/historymeetings",
+            "webview_height_ratio":"full",
+            "messenger_extensions": true,
+            "webview_share_button": "hide",
+          }
+        ]
+      },
   		{
   			"title":"Contact us",
   			"type":"postback",
