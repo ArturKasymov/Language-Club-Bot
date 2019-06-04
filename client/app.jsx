@@ -70,7 +70,8 @@ export default class App extends React.PureComponent {
 
 
 		this.setTextFieldData('start');
-		this.setTextFieldData(content.toString());
+		
+		//this.setTextFieldData(content.toString());
 
 		fetch(`/users/${this.props.userId}`, {
 			method: 'PUT',
@@ -91,7 +92,7 @@ export default class App extends React.PureComponent {
 			);
 		}).catch((err) => this.setTextFieldData(err) ).then(() => {
 			//try handle
-			
+				
 			//WebviewControls.close();
 		});
 	}
