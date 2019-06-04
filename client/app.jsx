@@ -65,13 +65,13 @@ export default class App extends React.PureComponent {
 
 
 	pushData() {
-		//const content = this.jsonState();
-		//console.log(`Push data: ${content}`);
-		this.addLanguage('kazah');
+		const content = this.jsonState();
+		console.log(`Push data: ${content}`);
+		//this.addLanguage('kazah');
 
 		//this.setTextFieldData(this.jsonState());
 		
-		//this.setTextFieldData(content.toString());
+		this.setTextFieldData(content.toString());
 
 		fetch(`/users/${this.props.userId}`, {
 			method: 'PUT',
@@ -89,9 +89,7 @@ export default class App extends React.PureComponent {
 				`Unable to save user data for User ${this.props.userId}'`
 			);*/
 		}).catch((err) => console.log(err) ).then(() => {
-			//try handle
-
-			//WebviewControls.close();
+			WebviewControls.close();
 		});
 	}
 
@@ -116,6 +114,7 @@ export default class App extends React.PureComponent {
 		const languages = new Set(oldLanguages);
 		languages.add(lang);
 		this.setState({languages: languages});
+		setTextFieldData(lang);
 	}
 
 	removeLanguage(lang) {
