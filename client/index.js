@@ -9,7 +9,7 @@ import Oops from './oops.jsx';
 
 import 'weui';
 //import 'react-weui/build/packages/react-weui.css';
-//import '../public/style.css';
+import '../public/style.css';
 
 window.attachApp = (first_time, userId) => {
     if (userId) {
@@ -22,7 +22,8 @@ window.attachApp = (first_time, userId) => {
 
 window.attachNickname = (userID) => {
     if (userID) {
-        const app = <Nickname userId={userId} />;
+        document.getElementById('content').innerHTML = "HERR";
+        const app = <Nickname userId={userID} />;
         ReactDOM.render(app, document.getElementById('content'));
     } else {
         ReactDOM.render(<Oops />, document.getElementById('content'));
