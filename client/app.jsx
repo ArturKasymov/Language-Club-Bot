@@ -105,7 +105,7 @@ export default class App extends React.PureComponent {
 
 	addLanguage(self, lang) {
 		const oldLanguages = self.state.languages;
-		//const languages = new Set(oldLanguages);
+		const languages = new Set(oldLanguages);
 		//languages.add(lang);
 		self.setState({languages: oldLanguages, text: lang});
 	}
