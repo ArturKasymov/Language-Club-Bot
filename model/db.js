@@ -180,7 +180,7 @@ function insertUserLanguages(args) {
         } else {
             var lang;
             for (lang in args[1]) {
-                client.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], lang], (err, result) => {
+                client.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], args[1][lang]], (err, result) => {
                     release();
                     if (err) return console.error('Error INSERT_LANGUAGES query', err.stack);
                 })
