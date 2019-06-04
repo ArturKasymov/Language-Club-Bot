@@ -109,20 +109,19 @@ export default class App extends React.PureComponent {
 	}
 
 	addLanguage(self, lang) {
-		/*console.log(`Add language: ${lang}`);
 		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.add(lang);
-		this.setState({languages: languages});*/
+		this.setState({languages: languages});
 		self.setState({text: lang});
 	}
 
 	removeLanguage(self, lang) {
-		/*console.log(`Remove language: ${lang}`);
+		console.log(`Remove language: ${lang}`);
 		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.delete(lang);
-		this.setState({languages: languages});*/
+		this.setState({languages: languages});
 	}
 
 	render() {
