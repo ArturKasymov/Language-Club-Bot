@@ -32,17 +32,33 @@ const contactUsButton = {
 
 const myAccountButton = {
   "type": "postback",
-  "title": "   My Account   ",
+  "title": "      My Account",
   "payload": CONSTANTS.MY_ACCOUNT
 }
 
 const meetingsButton = {
   "type": "postback",
-  "title": "   Meetings   ",
+  "title": "      Meetings",
   "payload": CONSTANTS.MEETINGS
 }
 
+const createMeetingButton = {
+  "type": "postback",
+  "title": "   Create meeting",
+  "payload": CONSTANTS.CREATE_MEETING
+}
 
+const adminPanelButton = {
+  "type": "postback",
+  "title": "   Admin panel   ",
+  "payload": CONSTANTS.ADMIN_PANEL
+}
+
+const addOrganizatorButton = {
+  "type": "postback",
+  "title": "   Add Organizator   ",
+  "payload": CONSTANTS.ADMIN_PANEL
+}
 
 //Messages
 const greetingMessage = {
@@ -100,11 +116,33 @@ const userMenu ={
     }
 };
 
+const organizatorMenu ={
+    "attachment": {
+        "type": "template",
+        "payload":{
+            "template_type": "button",
+            "text" : "Menu",
+            "buttons": [myAccountButton, meetingsButton, createMeetingButton]
+        }
+    }
+};
 
+const adminMenu ={
+    "attachment": {
+        "type": "template",
+        "payload":{
+            "template_type": "button",
+            "text" : "Menu",
+            "buttons": [myAccountButton, meetingsButton, adminPanelButton]
+        }
+    }
+};
 export default {
     greetingMessage,
     nicknameReqMessage,
     contactingUsMessage,
     chooseLanguagesTemplate,
-    userMenu
+    userMenu,
+    organizatorMenu,
+    adminMenu
 }

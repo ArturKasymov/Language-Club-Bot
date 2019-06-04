@@ -87,6 +87,12 @@ function handleMenu(sender_psid){
             case '1':
             sendApi.sendUserMenu(sender_psid);
             break;
+            case '2':
+            sendApi.sendOrganizatorMenu(sender_psid);
+            break;
+            case '3':
+            sendApi.sendAdminMenu(sender_psid);
+            break;
         }
     });
 }

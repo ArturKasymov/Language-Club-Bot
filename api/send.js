@@ -71,6 +71,14 @@ function sendUserMenu(id){
     sendMessage(id,messages.userMenu);
 }
 
+function sendOrganizatorMenu(id){
+    sendMessage(id,messages.organizatorMenu);
+}
+
+function sendAdminMenu(id){
+    sendMessage(id,messages.adminMenu);
+}
+
 export default {
     sendMessage,
     sendReadReceipt,
@@ -78,5 +86,7 @@ export default {
     sendNicknameReqMessage,
     sendLanguagesChoose,
     sendContactingUsMessage,
-    sendUserMenu
+    sendUserMenu,
+    sendOrganizatorMenu,
+    sendAdminMenu
 };
