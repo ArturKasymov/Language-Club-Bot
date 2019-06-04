@@ -3,7 +3,7 @@
 import React from 'react';
 import {CellBody, CellHeader, Checkbox, FormCell} from 'react-weui';
 
-const Language = ({label, value, checked, addLanguage, removeLanguage, temp}) => {
+const Language = ({label, value, checked, addLanguage, removeLanguage}) => {
 	const toggle = checked ? removeLanguage : addLanguage;
 
 	return (
@@ -12,7 +12,7 @@ const Language = ({label, value, checked, addLanguage, removeLanguage, temp}) =>
 				<Checkbox name={value} value={value} defaultChecked={checked} onClick={() => toggle(value)} />
 			</CellHeader>
 
-			<CellBody>{temp}</CellBody>
+			<CellBody>{addLanguage}</CellBody>
 		</FormCell>
 	);
 };
@@ -22,8 +22,7 @@ Language.propTypes = {
   value: React.PropTypes.string.isRequired,
   checked: React.PropTypes.bool.isRequired,
   addLanguage: React.PropTypes.func.isRequired,
-  removeLanguage: React.PropTypes.func.isRequired,
-  temp: React.PropTypes.func.isRequired
+  removeLanguage: React.PropTypes.func.isRequired
 };
 
 export default Language;

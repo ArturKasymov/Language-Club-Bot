@@ -109,20 +109,20 @@ export default class App extends React.PureComponent {
 	}
 
 	addLanguage(lang) {
-		console.log(`Add language: ${lang}`);
+		/*console.log(`Add language: ${lang}`);
 		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.add(lang);
-		this.setState({languages: languages});
+		this.setState({languages: languages});*/
 		setTextFieldData(lang);
 	}
 
 	removeLanguage(lang) {
-		console.log(`Remove language: ${lang}`);
+		/*console.log(`Remove language: ${lang}`);
 		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.delete(lang);
-		this.setState({languages: languages});
+		this.setState({languages: languages});*/
 	}
 
 	render() {
@@ -143,7 +143,6 @@ export default class App extends React.PureComponent {
 					checked={checked}
 					addLanguage={this.addLanguage.bind(this)}
 					removeLanguage={this.removeLanguage.bind(this)}
-					temp={this.addLanguage}
 				/>
 			);
 		});
