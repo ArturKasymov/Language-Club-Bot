@@ -30,13 +30,13 @@ const contactUsButton = {
   "payload": CONSTANTS.CONTACT_US
 }
 
-const myAccountButton {
+const myAccountButton = {
   "type": "postback",
   "title": "My Account",
   "payload": CONSTANTS.MY_ACCOUNT
 }
 
-const meetingsButton {
+const meetingsButton = {
   "type": "postback",
   "title": "Meetings",
   "payload": CONSTANTS.MEETINGS
