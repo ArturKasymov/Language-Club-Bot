@@ -42,6 +42,8 @@ function query(type, args) {
         case CONSTANTS.INSERT_USER_LANGUAGES:
             insertUserLanguage(args);
             break;
+        case CONSTANTS.GET_PERMISSION_LEVEL:
+            return getPermLvl(args);
         default:
             break;
     }
@@ -126,6 +128,19 @@ function getStatus(args) {
         return result.rows[0].status;
     });
 };
+
+function getPermLvl(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_PERMISSION_LEVEL_QUERY, args));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("permLvl: " + result.rows[0].permissionLevel);
+        return result.rows[0].permissionLevel;
+    });  
+}
 
 function getAllLanguages() {
     return new Promise((resolve, reject) => {

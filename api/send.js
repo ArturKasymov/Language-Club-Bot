@@ -67,11 +67,16 @@ function sendContactingUsMessage(id) {
     sendMessage(id, messages.contactingUsMessage);
 }
 
+function sendUserMenu(id){
+    sendMessage(id,messages.userMenu);
+}
+
 export default {
     sendMessage,
     sendReadReceipt,
     sendGreetingMessage,
     sendNicknameReqMessage,
     sendLanguagesChoose,
-    sendContactingUsMessage
+    sendContactingUsMessage,
+    sendUserMenu
 };

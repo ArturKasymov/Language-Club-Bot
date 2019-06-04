@@ -33,7 +33,7 @@ function handleReceivePostback(messaging_event) {
             handleBack(sender_psid);
             break;
         case CONSTANTS.MENU:
-            //handleMenu(sender_psid);
+            handleMenu(sender_psid);
             break;
         default:
             console.log('Cannot differentiate the payload type');
@@ -76,7 +76,20 @@ function handleReceiveMessage(messaging_event) {
 
 
 
-
+function handleMenu(sender_psid){
+    query(CONSTANTS.GET_PERMISSION_LEVEL, sender_psid)
+    .then( (permissionLevel) => {
+        switch(permissionLevel) {
+            case '0':
+            //TODO rewrite
+            sendApi.sendGreetingMessage(sender_psid);
+            break;
+            case '1':
+            sendApi.sendUserMenu(sender_psid);
+            break;
+        }
+    });
+}
 
 
 function handleGetStartedPostback(sender_psid) {
