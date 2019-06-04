@@ -69,7 +69,7 @@ export default class App extends React.PureComponent {
 		//console.log(`Push data: ${content}`);
 
 
-		this.setTextFieldData('start');
+		this.setTextFieldData(this.state.languages);
 		
 		//this.setTextFieldData(content.toString());
 
@@ -84,13 +84,11 @@ export default class App extends React.PureComponent {
 				return;
 			}
 
-			this.setTextFieldData('error response')
-
 			/*console.error(
 				response.status,
 				`Unable to save user data for User ${this.props.userId}'`
 			);*/
-		}).catch((err) => this.setTextFieldData(err) ).then(() => {
+		}).catch((err) => this.setTextFieldData(err.toString) ).then(() => {
 			//try handle
 
 			//WebviewControls.close();
