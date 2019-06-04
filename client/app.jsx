@@ -80,19 +80,19 @@ export default class App extends React.PureComponent {
 		}).then((response) => {
 			if (response.ok) {
 				console.log('Data successfully updated on the server!');
-
+				this.setTextFieldData('ok');
 				return;
 			}
 
+			this.setTextFieldData('error response')
 
-
-			console.error(
+			/*console.error(
 				response.status,
 				`Unable to save user data for User ${this.props.userId}'`
-			);
+			);*/
 		}).catch((err) => this.setTextFieldData(err) ).then(() => {
 			//try handle
-				
+
 			//WebviewControls.close();
 		});
 	}
