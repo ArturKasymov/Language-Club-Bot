@@ -71,7 +71,7 @@ export default class App extends React.PureComponent {
 		
 		this.setTextFieldData(content);
 
-		fetch(`/users/${this.props.userId}`, {
+		/*fetch(`/users/${this.props.userId}`, {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json'},
 			body: content,
@@ -85,7 +85,7 @@ export default class App extends React.PureComponent {
 			setTextFieldData(response.status);
 		}).catch((err) => setTextFieldData(err) ).then(() => {
 			//WebviewControls.close();
-		});
+		});*/
 	}
 
 	//todo delete temp function
@@ -103,15 +103,15 @@ export default class App extends React.PureComponent {
 		this.pullData();
 	}
 
-	addLanguage(lang) {
-		const oldLanguages = this.state.languages;
+	addLanguage(self, lang) {
+		const oldLanguages = self.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.add(lang);
-		this.setState({languages: languages});
-		this.setState({text: this.jsonState()});
+		self.setState({languages: languages});
+		self.setState({text: self.jsonState()});
 	}
 
-	removeLanguage(lang) {
+	removeLanguage(self, lang) {
 		/*const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.delete(lang);
@@ -136,6 +136,7 @@ export default class App extends React.PureComponent {
 					checked={checked}
 					addLanguage={this.addLanguage.bind(this)}
 					removeLanguage={this.removeLanguage.bind(this)}
+					self={this}
 				/>
 			);
 		});
