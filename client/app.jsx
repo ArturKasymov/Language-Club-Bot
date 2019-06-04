@@ -67,7 +67,7 @@ export default class App extends React.PureComponent {
 	pushData() {
 		//const content = this.jsonState();
 		//console.log(`Push data: ${content}`);
-
+		this.addLanguage('kazah');
 
 		this.setTextFieldData(this.jsonState());
 		

@@ -54,7 +54,7 @@ body,
     height: 1.5rem;
 }
 
-.weui-cells_checkbox .weui-check:checked + .weui-icon-checked:before {
+.weui-cells_checkbox .weui-check:checked + .weui-icon-checked:after {
     color: #0083FF;
     border: none;
 }
