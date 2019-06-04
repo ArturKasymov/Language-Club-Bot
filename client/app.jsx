@@ -35,8 +35,6 @@ export default class App extends React.PureComponent {
 	}
 
 	state = {
-		//todo handle
-		text: 'init text',
 		languages: new Set()
 	}
 
@@ -66,7 +64,6 @@ export default class App extends React.PureComponent {
 
 	pushData() {
 		const content = this.jsonState();		
-		this.setTextFieldData(content);
 
 		fetch(`/users/${this.props.userId}`, {
 			method: 'PUT',
@@ -75,22 +72,15 @@ export default class App extends React.PureComponent {
 		}).then((response) => {
 			if (response.ok) {
 				console.log('Data successfully updated on the server!');
-				this.setTextFieldData('ok');
 				return;
 			}
-
-			setTextFieldData(response.status);
-		}).catch((err) => setTextFieldData(err) ).then(() => {
+			WebviewControls.close();
+		}).catch((err) => console.log(err) ).then(() => {
 			//WebviewControls.close();
+			//TODO handle error
 		});
 	}
 
-	//todo delete temp function
-	setTextFieldData(data){
-		this.setState({
-      			text: data
-    		});
-	}
 
 	jsonState() {
 		return JSON.stringify([...this.state.languages]);
@@ -140,8 +130,6 @@ export default class App extends React.PureComponent {
 					<CellsTitle>What languages do you speak?</CellsTitle>
 					<Form checkbox>{languagesFactory}</Form>
 				</section>
-
-				<p>{this.state.text}</p>
 
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>

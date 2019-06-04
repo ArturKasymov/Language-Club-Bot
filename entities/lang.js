@@ -1,13 +1,5 @@
 class Lang {
-    //TEMP
-    static TYPES = [
-        'english',
-        'deutsch',
-        'polish',
-        'franch',
-        'spanish'
-    ];
-
+    
     constructor(attributes) {
         const {
             id,
