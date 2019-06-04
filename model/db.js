@@ -181,13 +181,15 @@ function insertUserLanguages(args) {
         if (err) {
             return console.log('Error acquiring client', err.stack);
         } else {
-            var lang;
-            for (lang in args[1]) {
-                client.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], args[1][lang]], (err, result) => {
-                    release();
-                    if (err) return console.error('Error INSERT_LANGUAGES query', err.stack);
-                })
-            }
+            client.query(CONSTANTS.DELETE_ALL_USER_LANGUAGES, [args[0]], (err, result) => {
+                var lang;
+                for (lang in args[1]) {
+                    client.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], args[1][lang]], (err, result) => {
+                        release();
+                        if (err) return console.error('Error INSERT_LANGUAGES query', err.stack);
+                    })
+                }
+            });
         }
     })
 }

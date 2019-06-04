@@ -25,6 +25,7 @@ import Language from './language.jsx';
 export default class App extends React.PureComponent {
 
 	static propTypes = {
+		first_time: React.PropTypes.bool.isRequired,
 		userId: React.PropTypes.string.isRequired,
 	}
 
@@ -32,8 +33,7 @@ export default class App extends React.PureComponent {
 		nickname: '',
 		languages: new Set(),
 		ALL_LANGUAGES: [],
-		//TEMP
-		text: 'init text'
+		alert: false,
 	}
 
 	pullData() {
@@ -56,6 +56,11 @@ export default class App extends React.PureComponent {
 
 
 	pushData() {
+		if ((!this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.lenguages.length == 0) {
+			this.showAlert();
+			return;
+		}
+
 		const content = this.jsonState();		
 
 		fetch(`/users/${this.props.userId}`, {
@@ -74,7 +79,8 @@ export default class App extends React.PureComponent {
 
 
 	jsonState() {
-		return JSON.stringify({nickname: this.state.nickname, languages: [...this.state.languages]});
+		if (this.props.first_time) return JSON.stringify({nickname: this.state.nickname, languages: [...this.state.languages]});
+		else return JSON.stringify({languages: [...this.state.languages]});
 	}
 
 	componentWillMount() {
@@ -96,7 +102,11 @@ export default class App extends React.PureComponent {
 	}
 
 	updateNickname(name) {
-		this.setState({nickname: name});
+		this.setState({nickname: name, alert: false});
+	}
+
+	showAlert() {
+		this.setState({alert: true});
 	}
 
 	render() {
@@ -121,21 +131,35 @@ export default class App extends React.PureComponent {
 			);
 		});
 
+		var input;
+		if (this.props.first_time && this.state.alert) {
+			input = <CellsTitle>Your Nickname</CellsTitle>
+					<Form><CellHeader>
+					<Input className='nicknameInput alert' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
+			</CellHeader></Form>
+		} else if (this.props.first_time) {
+			input = <CellsTitle>Your Nickname</CellsTitle>
+					<Form><CellHeader>
+					<Input className='nicknameInput' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
+			</CellHeader></Form>
+		}
+
 		return (
 			<div className='app'>
+				{this.props.first_time &&
 				<section>
-					<CellsTitle>Your Nickname</CellsTitle>
-					<Form><CellHeader>
-					<Input type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
-					</CellHeader></Form>
+					{input}
 				</section>
+				}
 
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
 					<Form checkbox>{languagesFactory}</Form>
 				</section>
 
-				<p>{this.state.text}</p>
+				{this.state.alert && 
+					<p style="color: red;">MAYBE YOU HAVE CHOSEN NO LANGUAGE</p>
+				}
 
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>

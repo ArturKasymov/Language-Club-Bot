@@ -6,7 +6,7 @@ const SERVER_URL = process.env.SERVER_URL;
 //Buttons
 const profileSetUpButton = {
     "type": "web_url",
-    "url": `${SERVER_URL}/langs`,
+    "url": `${SERVER_URL}/registration`,
     "title": "My Profile",
     "webview_height_ratio": "full",
     messenger_extensions: true,
