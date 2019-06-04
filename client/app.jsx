@@ -65,6 +65,7 @@ export default class App extends React.PureComponent {
 
 
 	pushData() {
+		this.state.languages = new Set();
 		this.state.languages.add('kazah');
 		const content = this.jsonState();
 
