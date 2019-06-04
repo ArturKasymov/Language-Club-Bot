@@ -66,10 +66,11 @@ export default class App extends React.PureComponent {
 
 	pushData() {
 		const content = this.jsonState();
-		console.log(`Push data: ${content}`);
-		
-		setTextFieldData('start');
-		setTextFieldData(content.toString());
+		//console.log(`Push data: ${content}`);
+
+
+		this.setTextFieldData('start');
+		this.setTextFieldData(content.toString());
 
 		fetch(`/users/${this.props.userId}`, {
 			method: 'PUT',
@@ -88,7 +89,7 @@ export default class App extends React.PureComponent {
 				response.status,
 				`Unable to save user data for User ${this.props.userId}'`
 			);
-		}).catch((err) => setTextFieldData(err) ).then(() => {
+		}).catch((err) => this.setTextFieldData(err) ).then(() => {
 			//try handle
 			
 			//WebviewControls.close();
