@@ -13,6 +13,7 @@ const Language = ({label, value, checked, addLanguage, removeLanguage}) => {
 			</CellHeader>
 
 			<CellBody>{label}</CellBody>
+			<p> {toggle} </p>
 		</FormCell>
 	);
 };
