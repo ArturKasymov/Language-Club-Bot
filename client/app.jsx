@@ -68,10 +68,8 @@ export default class App extends React.PureComponent {
 		const content = this.jsonState();
 		console.log(`Push data: ${content}`);
 		
-		this.setState({
-      			text: content
-    	});
-
+		setTextFieldData('start');
+		setTextFieldData(content.toString());
 
 		fetch(`/users/${this.props.userId}`, {
 			method: 'PUT',
@@ -80,8 +78,11 @@ export default class App extends React.PureComponent {
 		}).then((response) => {
 			if (response.ok) {
 				console.log('Data successfully updated on the server!');
+
 				return;
 			}
+
+			
 
 			console.error(
 				response.status,
