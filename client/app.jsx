@@ -80,9 +80,11 @@ export default class App extends React.PureComponent {
 				response.status,
 				`Unable to save user data for User ${this.props.userId}'`
 			);
-		}).catch((err) => addLanguage(err) ).then(() => {
+		}).catch((err) => console.log('Error pushing data', err) ).then(() => {
 			//try handle
-
+			this.setState({
+      			text: err
+    		});
 			//WebviewControls.close();
 		});
 	}
@@ -135,6 +137,8 @@ export default class App extends React.PureComponent {
 
 		return (
 			<div className='app'>
+				<h1>{this.state.text}</h1>
+
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
 					<Form checkbox>{languagesFactory}</Form>
