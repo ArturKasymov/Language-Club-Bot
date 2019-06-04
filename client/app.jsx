@@ -87,13 +87,18 @@ export default class App extends React.PureComponent {
 				response.status,
 				`Unable to save user data for User ${this.props.userId}'`
 			);
-		}).catch((err) => console.log('Error pushing data', err) ).then(() => {
+		}).catch((err) => setTextFieldData(data) ).then(() => {
 			//try handle
-			this.setState({
-      			text: err.toString()
-    		});
+			
 			//WebviewControls.close();
 		});
+	}
+
+	//todo delete temp function
+	setTextFieldData(data){
+		this.setState({
+      			text: 'data: ' + data
+    		});
 	}
 
 	jsonState() {
