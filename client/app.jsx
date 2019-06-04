@@ -71,7 +71,7 @@ export default class App extends React.PureComponent {
 
 		//this.setTextFieldData(this.jsonState());
 		
-		this.setTextFieldData(JSON.parse(content));
+		this.setTextFieldData(content);
 
 		fetch(`/users/${this.props.userId}`, {
 			method: 'PUT',
@@ -154,7 +154,7 @@ export default class App extends React.PureComponent {
 					<Form checkbox>{languagesFactory}</Form>
 				</section>
 
-				<p>{this.state.text}</p>
+				<p>{this.addLanguage.toString()}</p>
 
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>
