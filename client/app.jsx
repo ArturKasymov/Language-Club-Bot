@@ -98,7 +98,7 @@ export default class App extends React.PureComponent {
 	//todo delete temp function
 	setTextFieldData(data){
 		this.setState({
-      			text: ('data: ' + data)
+      			text: data
     		});
 	}
 
