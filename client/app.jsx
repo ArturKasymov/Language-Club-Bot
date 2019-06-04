@@ -90,7 +90,7 @@ export default class App extends React.PureComponent {
 		}).catch((err) => console.log('Error pushing data', err) ).then(() => {
 			//try handle
 			this.setState({
-      			text: 'error'
+      			text: err
     		});
 			//WebviewControls.close();
 		});
