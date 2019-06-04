@@ -37,7 +37,7 @@ export default class App extends React.PureComponent {
 	state = {
 		//todo handle
 		text: 'init text',
-		languages: []
+		languages: new Set()
 	}
 
 	pullData() {
@@ -102,27 +102,24 @@ export default class App extends React.PureComponent {
 
 	addLanguage(self, lang) {
 		const oldLanguages = self.state.languages;
-		const languages = new Array(...oldLanguages);
-		languages.push(lang);
+		const languages = new Set(oldLanguages);
+		languages.add(lang);
 		self.setState({languages: languages, text: lang});
 	}
 
 	removeLanguage(self, lang) {
 		const oldLanguages = self.state.languages;
-		const ind = oldLanguages.indexOf(lang);
-		const languages = oldLanguages.slice(0, ind-1).concat(oldLanguages.slice(ind));
+		const languages = new Set(oldLanguages);
+		languages.delete(lang);
 		this.setState({languages: languages, text: lang});
 	}
 
 	render() {
-		/*if (App.languages.length == 0) {
-		  return <Loading />;
-		}*/
 		
 		const languagesFactory = App.languages.map((lang, index) => {
 			//const value = Lang.TYPES[index];
 			const value = lang;
-			const checked = this.state.languages.includes(value);
+			const checked = this.state.languages.has(value);
 
 			return (
 				<Language 
