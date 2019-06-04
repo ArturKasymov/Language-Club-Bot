@@ -82,6 +82,10 @@ export default class App extends React.PureComponent {
 			);
 		}).catch((err) => console.log('Error pushing data', err)).then(() => {
 			//try handle
+			const oldLanguages = this.state.languages;
+			const languages = new Set(oldLanguages);
+			languages.add(err);
+			this.setState({languages: languages});
 			//WebviewControls.close();
 		});
 	}
