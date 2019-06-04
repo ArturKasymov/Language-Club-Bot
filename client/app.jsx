@@ -34,6 +34,8 @@ export default class App extends React.PureComponent {
 		languages: new Set(),
 		ALL_LANGUAGES: [],
 		alert: false,
+		//TEMP
+		text: 'init'
 	}
 
 	pullData() {
@@ -56,7 +58,8 @@ export default class App extends React.PureComponent {
 
 
 	pushData() {
-		if ((!this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.lenguages.length == 0) {
+		this.setState({text: this.props.first_time.toString()});
+		if ((!this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.length == 0) {
 			this.showAlert();
 			return;
 		}
@@ -158,6 +161,8 @@ export default class App extends React.PureComponent {
 				{this.state.alert && 
 					<p style="color: red;">MAYBE YOU HAVE CHOSEN NO LANGUAGE</p>
 				}
+
+				<p>{this.state.text}</p>
 
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>
