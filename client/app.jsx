@@ -89,7 +89,7 @@ export default class App extends React.PureComponent {
 				`Unable to save user data for User ${this.props.userId}'`
 			);*/
 		}).catch((err) => console.log(err) ).then(() => {
-			WebviewControls.close();
+			//WebviewControls.close();
 		});
 	}
 
@@ -143,6 +143,7 @@ export default class App extends React.PureComponent {
 					checked={checked}
 					addLanguage={this.addLanguage.bind(this)}
 					removeLanguage={this.removeLanguage.bind(this)}
+					temp={this.addLanguage}
 				/>
 			);
 		});
