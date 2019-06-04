@@ -8,11 +8,6 @@ class Lang {
         'spanish'
     ];
 
-    //TODO
-    static LEVELS = [
-        
-    ];
-
     constructor(attributes) {
         const {
             id,

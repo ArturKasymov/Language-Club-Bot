@@ -81,7 +81,8 @@ export default class App extends React.PureComponent {
 				`Unable to save user data for User ${this.props.userId}'`
 			);
 		}).catch((err) => console.log('Error pushing data', err)).then(() => {
-			WebviewControls.close();
+			//try handle
+			//WebviewControls.close();
 		});
 	}
 
