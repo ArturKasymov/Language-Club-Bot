@@ -74,10 +74,8 @@ export default class App extends React.PureComponent {
 				console.log('Data successfully updated on the server!');
 				return;
 			}
+		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
 			WebviewControls.close();
-		}).catch((err) => console.log(err) ).then(() => {
-			//WebviewControls.close();
-			//TODO handle error
 		});
 	}
 
@@ -90,18 +88,18 @@ export default class App extends React.PureComponent {
 		this.pullData();
 	}
 
-	addLanguage(self, lang) {
-		const oldLanguages = self.state.languages;
+	addLanguage(lang) {
+		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.add(lang);
-		self.setState({languages: languages, text: lang});
+		this.setState({languages: languages});
 	}
 
-	removeLanguage(self, lang) {
-		const oldLanguages = self.state.languages;
+	removeLanguage(lang) {
+		const oldLanguages = this.state.languages;
 		const languages = new Set(oldLanguages);
 		languages.delete(lang);
-		this.setState({languages: languages, text: lang});
+		this.setState({languages: languages});
 	}
 
 	render() {
@@ -119,7 +117,6 @@ export default class App extends React.PureComponent {
 					checked={checked}
 					addLanguage={this.addLanguage.bind(this)}
 					removeLanguage={this.removeLanguage.bind(this)}
-					self={this}
 				/>
 			);
 		});

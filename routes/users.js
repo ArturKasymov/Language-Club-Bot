@@ -22,7 +22,6 @@ const router = express.Router();
 });*/
 
 router.put('/:userID', ({body, params: {userID}}, res) => {
-    console.log("THIS MUST BE LANGNAME: " + body[0]);
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, body]);
 
     res.sendStatus(204);
