@@ -106,8 +106,7 @@ const adminPanelMessage = {
         "payload": {
             "template_type": "button",
             "text": "ADMIN PANEL",
-            "buttons": [addOrganizatorButton ,createMeetingButton, 
-            meetingsListButton, administrateMeetingButton]
+            "buttons": [addOrganizatorButton]
         }
     }
 };
