@@ -28,8 +28,9 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
 
     res.sendStatus(204);
 
+    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.IN_MENU, userID]);
     query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['1', userID]);
-    receiveApi.handleMenu(userID);
+    sendApi.sendUserMenu(userID);
 });
 
 
