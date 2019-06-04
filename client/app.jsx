@@ -65,7 +65,7 @@ export default class App extends React.PureComponent {
 
 
 	pushData() {
-		const content = this.jsonState();
+		//const content = this.jsonState();
 		//console.log(`Push data: ${content}`);
 
 
