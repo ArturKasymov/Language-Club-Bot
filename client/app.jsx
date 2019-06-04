@@ -133,23 +133,21 @@ export default class App extends React.PureComponent {
 
 		var input;
 		if (this.props.first_time && this.state.alert) {
-			input = <CellsTitle>Your Nickname</CellsTitle>
+			input = <section><CellsTitle>Your Nickname</CellsTitle>
 					<Form><CellHeader>
 					<Input className='nicknameInput alert' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
-			</CellHeader></Form>
+			</CellHeader></Form></section>
 		} else if (this.props.first_time) {
-			input = <CellsTitle>Your Nickname</CellsTitle>
+			input = <section><CellsTitle>Your Nickname</CellsTitle>
 					<Form><CellHeader>
 					<Input className='nicknameInput' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
-			</CellHeader></Form>
+			</CellHeader></Form></section>
 		}
 
 		return (
 			<div className='app'>
 				{this.props.first_time &&
-				<section>
-					{input}
-				</section>
+				input
 				}
 
 				<section>

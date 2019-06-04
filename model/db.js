@@ -14,10 +14,10 @@ var config = {
 const pool = new pg.Pool(config);
 
 // ONLY FOR TESTING
-pool.query('DELETE FROM users WHERE 1=1')
+pool.query('DELETE FROM languages WHERE 1=1')
     .then((err, res) => console.log(err, res))
     .catch(err => console.log(err));
-pool.query('DELETE FROM languages WHERE 1=1')
+pool.query('DELETE FROM users WHERE 1=1')
     .then((err, res) => console.log(err, res))
     .catch(err => console.log(err));
 // END

@@ -68,22 +68,20 @@ export default class Nickname extends React.PureComponent {
 	render() {	
 		var input;
 		if (this.state.alert) {
-			input = <CellsTitle>Your Nickname</CellsTitle>
+			input = <section><CellsTitle>Your Nickname</CellsTitle>
 					<Form><CellHeader>
 					<Input className='nicknameInput alert' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
-			</CellHeader></Form>
+			</CellHeader></Form></section>
 		} else {
-			input = <CellsTitle>Your Nickname</CellsTitle>
+			input = <section><CellsTitle>Your Nickname</CellsTitle>
 					<Form><CellHeader>
 					<Input className='nicknameInput' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
-			</CellHeader></Form>
+			</CellHeader></Form></section>
 		}
 
 		return (
 			<div className='app'>
-				<section>
-					{input}
-				</section>
+				{input}
 
 				<ButtonArea className='submit'>
 					<Button onClick={() => this.pushData()}>Submit</Button>
