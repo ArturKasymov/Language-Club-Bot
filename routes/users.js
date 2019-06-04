@@ -23,7 +23,7 @@ router.get('/:userID', ({params: {userID}}, res) => {
 });
 
 router.put('/:userID', ({body, params: {userID}}, res) => {
-    query(CONSTANTS.UPDATE_NICKNAME, [body.nickname, userID]);
+    if (body.nickname) query(CONSTANTS.UPDATE_NICKNAME, [body.nickname, userID]);
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, body.languages]);
 
     res.sendStatus(204);
@@ -31,6 +31,14 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
     query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.IN_MENU, userID]);
     query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['1', userID]);
     sendApi.sendUserMenu(userID);
+});
+
+router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
+    query(CONSTANTS.UPDATE_NICKNAME, [body.nickname, userID]);
+
+    res.sendStatus(204);
+
+    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.IN_MENU, userID]);
 });
 
 

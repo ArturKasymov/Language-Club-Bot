@@ -11,6 +11,8 @@ import path from 'path';
 
 import index from './routes/index';
 import users from './routes/users';
+import registration from './routes/registration';
+import nickname from './routes/nickname';
 import languages from './routes/languages';
 import webhooks from './routes/webhooks';
 
@@ -29,7 +31,9 @@ app.use(logger('dev'));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/langs', languages);
+app.use('/registration', registration);
+app.use('/nickname', nickname);
+app.use('/languages', languages);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {

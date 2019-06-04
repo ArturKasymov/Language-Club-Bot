@@ -6,13 +6,13 @@
     <script src="/bundle.js"></script>
   </head>
   <body>
-	<div id="content"></div>
+    <div id="content"></div>
     <script>
     window.extAsyncInit = function() {
         MessengerExtensions.getUserID(function success(uids) {
-			window.attachApp(first_time, uids.psid);
+			window.attachNickname(uids.psid);
         }, function error(err) {
-			window.attachApp();
+			window.attachNickname();
         });
     };
     (function(doc, script, domId){
