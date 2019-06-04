@@ -137,7 +137,7 @@ function getPermLvl(args) {
         if (result == undefined || result.rows.length == 0) {
             return undefined;
         }
-        console.log("permLvl: " + result.rows[0].permissionLevel);
+        console.log("permLvl: " + result.rows[0]);
         return result.rows[0].permissionLevel;
     });  
 }
