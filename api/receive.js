@@ -13,7 +13,6 @@ function handleReceiveReferral(event) {
     if (event.referral.ad_id){
         payload["ad_id"] = event.referral.ad_id;
     }
-    //logger.fbLog("referral", payload, senderId);
 };
 
 function handleReceivePostback(messaging_event) {
@@ -45,7 +44,8 @@ function handleReceiveMessage(messaging_event) {
     const message = messaging_event.message;
     const sender_psid = messaging_event.sender.id;
 
-    sendApi.sendReadReceipt(sender_psid);
+    //TODO fix 
+    //sendApi.sendReadReceipt(sender_psid);
 
     // check if it is a location message
     console.log('handleMessage message:', JSON.stringify(message));
