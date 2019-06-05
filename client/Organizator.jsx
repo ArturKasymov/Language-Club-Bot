@@ -9,7 +9,7 @@ const Organizator = ({id, nickname, removeOrganizator}) => {
 		<MediaBox type="appmsg">
 			<MediaBoxBody>
 				<MediaBoxTitle>{nickname}</MediaBoxTitle>
-				<Button onClick={() => removeOrganizator([id, nickname])}>Remove</Button>
+				<Button size="small" onClick={() => removeOrganizator([id, nickname])}>Remove</Button>
 			</MediaBoxBody>
 		</MediaBox>
 	);

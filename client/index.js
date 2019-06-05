@@ -6,10 +6,11 @@ import ReactDOM from 'react-dom';
 import App from './app.jsx';
 import Nickname from './nickname.jsx';
 import Organizators from './orgs.jsx';
+import CreateMeeting from './createmeet.jsx';
 import Oops from './oops.jsx';
 
 import 'weui';
-//import 'react-weui/lib/react-weui.min.css';
+import 'react-weui/build/packages/react-weui.css';
 import '../public/style.css';
 
 window.attachApp = (first_time, userId) => {
@@ -38,3 +39,12 @@ window.attachOrganizators = (userID) => {
         ReactDOM.render(<Oops />, document.getElementById('content'));
     }
 };
+
+window.attachCreateMeeting = (userID) => {
+    if (userID) {
+        const app = <CreateMeeting userId={userID} />;
+        ReactDOM.render(app, document.getElementById('content'));
+    } else {
+        ReactDOM.render(<Oops />, document.getElementById('content'));
+    }
+}
