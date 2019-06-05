@@ -52,7 +52,7 @@ export default class Organizators extends React.PureComponent {
 					if (flat[i][1].charAt(0) === '2') organizators.add([flat[i][0], flat[i][1].slice(1)]);
 				}
 
-				results = [...users];
+				const results = [...users];
 
 				this.setState({organizators, users, results, text: jsonResponse});
 

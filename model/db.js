@@ -171,7 +171,7 @@ function getUsersListData() {
         for (var i = 0; i < result.rows.length; i++) {
             obj[result.rows[i].facebookid] = result.rows[i].permissionlevel + result.rows[i].nickname;
         }
-        console.log("SENDING " + obj);
+        console.log("SENDING " + JSON.stringify(obj));
         return obj;
     })
 };
