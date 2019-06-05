@@ -33,14 +33,13 @@ router.get('/:userID/users_list', ({params: {userID}}, res) => {
 });
 
 router.put('/:userID', ({body, params: {userID}}, res) => {
-    console.log("RECEIVED OBJECT: " + body.toString());
+    console.log("RECEIVED OBJECT: " + body.nickname + " " + body.languages);
     if (body.nickname) query(CONSTANTS.UPDATE_NICKNAME, [body.nickname, userID]);
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, body.languages]);
 
     res.sendStatus(204);
 
-    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.IN_MENU, userID]);
-    query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['1', userID]);
+    query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['3', userID]);
     //sendApi.sendUserMenu(userID);
 });
 
