@@ -41,7 +41,7 @@ const UPDATE_PERMISSION_LEVEL_QUERY = 'UPDATE users SET "permissionLevel"=$1 WHE
 const UPDATE_NICKNAME_QUERY = 'UPDATE users SET nickname=$1::varchar WHERE "facebookID"=$2::varchar';
 const GET_ALL_LANGUAGES_QUERY = 'SELECT getLanguagesArray()';
 const GET_USER_LANGUAGES_QUERY = 'SELECT "langName" from languages WHERE "userID"=$1::varchar';
-const DELETE_ALL_USER_LANGUAGES = 'DELETE FROM languages WHERE "facebookID"=$1::varchar';
+const DELETE_ALL_USER_LANGUAGES = 'DELETE FROM languages WHERE "userID"=$1::varchar';
 const INSERT_USER_LANGUAGES_QUERY = 'INSERT INTO languages("userID", "langName") VALUES %L';
 const GET_ALL_USERS_QUERY = 'SELECT "facebookID", "permissionLevel", nickname FROM users';
 
