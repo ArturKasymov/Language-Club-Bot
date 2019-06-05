@@ -14,6 +14,7 @@ import users from './routes/users';
 import registration from './routes/registration';
 import nickname from './routes/nickname';
 import languages from './routes/languages';
+import organizators from './routes/organizators';
 import webhooks from './routes/webhooks';
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/users', users);
 app.use('/registration', registration);
 app.use('/nickname', nickname);
 app.use('/languages', languages);
+app.use('/organizators', organizators);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {

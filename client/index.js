@@ -9,7 +9,7 @@ import Organizators from './orgs.jsx';
 import Oops from './oops.jsx';
 
 import 'weui';
-import 'react-weui/lib/react-weui.min.css';
+//import 'react-weui/lib/react-weui.min.css';
 import '../public/style.css';
 
 window.attachApp = (first_time, userId) => {
@@ -30,7 +30,7 @@ window.attachNickname = (userID) => {
     }
 };
 
-window.attachOrganizators = (userID) = {
+window.attachOrganizators = (userID) => {
     if (userID) {
         const app = <Organizators userId={userID} />;
         ReactDOM.render(app, document.getElementById('content'));
