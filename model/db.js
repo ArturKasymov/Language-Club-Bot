@@ -180,6 +180,7 @@ function getUsersListData() {
     .then((result) => {
         var obj = {};
         for (var i = 0; i < result.rows.length; i++) {
+            if (result.rows[i]["permissionLevel"] !== "0")
             obj[result.rows[i]["facebookID"]] = result.rows[i]["permissionLevel"] + result.rows[i].nickname;
         }
         console.log("SENDING " + JSON.stringify(obj));

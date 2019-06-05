@@ -50,7 +50,7 @@ export default class Organizators extends React.PureComponent {
 				const flat = Object.entries(jsonResponse);
 				
 				for (var i = 0; i < flat.length; i++) {
-					users.add([flat[i][0], flat[i][1].slice(1)]);
+					if (flat[i][1].charAt(0) === '1') users.add([flat[i][0], flat[i][1].slice(1)]);
 					if (flat[i][1].charAt(0) === '2') organizators.add([flat[i][0], flat[i][1].slice(1)]);
 				}
 
@@ -87,7 +87,7 @@ export default class Organizators extends React.PureComponent {
 		const oldOrganizators = this.state.organizators;
 		const organizators = new Set(oldOrganizators);
 		organizators.delete(org);
-		this.setState({organizators: organizators});
+		this.setState({organizators, text: [...organizators].toString()});
 	}
 
 	handleSearchChange(text, e) {
