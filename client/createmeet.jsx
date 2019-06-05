@@ -81,9 +81,9 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.ALL_PLACES === null) {
+		/*if (this.state.ALL_PLACES === null) {
 			return <Loading />;
-		}
+		}*/
 
 		const places = this.state.ALL_PLACES.map((entry, index) => {return {value: index, label: entry};});
 
