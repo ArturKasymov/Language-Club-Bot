@@ -8,11 +8,24 @@ const query = require('../model/db.js');
 
 const router = express.Router();
 
-router.get('/:userID/languages', ({params: {userID}}, res) => {
+router.get('/:userID/all_languages', ({params: {userID}}, res) => {
     console.log("IN GET /USERS/" + userID);
-    query(CONSTANTS.GET_LANGUAGES_BUNDLE, [userID])
+    query(CONSTANTS.GET_ALL_LANGUAGES, [])
+    .then((array) => {
+        const langsJSON = JSON.stringify(array);
+
+        console.log(`GET User response: ${langsJSON}`);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.send(langsJSON);
+    }).catch((err) => console.log(err));
+});
+
+router.get('/:userID/user_languages', ({params: {userID}}, res) => {
+    console.log("IN GET /USERS/" + userID);
+    query(CONSTANTS.GET_USER_LANGUAGES, [userID])
     .then((obj) => {
-        const langsJSON = JSON.stringify({all_languages: obj.all, user_languages: obj.user});
+        const langsJSON = JSON.stringify(obj);
 
         console.log(`GET User response: ${langsJSON}`);
 

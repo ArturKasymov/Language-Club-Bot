@@ -39,9 +39,9 @@ export default class App extends React.PureComponent {
 	}
 
 	pullData() {
-		const endpoint = `/users/${this.props.userId}/languages`;
+		const user_endpoint = `/users/${this.props.userId}/user_languages`;
 
-		fetch(endpoint)
+		fetch(user_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
 				return response.json();
@@ -51,7 +51,23 @@ export default class App extends React.PureComponent {
 			this.setState({text});
 		}).then((jsonResponse) => {
 				
-				this.setState({languages: new Set(jsonResponse.user_languages), ALL_LANGUAGES: jsonResponse.all_languages, text: 'success'});
+				this.setState({languages: new Set(jsonResponse.user_langs), text: 'success'});
+
+		}).catch((err) => console.error('Error pulling data', err));
+
+		const all_endpoint = `/users/${this.props.userId}/all_languages`;
+
+		fetch(all_endpoint)
+		.then((response) => {
+			if (response.status == 200) {
+				return response.json();
+			}
+
+			const text = response.status.toString();
+			this.setState({text});
+		}).then((jsonResponse) => {
+				
+				this.setState({ALL_LANGUAGES: jsonResponse, text: 'success'});
 
 		}).catch((err) => console.error('Error pulling data', err));
 	}

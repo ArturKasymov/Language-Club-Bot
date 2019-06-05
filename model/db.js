@@ -49,8 +49,8 @@ function query(type, args) {
         case CONSTANTS.UPDATE_PERMISSION_LEVEL:
             updatePermLvl(args);
             break;
-        case CONSTANTS.GET_LANGUAGES_BUNDLE:
-            return getLanguagesBundle(args);
+        case CONSTANTS.GET_USER_LANGUAGES:
+            return getUserLanguages(args);
         case CONSTANTS.GET_USERS_LIST_DATA:
             return getUsersListData();
         default:
@@ -148,14 +148,16 @@ function getAllLanguages() {
     });
 };
 
-function getLanguagesBundle(args) {
-    getAllLanguages()
+function getUserLanguages(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_USER_LANGUAGES_QUERY, args));
+    })
     .then((result) => {
-        var obj = { all: result };
-        pool.query(CONSTANTS.GET_USER_LANGUAGES_QUERY, args, (err, res) => {
-            obj.user = res.rows.map((entry, index) => entry["langName"]);
-        });
-        console.log("LANG_BUNDLE: " + JSON.stringify(obj));
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        const obj = { user_langs: result.rows.map((entry, index) => entry["langName"]) };
+        console.log("USER_LANGS: " + JSON.stringify(obj));
         return obj;
     });
 }
