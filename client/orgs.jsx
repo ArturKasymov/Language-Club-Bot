@@ -54,7 +54,7 @@ export default class Organizators extends React.PureComponent {
 
 				results = [...users];
 
-				this.setState({organizators: organizators, users: users, text: 'success'});
+				this.setState({organizators: organizators, users: users, results, text: 'success'});
 
 		}).catch((err) => console.error('Error pulling data', err));
 	}
