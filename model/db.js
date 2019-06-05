@@ -195,14 +195,16 @@ function updateNickname(args) {
         if (err) {
             return console.error('Error UPDATE_NICKNAME query', err.stack);
         }
-    });
+    }).catch((err) => console.log(err));
 }
 
 function insertUserLanguages(args) {
-    pool.query(CONSTANTS.DELETE_ALL_USER_LANGUAGES, [args[0]], (err, result) => {
+    pool.query(CONSTANTS.DELETE_ALL_USER_LANGUAGES, [args[0]])
+    .then((result) => {
+        console.log("DELETED_ALL_USER_LANGS... " + JSON.stringify(result));
         const langs = args[1].map((entry, index) =>[args[0], entry]);
-        pool.query(format(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, langs));
-    });
+        pool.query(format(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, langs)).catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 }
 
 function updatePermLvl(args) {

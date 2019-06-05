@@ -45,7 +45,7 @@ export default class Organizators extends React.PureComponent {
 		}).then((jsonResponse) => {
 				var organizators = new Set();
 				var users = new Set();
-				this.setState({text: jsonResponse.toString()});
+				this.setState({text: JSON.stringify(jsonResponse)});
 
 				/*const flat = Object.entries(jsonResponse);
 				for (var i = 0; i < flat.length; i++) {

@@ -54,6 +54,7 @@ router.put('/:userID/remove', ({body, params: {userID}}, res) => {
 
 router.put('/:userID', ({body, params: {userID}}, res) => {
     if (body.nickname) query(CONSTANTS.UPDATE_NICKNAME, [body.nickname, userID]);
+    console.log('INSERTING_USER_LANGS... ' + body.languages);
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, body.languages]);
 
     res.sendStatus(204);
