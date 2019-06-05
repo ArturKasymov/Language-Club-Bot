@@ -152,8 +152,8 @@ function getUsersListData() {
     })
     .then((result) => {
         var obj = {};
-        console.log("RESULT: " + result);
-        console.log("ROWS: " + result.rows);
+        console.log("RESULT: " + JSON.stringify(result));
+        console.log("ROWS: " + JSON.stringify(result.rows));
         for (var i = 0; i < result.rows.length; i++) {
             obj[result.rows[i].facebookid] = result.rows[i].permissionlevel + result.rows[i].nickname;
         }
