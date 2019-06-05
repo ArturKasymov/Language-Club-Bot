@@ -57,58 +57,42 @@ function query(type, args) {
 };
 
 function insertUser(args) {
-    pool.connect((err, client, release) => {
-        if (err) {
-            return console.error('Error acquiring client', err.stack);
-        } else {
-            checkIfUserExists(args[0])
-            .then((exists) => {
-                if (!exists) {
-                    client.query(CONSTANTS.INSERT_USER_QUERY, args, (err, result) => {
-                        release();
-                        if (err) {
-                            return console.error('Error INSERT_USER query', err.stack);
-                        }
-                    })
+    checkIfUserExists(args[0])
+    .then((exists) => {
+        if (!exists) {
+            pool.query(CONSTANTS.INSERT_USER_QUERY, args, (err, result) => {
+                if (err) {
+                    return console.error('Error INSERT_USER query', err.stack);
                 }
-            });
+            })
         }
-    })
+    });
 }
 
 function updateStatus(args) {
-    pool.connect((err, client, release) => {
-        if (err) {
-            return console.error('Error acquiring client', err.stack);
-        } else {
-            if (args[0] == CONSTANTS.CONTACTING_US) {
-                getStatus([args[1]])
-                .then((status) => {
-                    args[0] += ":" + status;
-                    console.log("NEW STATUS: " + args[0]);
-                })
-                .then(() => {
-                    console.log("NEW STATUS: " + args[0]);
-                    if (args[0]) client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
-                        console.log("SETTING STATUS TO: " + args[0]);
-                        release();
-                        if (err) {
-                            return console.error('Error UPDATE_STATUS query', err.stack);
-                        }
-                    })
-                });
-            } else {
-                if (args[0]) client.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
-                    console.log("SETTING STATUS TO: " + args[0]);
-                    release();
-                    if (err) {
-                        return console.error('Error UPDATE_STATUS query', err.stack);
-                    }
-                })
+    if (args[0] == CONSTANTS.CONTACTING_US) {
+        getStatus([args[1]])
+        .then((status) => {
+            args[0] += ":" + status;
+            console.log("NEW STATUS: " + args[0]);
+        })
+        .then(() => {
+            console.log("NEW STATUS: " + args[0]);
+            if (args[0]) pool.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
+                console.log("SETTING STATUS TO: " + args[0]);
+                if (err) {
+                    return console.error('Error UPDATE_STATUS query', err.stack);
+                }
+            });
+        });
+    } else {
+        if (args[0]) pool.query(CONSTANTS.UPDATE_CYCLE_STATUS, args, (err, result) => {
+            console.log("SETTING STATUS TO: " + args[0]);
+            if (err) {
+                return console.error('Error UPDATE_STATUS query', err.stack);
             }
-                
-        }
-    })
+        });
+    };
 }
 
 function checkIfUserExists(id) {
@@ -168,6 +152,8 @@ function getUsersListData() {
     })
     .then((result) => {
         var obj = {};
+        console.log("RESULT: " + result);
+        console.log("ROWS: " + result.rows);
         for (var i = 0; i < result.rows.length; i++) {
             obj[result.rows[i].facebookid] = result.rows[i].permissionlevel + result.rows[i].nickname;
         }
@@ -178,50 +164,29 @@ function getUsersListData() {
 
 
 function updateNickname(args) {
-    pool.connect((err, client, release) => {
+    pool.query(CONSTANTS.UPDATE_NICKNAME_QUERY, args, (err, result) => {
+        getStatus([args[1]])
+        .then((status) => updateStatus([nextStatus(status), args[1]]));
         if (err) {
-            return console.log('Error acquiring client', err.stack);
-        } else {
-            client.query(CONSTANTS.UPDATE_NICKNAME_QUERY, args, (err, result) => {
-                getStatus([args[1]])
-                .then((status) => updateStatus([nextStatus(status), args[1]]));
-                release();
-                if (err) {
-                    return console.error('Error UPDATE_NICKNAME query', err.stack);
-                }
-            })
+            return console.error('Error UPDATE_NICKNAME query', err.stack);
         }
-    })
+    });
 }
 
 function insertUserLanguages(args) {
-    pool.connect((err, client, release) => {
-        if (err) {
-            return console.log('Error acquiring client', err.stack);
-        } else {
-            client.query(CONSTANTS.DELETE_ALL_USER_LANGUAGES, [args[0]], (err, result) => {
-                var lang;
-                for (lang in args[1]) {
-                    client.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], args[1][lang]], (err, result) => {
-                        release();
-                        if (err) return console.error('Error INSERT_LANGUAGES query', err.stack);
-                    })
-                }
-            });
+    pool.query(CONSTANTS.DELETE_ALL_USER_LANGUAGES, [args[0]], (err, result) => {
+        var lang;
+        for (lang in args[1]) {
+            pool.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], args[1][lang]], (err, result) => {
+                if (err) return console.error('Error INSERT_LANGUAGES query', err.stack);
+            })
         }
-    })
+    });
 }
 
 function updatePermLvl(args) {
-    pool.connect((err, client, release) => {
-        if (err) {
-            return console.log('Error acquiring client', err.stack);
-        } else {
-            client.query(CONSTANTS.UPDATE_PERMISSION_LEVEL_QUERY, args, (err, result) => {
-                release();
-                if (err) return console.error('Error UPDATE_PERMISSION_LEVEL query', err.stack);
-            });
-        }
+    pool.query(CONSTANTS.UPDATE_PERMISSION_LEVEL_QUERY, args, (err, result) => {
+        if (err) return console.error('Error UPDATE_PERMISSION_LEVEL query', err.stack);
     });
 }
 
