@@ -4,14 +4,6 @@ const SERVER_URL = process.env.SERVER_URL;
 
 
 //Buttons
-const profileSetUpButton = {
-    "type": "web_url",
-    "url": `${SERVER_URL}/registration`,
-    "title": "My Profile",
-    "webview_height_ratio": "full",
-    messenger_extensions: true,
-};
-
 const backButton = {
     "type": "postback",
     "title": "Back",
@@ -19,60 +11,49 @@ const backButton = {
 };
 
 const registrationButton = {
-  "type": "postback",
-  "title": "Start Registration",
-  "payload": CONSTANTS.START_REGISTRATION_YES
-}
-
-const contactUsButton = {
-  "type": "postback",
-  "title": "Contact us",
-  "payload": CONSTANTS.CONTACT_US
-}
-
-const myAccountButton = {
-  "type": "postback",
-  "title": "      My Account",
-  "payload": CONSTANTS.MY_ACCOUNT
-}
-
-const changeNicknameButton = {
-  "type": "postback",
-  "title": " Change Nickname",
-  "payload": CONSTANTS.CHANGE_NICKNAME
-}
-
-const meetingsButton = {
-  "type": "postback",
-  "title": "      Meetings",
-  "payload": CONSTANTS.MEETINGS
-}
-
-const myMeetingsButton = {
-  "type": "postback",
-  "title": "      My meetings",
-  "payload": CONSTANTS.MY_MEETINGS
-}
-
-const adminPanelButton = {
-  "type": "postback",
-  "title": "   Admin panel",
-  "payload": CONSTANTS.ADMIN_PANEL
+  "type":"web_url",
+  "title": "Register",
+  "url": `${SERVER_URL}/registration`,
+  "webview_height_ratio":"full",
+  "webview_share_button": "hide",
+  "messenger_extensions": true
 }
 
 const createMeetingButton = {
-  "type": "postback",
+  "type":"web_url",
   "title": "   Create meeting",
-  "payload": CONSTANTS.CREATE_MEETING
+  "url": `${SERVER_URL}/createmeeting`,
+  "webview_height_ratio":"full",
+  "webview_share_button": "hide",
+  "messenger_extensions": true
 }
 
 const addOrganizatorButton = {
-  "type": "postback",
-  "title": "   Add Organizator",
-  "payload": CONSTANTS.ADDING_ORGANIZATOR
+  "type": "web_url",
+  "title": "  Organizators",
+  "url": `${SERVER_URL}/organizators`,
+  "webview_height_ratio":"full",
+  "webview_share_button": "hide",
+  "messenger_extensions": true
 }
 
+const meetingsListButton = {
+  "type": "web_url",
+  "title": "  Meetings List",
+  "url": `${SERVER_URL}/meetingsadmList`,
+  "webview_height_ratio":"full",
+  "webview_share_button": "hide",
+  "messenger_extensions": true
+}
 
+const administrateMeetingButton = {
+  "type": "web_url",
+  "title": "Administrate meeting",
+  "url": `${SERVER_URL}/meetingsadm`,
+  "webview_height_ratio":"full",
+  "webview_share_button": "hide",
+  "messenger_extensions": true
+}
 
 //Messages
 const greetingMessage = {
@@ -80,8 +61,8 @@ const greetingMessage = {
         "type": "template",
         "payload": {
             "template_type": "button",
-            "text": "Would you like to join our Language Club?",
-            "buttons": [registrationButton,contactUsButton]
+            "text": "Welcome to our Language Club! Register for joining",
+            "buttons": [registrationButton]
         }
     }
 };
@@ -91,60 +72,49 @@ const contactingUsMessage = {
         "type": "template",
         "payload": {
             "template_type": "button",
-            "text": "Everything you will write here now will be seen by admins.",
+            "text": "Everything you will write here will be sent to admins.",
             "buttons": [backButton]
         }
     }
 };
 
-const profileSetUpTemplate = {
+const registrationNeedMessage = {
     "attachment": {
         "type": "template",
         "payload": {
             "template_type": "button",
-            "text": "Set up your profile by choosing nickname and the languages your speak: ",
-            "buttons": [profileSetUpButton, backButton]
+            "text": "Please, register for using bot functionality",
+            "buttons": [registrationButton]
         }
     }
 };
 
-const userMenu ={
+const organizatorPanelMessage = {
     "attachment": {
         "type": "template",
-        "payload":{
+        "payload": {
             "template_type": "button",
-            "text" : "Menu",
-            "buttons": [myAccountButton, meetingsButton]
+            "text": "ORGANIZATOR PANEL",
+            "buttons": [createMeetingButton, meetingsListButton, administrateMeetingButton]
         }
     }
 };
 
-const organizatorMenu ={
+const adminPanelMessage = {
     "attachment": {
         "type": "template",
-        "payload":{
+        "payload": {
             "template_type": "button",
-            "text" : "Menu",
-            "buttons": [myAccountButton, meetingsButton, createMeetingButton]
+            "text": "ADMIN PANEL",
+            "buttons": [addOrganizatorButton]
         }
     }
 };
 
-const adminMenu ={
-    "attachment": {
-        "type": "template",
-        "payload":{
-            "template_type": "button",
-            "text" : "Menu",
-            "buttons": [myAccountButton, meetingsButton, adminPanelButton]
-        }
-    }
-};
 export default {
     greetingMessage,
     contactingUsMessage,
-    profileSetUpTemplate,
-    userMenu,
-    organizatorMenu,
-    adminMenu
+    registrationNeedMessage,
+    organizatorPanelMessage,
+    adminPanelMessage
 }

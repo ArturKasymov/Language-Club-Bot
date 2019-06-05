@@ -54,33 +54,28 @@ function sendGreetingMessage(id) {
     sendMessage(id, messages.greetingMessage);
 }
 
-function sendProfileSetUp(id) {
-    sendMessage(id, messages.profileSetUpTemplate)
-}
-
 function sendContactingUsMessage(id) {
     sendMessage(id, messages.contactingUsMessage);
 }
 
-function sendUserMenu(id){
-    sendMessage(id,messages.userMenu);
+function sendNeedRegistrationMessage(id) {
+    sendMessage(id, messages.registrationNeedMessage);
 }
 
-function sendOrganizatorMenu(id){
-    sendMessage(id,messages.organizatorMenu);
+function sendOrganizatorPanelMessage(id) {
+    sendMessage(id, messages.organizatorPanelMessage);
 }
 
-function sendAdminMenu(id){
-    sendMessage(id,messages.adminMenu);
+function sendAdminPanelMessage(id) {
+    sendMessage(id, messages.adminPanelMessage);
 }
 
 export default {
     sendMessage,
     sendReadReceipt,
     sendGreetingMessage,
-    sendProfileSetUp,
     sendContactingUsMessage,
-    sendUserMenu,
-    sendOrganizatorMenu,
-    sendAdminMenu
+    sendNeedRegistrationMessage,
+    sendOrganizatorPanelMessage,
+    sendAdminPanelMessage
 };
