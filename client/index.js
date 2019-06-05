@@ -5,10 +5,11 @@ import ReactDOM from 'react-dom';
 
 import App from './app.jsx';
 import Nickname from './nickname.jsx';
+import Organizators from './orgs.jsx';
 import Oops from './oops.jsx';
 
 import 'weui';
-import 'react-weui/build/packages/react-weui.css';
+import 'react-weui/lib/react-weui.min.css';
 import '../public/style.css';
 
 window.attachApp = (first_time, userId) => {
@@ -22,10 +23,18 @@ window.attachApp = (first_time, userId) => {
 
 window.attachNickname = (userID) => {
     if (userID) {
-        document.getElementById('content').innerHTML = "HERR";
         const app = <Nickname userId={userID} />;
         ReactDOM.render(app, document.getElementById('content'));
     } else {
         ReactDOM.render(<Oops />, document.getElementById('content'));
     }
-}
+};
+
+window.attachOrganizators = (userID) = {
+    if (userID) {
+        const app = <Organizators userId={userID} />;
+        ReactDOM.render(app, document.getElementById('content'));
+    } else {
+        ReactDOM.render(<Oops />, document.getElementById('content'));
+    }
+};
