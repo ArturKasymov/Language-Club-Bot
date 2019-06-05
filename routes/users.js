@@ -10,12 +10,22 @@ const router = express.Router();
 
 router.get('/:userID', ({params: {userID}}, res) => {
     console.log("IN GET /USERS/" + userID);
-    query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.REGISTRATION, userID]);
     query(CONSTANTS.GET_ALL_LANGUAGES, [])
     .then((array) => {
         const langsJSON = JSON.stringify(array);
 
         console.log(`GET User response: ${langsJSON}`);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.send(langsJSON);
+    }).catch((err) => console.log(err));
+});
+
+router.get('/:userID/users_list', ({params: {userID}}, res) => {
+    console.log("IN GET /USERS/" + userID);
+    query(CONSTANTS.GET_USERS_LIST_DATA, [])
+    .then((result) => {
+        const langsJSON = JSON.stringify(result);
 
         res.setHeader('Content-Type', 'application/json');
         res.send(langsJSON);

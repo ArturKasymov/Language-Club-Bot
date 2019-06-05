@@ -49,6 +49,8 @@ function query(type, args) {
         case CONSTANTS.UPDATE_PERMISSION_LEVEL:
             updatePermLvl(args);
             break;
+        case CONSTANTS.GET_USERS_LIST_DATA:
+            return getUsersListData();
         default:
             break;
     }
@@ -158,6 +160,20 @@ function getAllLanguages() {
         console.log("array: " + result.rows[0].getlanguagesarray);
         return result.rows[0].getlanguagesarray;
     });
+};
+
+function getUsersListData() {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_ALL_USERS_QUERY));
+    })
+    .then((result) => {
+        var obj = {};
+        for (var i = 0; i < result.rows.length; i++) {
+            obj[result.rows[i].facebookid] = result.rows[i].permissionlevel + result.rows[i].nickname;
+        }
+        console.log("SENDING " + obj);
+        return obj;
+    })
 };
 
 
