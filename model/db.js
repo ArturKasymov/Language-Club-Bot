@@ -195,7 +195,7 @@ function updateNickname(args) {
         if (err) {
             return console.error('Error UPDATE_NICKNAME query', err.stack);
         }
-    }).catch((err) => console.log(err));
+    });
 }
 
 function insertUserLanguages(args) {
