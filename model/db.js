@@ -49,6 +49,8 @@ function query(type, args) {
         case CONSTANTS.UPDATE_PERMISSION_LEVEL:
             updatePermLvl(args);
             break;
+        case CONSTANTS.GET_LANGUAGES_BUNDLE:
+            return getLanguagesBundle(args);
         case CONSTANTS.GET_USERS_LIST_DATA:
             return getUsersListData();
         default:
@@ -146,16 +148,26 @@ function getAllLanguages() {
     });
 };
 
+function getLanguagesBundle(args) {
+    getAllLanguages()
+    .then((result) => {
+        var obj = { all: result };
+        pool.query(CONSTANTS.GET_USER_LANGUAGES_QUERY, args, (err, res) => {
+            obj.user = res.rows.map((entry, index) => entry["langName"]);
+        });
+        console.log("LANG_BUNDLE: " + JSON.stringify(obj));
+        return obj;
+    });
+}
+
 function getUsersListData() {
     return new Promise((resolve, reject) => {
         resolve(pool.query(CONSTANTS.GET_ALL_USERS_QUERY));
     })
     .then((result) => {
         var obj = {};
-        console.log("RESULT: " + JSON.stringify(result));
-        console.log("ROWS: " + JSON.stringify(result.rows));
         for (var i = 0; i < result.rows.length; i++) {
-            obj[result.rows[i].facebookid] = result.rows[i].permissionlevel + result.rows[i].nickname;
+            obj[result.rows[i]["facebookID"]] = result.rows[i]["permissionLevel"] + result.rows[i].nickname;
         }
         console.log("SENDING " + JSON.stringify(obj));
         return obj;

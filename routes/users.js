@@ -8,11 +8,11 @@ const query = require('../model/db.js');
 
 const router = express.Router();
 
-router.get('/:userID', ({params: {userID}}, res) => {
+router.get('/:userID/languages', ({params: {userID}}, res) => {
     console.log("IN GET /USERS/" + userID);
-    query(CONSTANTS.GET_ALL_LANGUAGES, [])
-    .then((array) => {
-        const langsJSON = JSON.stringify(array);
+    query(CONSTANTS.GET_LANGUAGES_BUNDLE, [userID])
+    .then((obj) => {
+        const langsJSON = JSON.stringify({all_languages: obj.all, user_languages: obj.user});
 
         console.log(`GET User response: ${langsJSON}`);
 
