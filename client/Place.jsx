@@ -30,36 +30,17 @@ export default class Place extends React.PureComponent {
 		description: null,
 		photo: null,
 
-		alert: true,
+		alert: false,
 		//TEMP
 		text: 'init'
 	}
 
 	pushData() {
-		if (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1) {
-			this.showAlert();
-			return;
-		}
-		this.setState({text: this.jsonState()});
-		const content = this.jsonState();		
-
-		fetch(`/users/${this.props.userId}/nickname`, {
-			method: 'PUT',
-			headers: {'Content-Type': 'application/json'},
-			body: content,
-		}).then((response) => {
-			if (response.ok) {
-				console.log('Data successfully updated on the server!');
-				return;
-			}
-		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
-			WebviewControls.close();
-		});
+	
 	}
 
-
 	jsonState() {
-		return JSON.stringify({nickname: this.state.nickname});
+	
 	}
 
 	showAlert() {

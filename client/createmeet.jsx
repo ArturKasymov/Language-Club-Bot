@@ -75,7 +75,7 @@ export default class CreateMeeting extends React.PureComponent {
 		this.setState({new_place: true});
 	}
 
-	postNewPlaceForm() {
+	postNewPlace() {
 		var new_id = this.state.ALL_PLACES.length;
 		this.setState({new_place: false, place_id: new_id});
 	}
@@ -152,14 +152,14 @@ export default class CreateMeeting extends React.PureComponent {
 						<Label>Place</Label>
 						</CellHeader>
 						<CellBody>
-							<Select data={places} onChange={this.updatePlace.bind(this)} value={this.state.ALL_PLACES[this.state.place_id]} />
+							<Select data={places} onChange={this.updatePlace.bind(this)} />
 						</CellBody>
 					</FormCell>
 				</Form>
 			</section>
 
 			<section>
-				{ this.state.new_place ? 
+				{ !this.state.new_place ? 
 				<Button onClick={this.showNewPlaceForm.bind(this)}>Add new place</Button> : <Place onSubmit={this.postNewPlace.bind(this)}/>}
 			</section>
 
