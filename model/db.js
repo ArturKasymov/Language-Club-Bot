@@ -170,7 +170,7 @@ function getUserLanguages(args) {
         const obj = { user_langs: result.rows.map((entry, index) => entry["langName"]) };
         console.log("USER_LANGS: " + JSON.stringify(obj));
         return obj;
-    });
+    }).catch((err) => console.log(err));
 }
 
 function getUsersListData() {

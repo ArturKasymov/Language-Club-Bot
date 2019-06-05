@@ -15,6 +15,7 @@ import WebviewControls from '../api/webview-controls';
 
 import Loading from './loading.jsx';
 import Organizator from './Organizator.jsx';
+import User from './User.jsx';
 
 export default class Organizators extends React.PureComponent {
 
@@ -47,7 +48,7 @@ export default class Organizators extends React.PureComponent {
 				var users = new Set();
 
 				const flat = Object.entries(jsonResponse);
-				this.setState({text: flat[0][0]});
+				
 				for (var i = 0; i < flat.length; i++) {
 					users.add([flat[i][0], flat[i][1].slice(1)]);
 					if (flat[i][1].charAt(0) === '2') organizators.add([flat[i][0], flat[i][1].slice(1)]);
@@ -55,7 +56,7 @@ export default class Organizators extends React.PureComponent {
 
 				const results = [...users];
 
-				this.setState({organizators, users, results});
+				this.setState({organizators, users, results, text: JSON.stringify(results)});
 
 		}).catch((err) => console.error('Error pulling data', err));
 	}
