@@ -1,4 +1,5 @@
 const pg = require('pg');
+const format = require('pg-format');
 const CONSTANTS = require('./Constants.js');
 
 var config = {
@@ -51,6 +52,8 @@ function query(type, args) {
             break;
         case CONSTANTS.GET_USER_LANGUAGES:
             return getUserLanguages(args);
+        case CONSTANTS.DELETE_USER_LANGUAGES:
+            return deleteUserLanguages(args);
         case CONSTANTS.GET_USERS_LIST_DATA:
             return getUsersListData();
         default:
@@ -148,12 +151,20 @@ function getAllLanguages() {
     });
 };
 
+function deleteUserLanguages(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.DELETE_ALL_USER_LANGUAGES, args));
+    }).then((result) => {
+        console.log("DELETED USER LANGUAGES");
+    });
+}
+
 function getUserLanguages(args) {
     return new Promise((resolve, reject) => {
         resolve(pool.query(CONSTANTS.GET_USER_LANGUAGES_QUERY, args));
     })
     .then((result) => {
-        if (result == undefined || result.rows.length == 0) {
+        if (result === undefined || result.rows.length === 0) {
             return undefined;
         }
         const obj = { user_langs: result.rows.map((entry, index) => entry["langName"]) };
@@ -189,12 +200,8 @@ function updateNickname(args) {
 
 function insertUserLanguages(args) {
     pool.query(CONSTANTS.DELETE_ALL_USER_LANGUAGES, [args[0]], (err, result) => {
-        var lang;
-        for (lang in args[1]) {
-            pool.query(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, [args[0], args[1][lang]], (err, result) => {
-                if (err) return console.error('Error INSERT_LANGUAGES query', err.stack);
-            })
-        }
+        const langs = args[1].map((entry, index) =>[args[0], entry]);
+        pool.query(format(CONSTANTS.INSERT_USER_LANGUAGES_QUERY, langs));
     });
 }
 
