@@ -47,15 +47,15 @@ export default class Organizators extends React.PureComponent {
 				var users = new Set();
 
 				const flat = Object.entries(jsonResponse);
-				this.setState({text: flat.toString()});
-				/*for (var i = 0; i < flat.length; i++) {
+				this.setState({text: flat[0][0]});
+				for (var i = 0; i < flat.length; i++) {
 					users.add([flat[i][0], flat[i][1].slice(1)]);
 					if (flat[i][1].charAt(0) === '2') organizators.add([flat[i][0], flat[i][1].slice(1)]);
 				}
 
 				const results = [...users];
 
-				this.setState({organizators, users, results, text: jsonResponse});*/
+				this.setState({organizators, users, results});
 
 		}).catch((err) => console.error('Error pulling data', err));
 	}
