@@ -76,7 +76,7 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	postNewPlace() {
-		var new_id = this.state.ALL_PLACES.length;
+		var new_id = this.state.ALL_PLACES ? this.state.ALL_PLACES.length : 0;
 		this.setState({new_place: false, place_id: new_id});
 	}
 
@@ -85,7 +85,21 @@ export default class CreateMeeting extends React.PureComponent {
 			return <Loading />;
 		}*/
 
-		const places = this.state.ALL_PLACES.map((entry, index) => {return {value: index, label: entry};});
+		//const places = this.state.ALL_PLACES.map((entry, index) => {return {value: index, label: entry};});
+		const places = [
+                            {
+                                value: 1,
+                                label: 'China'
+                            },
+                            {
+                                value: 2,
+                                label: 'United States'
+                            },
+                            {
+                                value: 3,
+                                label: 'Germany'
+                            }
+                        ];
 
 		return (
 			<div className='app'>
