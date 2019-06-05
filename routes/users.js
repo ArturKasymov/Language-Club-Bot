@@ -27,7 +27,7 @@ router.get('/:userID/user_languages', ({params: {userID}}, res) => {
     .then((obj) => {
         const langsJSON = JSON.stringify(obj);
 
-        console.log(`GET User response: ${obj.user_langs}`);
+        console.log(`GET User response: ${langsJSON}`);
 
         res.setHeader('Content-Type', 'application/json');
         res.send(langsJSON);
