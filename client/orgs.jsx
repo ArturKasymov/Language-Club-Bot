@@ -68,11 +68,6 @@ export default class Organizators extends React.PureComponent {
 	}
 
 	removeOrganizator(org) {
-		const oldOrganizators = this.state.organizators;
-		const organizators = new Set(oldOrganizators);
-		organizators.delete(org);
-		this.setState({organizators: organizators});
-
 		const endpoint = `/users/${this.props.userId}/remove`;
 		const content = JSON.stringify({orgID: org[0]});
 
@@ -86,6 +81,11 @@ export default class Organizators extends React.PureComponent {
 				return;
 			}
 		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err));
+
+		const oldOrganizators = this.state.organizators;
+		const organizators = new Set(oldOrganizators);
+		organizators.delete(org);
+		this.setState({organizators: organizators});
 	}
 
 	handleSearchChange(text, e) {
@@ -109,13 +109,15 @@ export default class Organizators extends React.PureComponent {
 			return <Loading />;
 		}
 
-		const organizators = [...this.state.organizators].map((org, index) => {
+		/*const organizators = [...this.state.organizators].map((org, index) => {
 			return <Organizator key={org[0]} id={org[0]} nickname={org[1]} removeOrganizator={this.removeOrganizator.bind(this)} />;
-		});
+		});*/
+		const organizators = [<Organizator key='a' id='a' nickname='Demian' removeOrganizator={this.removeOrganizator.bind(this)} />];
 
-		const users = this.state.results.map((org, index) => {
+		/*const users = this.state.results.map((org, index) => {
 			return <User key={org[0]} id={org[0]} nickname={org[1]} />;
-		});
+		});*/
+		const users = [<User key='a' id='a' nickname='Demian' />];
 
 		return (
 		<div className='app'>

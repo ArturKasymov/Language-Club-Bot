@@ -32,8 +32,14 @@ router.get('/:userID/users_list', ({params: {userID}}, res) => {
     }).catch((err) => console.log(err));
 });
 
+router.put('/:userID/remove', ({body, params: {userID}}, res) => {
+    console.log("RECEIVED OBJECT: " + body.orgID);
+    query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['1', body.orgID]);
+
+    res.sendStatus(204);
+});
+
 router.put('/:userID', ({body, params: {userID}}, res) => {
-    console.log("RECEIVED OBJECT: " + body.nickname + " " + body.languages);
     if (body.nickname) query(CONSTANTS.UPDATE_NICKNAME, [body.nickname, userID]);
     query(CONSTANTS.INSERT_USER_LANGUAGES, [userID, body.languages]);
 
