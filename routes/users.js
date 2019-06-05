@@ -26,7 +26,7 @@ router.get('/:userID/users_list', ({params: {userID}}, res) => {
     query(CONSTANTS.GET_USERS_LIST_DATA, [])
     .then((result) => {
         const langsJSON = JSON.stringify(result);
-
+        console.log("ALL USERS: " + langsJSON);
         res.setHeader('Content-Type', 'application/json');
         res.send(langsJSON);
     }).catch((err) => console.log(err));
