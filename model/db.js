@@ -63,6 +63,11 @@ function query(type, args) {
         case CONSTANTS.INSERT_MEETING:
             insertMeeting(args);
             break;
+        case CONSTANTS.GET_MEETINGS_LIST_QUERY:
+            return getMeetingsList(args);
+        case CONSTANTS.UPDATE_MEETING:
+            updateMeeting(args);
+            break;
         default:
             break;
     }
@@ -84,6 +89,13 @@ function insertUser(args) {
 function insertMeeting(args) {
     console.log(args[0]);
     pool.query(CONSTANTS.INSERT_MEETING_QUERY, args, (err, res) => {
+        console.log(err, res);
+    });
+}
+
+function updateMeeting(args) {
+    console.log(args.toString());
+    pool.query(CONSTANTS.UPDATE_MEETING_QUERY, args, (err, res) => {
         console.log(err, res);
     });
 }
@@ -191,6 +203,25 @@ function getUserLanguages(args) {
             return undefined;
         }
         const obj = { user_langs: result.rows.map((entry, index) => entry["langName"]) };
+        console.log("USER_LANGS: " + JSON.stringify(obj));
+        return obj;
+    }).catch((err) => console.log(err));
+}
+
+function getMeetingsList(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_MEETINGS_LIST_QUERY, args));
+    })
+    .then((result) => {
+        if (result === undefined || result.rows.length === 0) {
+            return undefined;
+        }
+        var obj;
+        for (var i = 0; i < result.rows.length; i++) {
+            const row = result.rows[i];
+            obj[row.id] = [row["placeID"], row["place_name"], row["place_city"], row["place_address"], row["organizerID"], row["organizer_nickname"],
+                row["description"], row["startDate"], row["endDate"]];
+        }
         console.log("USER_LANGS: " + JSON.stringify(obj));
         return obj;
     }).catch((err) => console.log(err));

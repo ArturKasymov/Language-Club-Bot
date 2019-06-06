@@ -16,7 +16,12 @@ body,
 }
 
 .app {
-    margin-bottom: 7em;
+    align-content: center,
+    /*margin-bottom: 7em;*/
+}
+
+.sub-app {
+    background-color: aquamarine;
 }
 
 .weui-cells__title {
@@ -343,9 +348,10 @@ section {
 }
 
 .nickname-input {
-    margin-left: 10px;
+    padding-left: 8px;
+    padding-bottom: 0px;
     color: black;
-    font-size: 2rem;
+    font-size: 1.7rem;
 }
 
 .alert {

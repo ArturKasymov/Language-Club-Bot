@@ -58,7 +58,7 @@ export default class Place extends React.PureComponent {
 	}
 
 	showAlert() {
-		this.setState({text: "alert"});
+		this.setState({alert:true, text: "alert"});
 	}
 
 	updateName(e) {
@@ -88,7 +88,7 @@ export default class Place extends React.PureComponent {
 	render() {	
 		
 		return (
-			<div className='app'>
+			<div className='app sub-app'>
 				<h1>NEW PLACE</h1>
 				<section>
 					<Form>

@@ -7,6 +7,7 @@ import App from './app.jsx';
 import Nickname from './nickname.jsx';
 import Organizators from './orgs.jsx';
 import CreateMeeting from './createmeet.jsx';
+import MeetingsList from './meetingslist.jsx';
 import Oops from './oops.jsx';
 
 import 'weui';
@@ -47,4 +48,13 @@ window.attachCreateMeeting = (userID) => {
     } else {
         ReactDOM.render(<Oops />, document.getElementById('content'));
     }
-}
+};
+
+window.attachMeetingsAdmList = (userID) => {
+    if (userID) {
+        const app = <MeetingsList userId={userID} />;
+        ReactDOM.render(app, document.getElementById('content'));
+    } else {
+        ReactDOM.render(<Oops />, document.getElementById('content'));
+    }
+};

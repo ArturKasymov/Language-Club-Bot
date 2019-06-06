@@ -40,7 +40,7 @@ const addOrganizatorButton = {
 const meetingsListButton = {
   "type": "web_url",
   "title": "  Meetings List",
-  "url": `${SERVER_URL}/meetingsadmList`,
+  "url": `${SERVER_URL}/meetingsadmlist`,
   "webview_height_ratio":"full",
   "webview_share_button": "hide",
   "messenger_extensions": true

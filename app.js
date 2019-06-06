@@ -18,6 +18,7 @@ import organizators from './routes/organizators';
 import createmeeting from './routes/createmeeting';
 import meetings from './routes/meetings';
 import places from './routes/places';
+import meetingsadmlist from './routes/meetingsadmlist';
 import webhooks from './routes/webhooks';
 
 const app = express();
@@ -42,6 +43,7 @@ app.use('/organizators', organizators);
 app.use('/createmeeting', createmeeting);
 app.use('/meetings', meetings);
 app.use('/places', places);
+app.use('/meetingsadmlist', meetingsadmlist);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {

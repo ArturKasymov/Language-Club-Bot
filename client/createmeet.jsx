@@ -61,7 +61,10 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	pushData() {
-		if (new Date(this.state.startTime) > new Date(this.state.endTime)) this.showAlert();
+		if (new Date(this.state.startTime) > new Date(this.state.endTime)) {
+			this.showAlert();
+			return;
+		}
 
 		const endpoint = `/meetings/${this.props.userId}`;
 
@@ -91,11 +94,11 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	updateDescription(e) {
-		this.setState({description: e.target.value, text: e.target.value});
+		this.setState({description: e.target.value, text: e.target.value, alert: false});
 	}
 
 	updateStartTime(startTime) {
-		this.setState({startTime, text: startTime});
+		this.setState({startTime, text: startTime, alert: false});
 	}
 
 	updateEndTime(endTime) {
@@ -117,7 +120,7 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	showAlert() {
-		this.setState({text: 'alert'});
+		this.setState({alert: true, text: 'alert'});
 	}
 
 	render() {
@@ -153,7 +156,9 @@ export default class CreateMeeting extends React.PureComponent {
 				  <CellBody>
 					<input
 					  id='datepicker'
+					  className={this.state.alert ? "alert" : ""}
 					  type='datetime-local'
+					  required='required'
 					  value={this.state.startTime}
 					  onChange={(event) => this.updateStartTime(event.target.value)}
 					/>
@@ -174,6 +179,7 @@ export default class CreateMeeting extends React.PureComponent {
 					<input
 					  id='datepicker'
 					  type='datetime-local'
+					  required='required'
 					  value={this.state.endTime}
 					  onChange={(event) => this.updateEndTime(event.target.value)}
 					/>

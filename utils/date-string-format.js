@@ -25,5 +25,5 @@ export const dateString = (date, includeYear = false) => {
       ? `, ${dateObj.getFullYear()}`
       : '';
 
-    return `${month} ${day}${optionalYear}`;
+    return `${month} ${day}${optionalYear} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
 };

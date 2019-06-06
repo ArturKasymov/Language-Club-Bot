@@ -180,7 +180,7 @@ export default class App extends React.PureComponent {
 				<p>{this.state.text}</p>
 
 				<ButtonArea className='submit'>
-					<Button onClick={() => this.pushData()}>Submit</Button>
+					<Button style="background-color: green;" onClick={() => this.pushData()}>Submit</Button>
 				</ButtonArea>
 			</div>
 		);
