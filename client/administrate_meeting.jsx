@@ -117,9 +117,9 @@ export default class AdministrateMeeting extends React.PureComponent {
 		if (this.state.id === null) {
 			return <Loading />;
 		}
-		const users = this.state.REGISTERED_USERS.map((entry) => {
+		const users = this.state.REGISTERED_USERS ? this.state.REGISTERED_USERS.map((entry) => {
 			return <p>{entry.nickname}</p>;
-		});
+		}) : null;
 
 		return (
 			<div className='app'>
@@ -131,8 +131,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
 					<hr/>
 					<h2>USERS</h2>
-					{users}
-					<p>{this.state.REGISTERED_USERS[0].nickname}</p>
+					{users ? users : <p>NOR</p>}
 					<p>{this.state.id}</p>
 				</section>
 			</div>
