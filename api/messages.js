@@ -111,10 +111,23 @@ const adminPanelMessage = {
     }
 };
 
+function getRegistrationOKMessage(nickname) {
+  return {
+    "text": nickname + ', registration complete!'
+  }
+}
+function getNicknameChangedMessage(nickname){
+  return {
+    "text": nickname + ', nickname changed'
+  }
+}
+
 export default {
     greetingMessage,
     contactingUsMessage,
     registrationNeedMessage,
     organizatorPanelMessage,
-    adminPanelMessage
+    adminPanelMessage,
+    getRegistrationOKMessage,
+    getNicknameChangedMessage
 }
