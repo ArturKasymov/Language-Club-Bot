@@ -118,7 +118,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 			return <Loading />;
 		}
 		const users = this.state.REGISTERED_USERS.map((entry) => {
-			return <User id={entry.userID} nickname={entry.nickname} addable={false} not_added={false} add={this.addPresentUser.bind(this)} />;
+			return <User id={entry.userID} nickname={entry.nickname} addable={false} not_added={false}/>;
 		});
 
 		return (
@@ -132,7 +132,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<hr/>
 					<h2>USERS</h2>
 					{users}
-					<p>{JSON.stringify(this.state.REGISTERED_USERS)}</p>
+					<p>{this.state.REGISTERED_USERS[0].nickname}</p>
 					<p>{this.state.id}</p>
 				</section>
 			</div>
