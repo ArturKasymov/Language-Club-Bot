@@ -1,7 +1,7 @@
 ﻿/* eslint-disable react/react-in-jsx-scope */
 
 import React from 'react';
-import {MediaBox, MediaBoxBody, MediaBoxTitle} from 'react-weui';
+import {Button, MediaBox, MediaBoxBody, MediaBoxTitle} from 'react-weui';
 
 const User = ({id, nickname, addable, not_added, add}) => {
 
