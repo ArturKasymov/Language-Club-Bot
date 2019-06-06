@@ -59,11 +59,27 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	pushData() {
-	
+		const endpoint = `/meetings/${this.props.userId}`;
+
+		const content = this.jsonState();		
+
+		fetch(endpoint, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: content,
+		}).then((response) => {
+			if (response.ok) {
+				console.log('Data successfully updated on the server!');
+				return;
+			}
+		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
+			WebviewControls.close();
+		});
 	}
 
 	jsonState() {
-	
+		return JSON.stringify({startTime: this.state.startTime, endTime: this.state.endTime, description: this.state.description, 
+								place_id: this.state.place_id});
 	}
 
 	componentWillMount() {
@@ -92,7 +108,7 @@ export default class CreateMeeting extends React.PureComponent {
 
 	postNewPlace(place) {
 		ALL_PLACES.push({value: place.id, label: place.label, selected: "selected"});
-		this.setState({new_place: false, ALL_PLACES: ALL_PLACES, place_id: place.id});
+		this.setState({new_place: false, ALL_PLACES: ALL_PLACES, place_id: place.id, text: this.state.new_place});
 	}
 
 	render() {

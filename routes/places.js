@@ -13,6 +13,7 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
     query(CONSTANTS.INSERT_PLACE, [body.name, body.city, body.address, body.description, body.photo])
     .then((obj) => {
         //res.sendStatus(204);
+        res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(obj));
     });
 });

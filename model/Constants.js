@@ -28,6 +28,7 @@ const UPDATE_PERMISSION_LEVEL = "UPDATE_PERMISSION_LEVEL";
 const GET_USERS_LIST_DATA = "GET_USERS_LIST_DATA";
 const GET_ALL_PLACES = "GET_ALL_PLACES";
 const INSERT_PLACE = "INSERT_PLACE";
+const INSERT_MEETING = "INSERT_MEETING";
 
 // statuses
 const GOT_STARTED = "GOT_STARTED";
@@ -48,6 +49,7 @@ const INSERT_USER_LANGUAGES_QUERY = 'INSERT INTO languages("userID", "langName")
 const GET_ALL_USERS_QUERY = 'SELECT "facebookID", "permissionLevel", nickname FROM users';
 const GET_ALL_PLACES_QUERY = 'SELECT id, name, city, adress FROM places';
 const INSERT_PLACE_QUERY = 'INSERT INTO places VALUES(DEFAULT, $1::varchar, $2::varchar, $3::varchar, $4::varchar, $5::varchar) RETURNING id, name, city, adress';
+const INSERT_MEETING_QUERY = 'INSERT INTO meetings VALUES(DEFAULT, $1::int, $2::varchar, $3::varchar, $4::timestamptz, $5::timestamptz)';
 
 
 module.exports = {
@@ -80,6 +82,7 @@ module.exports = {
     GET_USERS_LIST_DATA: GET_USERS_LIST_DATA,
     GET_ALL_PLACES, GET_ALL_PLACES,
     INSERT_PLACE: INSERT_PLACE,
+    INSERT_MEETING: INSERT_MEETING,
 
     CONTACTING_US: CONTACTING_US,
 
@@ -97,4 +100,5 @@ module.exports = {
     GET_ALL_USERS_QUERY: GET_ALL_USERS_QUERY,
     GET_ALL_PLACES_QUERY: GET_ALL_PLACES_QUERY,
     INSERT_PLACE_QUERY: INSERT_PLACE_QUERY,
+    INSERT_MEETING_QUERY: INSERT_MEETING_QUERY,
 }
