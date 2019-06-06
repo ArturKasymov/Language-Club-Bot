@@ -18,6 +18,7 @@ import {
 import WebviewControls from '../api/webview-controls';
 
 import Loading from './loading.jsx';
+import Language from './language.jsx';
 
 export default class App extends React.PureComponent {
 
@@ -33,10 +34,6 @@ export default class App extends React.PureComponent {
 		alert: false,
 	}
 
-	pushData() {
-		
-	}
-
 	pullData() {
 		const user_endpoint = `/users/${this.props.userId}/user_languages`;
 
@@ -45,14 +42,11 @@ export default class App extends React.PureComponent {
 			if (response.status == 200) {
 				return response.json();
 			}
-
-			const text = response.status.toString();
-			this.setState({text});
 		}).then((jsonResponse) => {
 				
 				this.setState({languages: new Set(jsonResponse.user_langs)});
 
-		}).catch((err) => console.log(err));
+		}).catch((err) => console.error('Error pulling data', err));
 
 		const all_endpoint = `/users/${this.props.userId}/all_languages`;
 
@@ -61,15 +55,36 @@ export default class App extends React.PureComponent {
 			if (response.status == 200) {
 				return response.json();
 			}
-
-			const text = response.status.toString();
-			this.setState({text});
 		}).then((jsonResponse) => {
 				
 				this.setState({ALL_LANGUAGES: jsonResponse});
 
-		}).catch((err) => console.log(err));
+		}).catch((err) => console.error('Error pulling data', err));
 	}
+
+
+	pushData() {
+		if ((this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.size == 0) {
+			this.showAlert();
+			return;
+		}
+
+		const content = this.jsonState();		
+
+		fetch(`/users/${this.props.userId}`, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: content,
+		}).then((response) => {
+			if (response.ok) {
+				console.log('Data successfully updated on the server!');
+				return;
+			}
+		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
+			WebviewControls.close();
+		});
+	}
+
 
 	jsonState() {
 		if (this.props.first_time) return JSON.stringify({nickname: this.state.nickname, languages: [...this.state.languages]});
@@ -103,9 +118,25 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.ALL_LANGUAGES.length === 0) {
+		/*if (this.state.ALL_LANGUAGES.length === 0) {
 			return <Loading />;
-		}
+		}*/
+		
+		const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
+			const value = lang;
+			const checked = this.state.languages.has(value);
+
+			return (
+				<Language 
+					key={value}
+					value={value}
+					label={lang}
+					checked={checked}
+					addLanguage={this.addLanguage.bind(this)}
+					removeLanguage={this.removeLanguage.bind(this)}
+				/>
+			);
+		});
 
 		var input;
 		if (this.props.first_time && this.state.alert) {
@@ -120,18 +151,15 @@ export default class App extends React.PureComponent {
 			</CellHeader></Form></section>
 		}
 
-		const callback = this.pushData();
-
 		return (
 			<div className='app'>
-				<p>{this.state.ALL_LANGUAGES.toString()}</p>
-
 				{this.props.first_time &&
 				input
 				}
 
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
+					<Form checkbox>{languagesFactory}</Form>
 				</section>
 
 				{this.state.alert && 
@@ -139,7 +167,7 @@ export default class App extends React.PureComponent {
 				}
 
 				<ButtonArea className='submit'>
-					<Button onClick={() => callback()}>Submit</Button>
+					<Button onClick={() => this.pushData()}>Submit</Button>
 				</ButtonArea>
 			</div>
 		);
