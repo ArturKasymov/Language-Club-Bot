@@ -72,7 +72,13 @@ function query(type, args) {
             return getCurrentMeeting(args);
         case CONSTANTS.GET_USERS_ON_MEETING:
             return getUsersOnMeeting(args);
-
+        case CONSTANTS.UPDATE_VISITOR:
+            updateVisitor(args);
+            break;
+        case CONSTANTS.FINISH_MEETING:
+            finishMeeting(args);
+            break;
+        
         //TEMP CASES
         case 'ADMIN':
             updatePermLvl(['3', args[0]]);
@@ -80,7 +86,8 @@ function query(type, args) {
         case 'USER':
             updatePermLvl(['1', args[0]]);
             break;
-
+        
+        
         default:
             break;
     }
@@ -111,6 +118,10 @@ function updateMeeting(args) {
     pool.query(CONSTANTS.UPDATE_MEETING_QUERY, args, (err, res) => {
         console.log(err, res);
     });
+}
+
+function finishMeeting(args) {
+    pool.query(CONSTANTS.FINISH_MEETING_QUERY, args);
 }
 
 function updateStatus(args) {
@@ -231,6 +242,10 @@ function deleteUserLanguages(args) {
     }).then((result) => {
         console.log("DELETED USER LANGUAGES");
     });
+}
+
+function updateVisitor(args) {
+    pool.query(CONSTANTS.UPDATE_VISITOR_QUERY, args);
 }
 
 function getUserLanguages(args) {

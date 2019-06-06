@@ -72,4 +72,16 @@ router.put('/:userID/update', ({body, params: {userID}}, res) => {
     res.sendStatus(204);
 });
 
+router.put('/:userID/present', ({body, params: {userID}}, res) => {
+    console.log("IN PUT /MEETINGS/PRESENT " + JSON.stringify(body));
+    query(CONSTANTS.UPDATE_VISITOR, [body.isPresent, body.id, body.meet_id]);
+    res.sendStatus(204);
+});
+
+router.put('/:userID/finish', ({body, params: {userID}}, res) => {
+    console.log("IN PUT /MEETINGS/FINISH " + JSON.stringify(body));
+    query(CONSTANTS.FINISH_MEETING, [body.meet_id]);
+    res.sendStatus(204);
+});
+
 export default router;
