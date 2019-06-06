@@ -44,6 +44,10 @@ export default class App extends React.PureComponent {
 		this.pullData();
 	}
 
+	blockOthers(id) {
+		this.setState({update_meeting_idx: id});
+	}
+
 	render() {
 		if (this.state.ALL_MEETINGS === null) {
 			return <Loading />;
@@ -64,7 +68,7 @@ export default class App extends React.PureComponent {
 			return (
 				<Meeting userId={this.props.userId} id={id} placeID={placeID} placeName={placeName} placeCity={placeCity} placeAddress={placeAddress}
 				organizatorID={organizatorID} organizatorNickname={organizatorNickname} description={description} startDate={startDate} endDate={endDate}
-				 />
+				disabled={this.state.update_meeting_idx!=id} onBlock={this.blockOthers.bind(this)} />
 			);
 		});
 

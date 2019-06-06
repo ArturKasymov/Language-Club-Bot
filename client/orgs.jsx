@@ -114,12 +114,10 @@ export default class Organizators extends React.PureComponent {
 		const organizators = [...this.state.organizators].map((org, index) => {
 			return <Organizator key={org[0]} id={org[0]} nickname={org[1]} removeOrganizator={this.removeOrganizator.bind(this)} />;
 		});
-		//const organizators = [<Organizator key='a' id='a' nickname='Demian' removeOrganizator={this.removeOrganizator.bind(this)} />];
 
 		const users = this.state.results.map((org, index) => {
-			return <User key={org[0]} id={org[0]} nickname={org[1]} />;
+			return <User key={org[0]} id={org[0]} nickname={org[1]} addable={false} not_added={true}/>;
 		});
-		//const users = [<User key='a' id='a' nickname='Demian' />];
 
 		return (
 		<div className='app'>
