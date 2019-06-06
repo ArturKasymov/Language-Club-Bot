@@ -5,7 +5,7 @@ import {MediaBox, MediaBoxBody, MediaBoxTitle} from 'react-weui';
 
 const User = ({id, nickname, addable, not_added, add}) => {
 
-	const addButton = <Button onClick={() => add(id, not_added)}>{not_added ? "ADD" : "DELETE"}</Button>
+	const addButton = <Button onClick={() => add(id, not_added)}>ADD</Button>
 
 	return (
 		<MediaBox type="text">
