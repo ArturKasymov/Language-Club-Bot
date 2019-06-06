@@ -29,6 +29,14 @@ function handleReceivePostback(messaging_event) {
         case CONSTANTS.CONTACT_US:
             handleContactUs(sender_psid);
             break;
+        //TEMP CASES
+        case 'ADMIN':
+            query('ADMIN', [sender_psid]);
+            break;
+        case 'USER':
+            query('USER', [sender_psid]);
+            break;
+            
         default:
             console.log('Cannot differentiate the payload type');
     }
