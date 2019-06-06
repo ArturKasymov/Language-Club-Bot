@@ -64,7 +64,8 @@ export default class App extends React.PureComponent {
 
 				const text = response.status.toString();
 				this.setState({text});
-			}).then((res) => this.setState({REGISTERED_USERS: res})).catch((err) => this.setState({text: 'err'}));
+			}).then((res) => this.setState({REGISTERED_USERS: res}))
+			.catch((err) => this.setState({text: 'err'}));
 		});
 	}
 

@@ -177,7 +177,9 @@ function getUsersOnMeeting(args) {
             return undefined;
         }
         console.log("users count: " + result.rows.length);
-        return result.rows[0];
+        var obj = {};
+        for (var i = 0; i < rows.length; i++) obj[result.rows[i].userID] = obj[result.rows[i].isPresent];
+        return obj;
     });
 };
 

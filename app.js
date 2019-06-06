@@ -48,7 +48,7 @@ app.use('/meetings', meetings);
 app.use('/places', places);
 app.use('/meetingsadmlist', meetingsadmlist);
 app.use('/meetingsadm', meetingsadm);
-app.use('/futuremeetings', futuremeetings);
+//app.use('/futuremeetings', futuremeetings);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {
