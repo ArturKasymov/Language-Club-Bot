@@ -78,6 +78,11 @@ function sendNickNameChanged(id, nickname) {
     sendMessage(id, messages.getNicknameChangedMessage(nickname));
 }
 
+//TEMP function
+function tempSend(id, message){
+    sendMessage(id, message);
+}
+
 export default {
     sendMessage,
     sendReadReceipt,
@@ -87,5 +92,9 @@ export default {
     sendOrganizatorPanelMessage,
     sendAdminPanelMessage,
     sendRegistrationOKMessage,
-    sendNickNameChanged
+    sendNickNameChanged,
+
+
+    //TEMP function
+    tempSend
 };

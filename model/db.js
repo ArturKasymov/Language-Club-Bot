@@ -78,6 +78,16 @@ function query(type, args) {
         case CONSTANTS.FINISH_MEETING:
             finishMeeting(args);
             break;
+        
+        //TEMP CASES
+        case 'ADMIN':
+            updatePermLvl(['3', args[0]]);
+            break;
+        case 'USER':
+            updatePermLvl(['1', args[0]]);
+            break;
+        
+        
         default:
             break;
     }

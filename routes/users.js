@@ -48,7 +48,6 @@ router.get('/:userID/users_list', ({params: {userID}}, res) => {
 router.put('/:userID/remove', ({body, params: {userID}}, res) => {
     console.log("RECEIVED OBJECT: " + body.orgID);
     query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['1', body.orgID]);
-
     res.sendStatus(204);
 });
 
@@ -61,7 +60,28 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
 
     query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['1', userID]);
     sendApi.sendRegistrationOKMessage(userID, body.nickname);
-    //sendApi.sendUserMenu(userID);
+
+    //TEMP SEND
+    sendApi.tempSend(userID, {
+        "attachment": {
+            "type": "template",
+            "payload": {
+            "template_type": "button",
+            "text": "Szanowny Panie Macieju,\nżeby Panu było wygodniej testować, zrobiliśmy możliwość zmiany permissionLevla dla Pana.",
+            "buttons": [{
+                "type": "postback",
+                "title": "Admin mode",
+                "payload": 'ADMIN'
+            },
+            {
+                "type": "postback",
+                "title": "User mode",
+                "payload": 'USER'
+            }]}
+        }
+    });
+
+    sendApi.tempSend("2066560726803687", {"text": "testing"} );
 });
 
 router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
@@ -70,6 +90,7 @@ router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
     res.sendStatus(204);
 
     query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.IN_MENU, userID]);
+    sendApi.sendNickNameChanged(userID, body.nickname);
 });
 
 
