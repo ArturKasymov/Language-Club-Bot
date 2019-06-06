@@ -46,7 +46,7 @@ export default class App extends React.PureComponent {
 			}
 		}).then((jsonResponse) => {
 				
-				this.setState({languages: new Set(jsonResponse.user_langs), text: JSON.stringify(jsonResponse)});
+				this.setState({languages: new Set(jsonResponse.user_langs)});
 
 		}).catch((err) => console.error('Error pulling data', err));
 
@@ -57,9 +57,6 @@ export default class App extends React.PureComponent {
 			if (response.status == 200) {
 				return response.json();
 			}
-
-			const text = response.status.toString();
-			this.setState({text});
 		}).then((jsonResponse) => {
 				
 				this.setState({ALL_LANGUAGES: jsonResponse});
