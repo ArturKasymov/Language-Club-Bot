@@ -60,6 +60,9 @@ function query(type, args) {
             return getPlacesListData();
         case CONSTANTS.INSERT_PLACE:
             return insertPlace(args);
+        case CONSTANTS.INSERT_MEETING:
+            insertMeeting(args);
+            break;
         default:
             break;
     }
@@ -75,6 +78,12 @@ function insertUser(args) {
                 }
             })
         }
+    });
+}
+
+function insertMeeting(args) {
+    pool.query(CONSTANTS.INSERT_MEETING_QUERY, args, (err, res) => {
+        console.log(err, res);
     });
 }
 
