@@ -16,6 +16,8 @@ import nickname from './routes/nickname';
 import languages from './routes/languages';
 import organizators from './routes/organizators';
 import createmeeting from './routes/createmeeting';
+import meetings from './routes/meetings';
+import places from './routes/places';
 import webhooks from './routes/webhooks';
 
 const app = express();
@@ -37,7 +39,9 @@ app.use('/registration', registration);
 app.use('/nickname', nickname);
 app.use('/languages', languages);
 app.use('/organizators', organizators);
-app.use('/createmeeting', createmeeting)
+app.use('/createmeeting', createmeeting);
+app.use('/meetings', meetings);
+app.use('/places', places);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {

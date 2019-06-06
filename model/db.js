@@ -56,6 +56,10 @@ function query(type, args) {
             return deleteUserLanguages(args);
         case CONSTANTS.GET_USERS_LIST_DATA:
             return getUsersListData();
+        case CONSTANTS.GET_ALL_PLACES:
+            return getPlacesListData();
+        case CONSTANTS.INSERT_PLACE:
+            return insertPlace(args);
         default:
             break;
     }
@@ -149,7 +153,16 @@ function getAllLanguages() {
         console.log("array: " + result.rows[0].getlanguagesarray);
         return result.rows[0].getlanguagesarray;
     });
-};
+}
+
+function insertPlace(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.INSERT_PLACE_QUERY, args));
+    }).then((result) => {
+        const row = result.rows[0];
+        return { id: row.id, label: row.name + ' (' + row.adress + ', ' + row.city + ')' };
+    }).catch((err) => console.log(err));
+}
 
 function deleteUserLanguages(args) {
     return new Promise((resolve, reject) => {
@@ -181,11 +194,25 @@ function getUsersListData() {
         var obj = {};
         for (var i = 0; i < result.rows.length; i++) {
             if (result.rows[i]["permissionLevel"] !== "0")
-            obj[result.rows[i]["facebookID"]] = result.rows[i]["permissionLevel"] + result.rows[i].nickname;
+                obj[result.rows[i]["facebookID"]] = result.rows[i]["permissionLevel"] + result.rows[i].nickname;
         }
         console.log("SENDING " + JSON.stringify(obj));
         return obj;
+    });
+};
+
+function getPlacesListData() {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_ALL_PLACES_QUERY));
     })
+    .then((result) => {
+        var obj = {};
+        for (var i = 0; i < result.rows.length; i++) {
+            obj[result.rows[i].id] = result.rows[i].name + ' (' + result.rows[i].adress + ', ' + result.rows[i].city + ')';
+        }
+        console.log("SENDING " + JSON.stringify(obj));
+        return obj;
+    });
 };
 
 

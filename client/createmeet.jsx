@@ -40,7 +40,22 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	pullData() {
-	
+		const user_endpoint = `/meetings/${this.props.userId}`;
+
+		fetch(user_endpoint)
+		.then((response) => {
+			if (response.status == 200) {
+				return response.json();
+			}
+
+			const text = response.status.toString();
+			this.setState({text});
+		}).then((jsonResponse) => {
+				
+				this.setState({ALL_PLACES: Object.entries(jsonResponse)
+											.map((entry) => {return {value: parseInt(entry[0]), label: entry[1]};})});
+
+		}).catch((err) => console.error('Error pulling data', err));
 	}
 
 	pushData() {
@@ -56,11 +71,11 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	updateDescription(e) {
-		this.setState({description: e.target.value});
+		this.setState({description: e.target.value, text: e.target.value});
 	}
 
 	updateStartTime(time) {
-		this.setState({startTime: time});
+		this.setState({startTime: time, text: e.target.value});
 	}
 
 	updateEndTime(time) {
@@ -75,31 +90,17 @@ export default class CreateMeeting extends React.PureComponent {
 		this.setState({new_place: true});
 	}
 
-	postNewPlace() {
-		var new_id = this.state.ALL_PLACES ? this.state.ALL_PLACES.length : 0;
-		this.setState({new_place: false, place_id: new_id});
+	postNewPlace(place) {
+		ALL_PLACES.push({value: place.id, label: place.label, selected: "selected"});
+		this.setState({new_place: false, ALL_PLACES: ALL_PLACES, place_id: place.id});
 	}
 
 	render() {
-		/*if (this.state.ALL_PLACES === null) {
+		if (this.state.ALL_PLACES === null) {
 			return <Loading />;
-		}*/
+		}
 
-		//const places = this.state.ALL_PLACES.map((entry, index) => {return {value: index, label: entry};});
-		const places = [
-                            {
-                                value: 1,
-                                label: 'China'
-                            },
-                            {
-                                value: 2,
-                                label: 'United States'
-                            },
-                            {
-                                value: 3,
-                                label: 'Germany'
-                            }
-                        ];
+		const places = this.state.ALL_PLACES ? this.state.ALL_PLACES : [];
 
 		return (
 			<div className='app'>
@@ -174,7 +175,11 @@ export default class CreateMeeting extends React.PureComponent {
 
 			<section>
 				{ !this.state.new_place ? 
-				<Button onClick={this.showNewPlaceForm.bind(this)}>Add new place</Button> : <Place onSubmit={this.postNewPlace.bind(this)}/>}
+				<Button onClick={this.showNewPlaceForm.bind(this)}>Add new place</Button> : <Place userId={this.props.userId} onSubmit={this.postNewPlace.bind(this)}/>}
+			</section>
+
+			<section>
+				<Button onClick={() => this.pushData()}>Add new place</Button>
 			</section>
 
 			<p>{this.state.text}</p>

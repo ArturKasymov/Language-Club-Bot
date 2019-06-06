@@ -20,6 +20,7 @@ import WebviewControls from '../api/webview-controls';
 export default class Place extends React.PureComponent {
 
 	static propTypes = {
+		userId: React.PropTypes.string.isRequired,
 		onSubmit: React.PropTypes.func.isRequired,
 	}
 
@@ -36,15 +37,28 @@ export default class Place extends React.PureComponent {
 	}
 
 	pushData() {
-	
+
+		const endpoint = `/places/${this.props.userId}`;
+		const content = this.jsonState();
+
+		return fetch(endpoint, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: content,
+		}).then((response) => {
+			if (response.ok) {
+				console.log('Data successfully updated on the server!');
+				return response.json();
+			}
+		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err));
 	}
 
 	jsonState() {
-	
+		return JSON.stringify(this.state);
 	}
 
 	showAlert() {
-	
+		this.setState({text: "alert"});
 	}
 
 	updateName(e) {
@@ -64,7 +78,11 @@ export default class Place extends React.PureComponent {
 	}
 
 	addNewPlace() {
-		this.props.onSubmit();
+		const callback = this.props.onSubmit;
+		this.pushData()
+		.then((place) => {
+			callback(place);
+		});
 	}
 
 	render() {	
