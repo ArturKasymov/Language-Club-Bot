@@ -24,9 +24,7 @@ router.get('/:userID', ({params: {userID}}, res) => {
 router.put('/:userID', ({body, params: {userID}}, res) => {
     console.log("IN PUT /MEETINGS/" + userID);
     query(CONSTANTS.INSERT_MEETING, [body.place_id, userID, body.description, body.startDate, body.endDate])
-    .then((response) => {
-        res.sendStatus(204);
-    });
+    res.sendStatus(204);
 });
 
 export default router;

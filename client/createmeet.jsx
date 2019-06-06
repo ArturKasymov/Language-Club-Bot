@@ -28,8 +28,8 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	state = {
-		startTime: null,
-		endTime: null,
+		startTime: new Date(),
+		endTime: new Date(),
 		description: '',
 		place_id: null,
 
@@ -90,12 +90,12 @@ export default class CreateMeeting extends React.PureComponent {
 		this.setState({description: e.target.value, text: e.target.value});
 	}
 
-	updateStartTime(time) {
-		this.setState({startTime: time, text: e.target.value});
+	updateStartTime(startTime) {
+		this.setState({startTime, text: startTime});
 	}
 
-	updateEndTime(time) {
-		this.setState({endTime: time});
+	updateEndTime(endTime) {
+		this.setState({endTime});
 	}
 
 	updatePlace(e) {
@@ -108,7 +108,7 @@ export default class CreateMeeting extends React.PureComponent {
 
 	postNewPlace(place) {
 		ALL_PLACES.push({value: place.id, label: place.label, selected: "selected"});
-		this.setState({new_place: false, ALL_PLACES: ALL_PLACES, place_id: place.id, text: this.state.new_place});
+		this.setState({new_place: false, ALL_PLACES: ALL_PLACES, place_id: place.id});
 	}
 
 	render() {
@@ -145,7 +145,6 @@ export default class CreateMeeting extends React.PureComponent {
 					<input
 					  id='datepicker'
 					  type='datetime-local'
-					  required='required'
 					  value={this.state.startTime}
 					  onChange={(event) => this.updateStartTime(event.target.value)}
 					/>
@@ -166,7 +165,6 @@ export default class CreateMeeting extends React.PureComponent {
 					<input
 					  id='datepicker'
 					  type='datetime-local'
-					  required='required'
 					  value={this.state.endTime}
 					  onChange={(event) => this.updateEndTime(event.target.value)}
 					/>

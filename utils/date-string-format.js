@@ -9,7 +9,7 @@ const nth = (day) => {
 };
 
 export const dateString = (date, includeYear = false) => {
-    if (date === null) return "";
+    //if (date === null) return "";
     // Prevent daylight savings from interfering with date
     const normalizedDate = `${date}`;
     const dateObj = new Date(normalizedDate);
