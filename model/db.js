@@ -63,7 +63,7 @@ function query(type, args) {
         case CONSTANTS.INSERT_MEETING:
             insertMeeting(args);
             break;
-        case CONSTANTS.GET_MEETINGS_LIST_QUERY:
+        case CONSTANTS.GET_MEETINGS_LIST:
             return getMeetingsList(args);
         case CONSTANTS.UPDATE_MEETING:
             updateMeeting(args);
