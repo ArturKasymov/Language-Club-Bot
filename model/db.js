@@ -216,7 +216,7 @@ function getMeetingsList(args) {
         if (result === undefined || result.rows.length === 0) {
             return undefined;
         }
-        var obj;
+        var obj = {};
         for (var i = 0; i < result.rows.length; i++) {
             const row = result.rows[i];
             obj[row.id] = [row["placeID"], row["place_name"], row["place_city"], row["place_address"], row["organizerID"], row["organizer_nickname"],
