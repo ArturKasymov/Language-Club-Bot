@@ -99,7 +99,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json'},
 			body: content,
-		).then((response) => {
+		}).then((response) => {
 			if (response.ok) {
 				const newRegisteredUsers = new Object(REGISTERED_USERS);
 				for (var i = 0; i < newRegisteredUsers.elngth; i++) {
