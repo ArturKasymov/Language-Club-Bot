@@ -73,7 +73,18 @@ export default class AdministrateMeeting extends React.PureComponent {
 	}
 
 	finishMeeting() {
-	
+		const endpoint = `/meetings/${this.props.userId}/finish`;
+		const content = JSON.stringify({meet_id: parseInt(this.state.id)});
+
+		fetch(endpoint, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: content,
+		}).then((response) => {
+			if (reponse.ok) {
+				WebviewControls.close();
+			}
+		})
 	}
 
 	nextRound() {
@@ -81,7 +92,25 @@ export default class AdministrateMeeting extends React.PureComponent {
 	}
 
 	addPresentUser(id, not_added) {
-		
+		const endpoint = `/meetings/${this.props.userId}/present`;
+		const content = JSON.stringify({meet_id: this.state.id, id: id, present: not_added});
+
+		fetch(endpoint, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: content,
+		).then((response) => {
+			if (response.ok) {
+				const newRegisteredUsers = new Object(REGISTERED_USERS);
+				for (var i = 0; i < newRegisteredUsers.elngth; i++) {
+					if (newRegisteredUsers[i].userID == id) {
+						newRegisteredUsers[i].isPresent = !newRegisteredUsers[i].isPresent;
+						break;
+					}
+				}
+				this.setState({REGISTERED_USERS: newRegisteredUsers});
+			}
+		});
 	}
 
 	render() {
@@ -90,7 +119,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 		}
 		const adminId = this.props.userId;
 		const users = this.state.REGISTERED_USERS.map((entry) => {
-			return <User key={entry.userID} id={entry.userID} nickname={entry.nickname} addable={true} not_added={entry.userID != adminId} add={this.addPresentUser.bind(this)} />;
+			return <User key={entry.userID} id={entry.userID} nickname={entry.nickname} addable={true} not_added={!entry.isPresent} add={this.addPresentUser.bind(this)} />;
 		});
 
 		return (
