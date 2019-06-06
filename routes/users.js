@@ -73,6 +73,9 @@ router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
     res.sendStatus(204);
 
     query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.IN_MENU, userID]);
+
+    
+    
 });
 
 

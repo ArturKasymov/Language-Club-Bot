@@ -74,6 +74,10 @@ function sendRegistrationOKMessage(id, nickname) {
     sendMessage(id, messages.getRegistrationOKMessage(nickname));
 }
 
+function sendNickNameChanged(id, nickname) {
+    sendMessage(id, messages.getNicknameChangedMessage(nickname));
+}
+
 export default {
     sendMessage,
     sendReadReceipt,
