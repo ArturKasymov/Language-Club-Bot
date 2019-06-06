@@ -35,7 +35,7 @@ export default class App extends React.PureComponent {
 			this.setState({text});
 		}).then((jsonResponse) => {
 				
-				this.setState({ALL_MEETINGS: jsonResponse});
+				this.setState({ALL_MEETINGS: Object.entries(jsonResponse).map((entry) => {var x = {}; x[entry[0]] = entry[1]; return x;})});
 
 		}).catch((err) => console.error('Error pulling data', err));
 	}
