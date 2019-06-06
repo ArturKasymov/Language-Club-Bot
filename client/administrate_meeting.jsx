@@ -84,7 +84,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 			if (reponse.ok) {
 				WebviewControls.close();
 			}
-		})
+		});
 	}
 
 	nextRound() {
