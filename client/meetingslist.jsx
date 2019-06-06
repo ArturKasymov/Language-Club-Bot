@@ -67,7 +67,7 @@ export default class App extends React.PureComponent {
 				 />
 			);
 		});*/
-		const meetings = <p>NULL</p>;
+		const meetings = <p>{JSON.stringify(this.state.ALL_MEETINGS)}</p>;
 
 		return (
 			<div className='app'>
