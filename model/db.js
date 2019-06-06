@@ -68,6 +68,8 @@ function query(type, args) {
         case CONSTANTS.UPDATE_MEETING:
             updateMeeting(args);
             break;
+        case CONSTANTS.GET_CURRENT_MEETING:
+            return getCurrentMeeting(args);
         default:
             break;
     }
@@ -148,6 +150,19 @@ function getStatus(args) {
         }
         console.log("innerStatus: " + result.rows[0].status);
         return result.rows[0].status;
+    });
+};
+
+function getCurrentMeeting(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_CURRENT_MEETING_QUERY, args));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("current_meeting id: " + result.rows[0].id);
+        return result.rows[0];
     });
 };
 

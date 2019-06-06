@@ -31,6 +31,7 @@ const INSERT_PLACE = "INSERT_PLACE";
 const INSERT_MEETING = "INSERT_MEETING";
 const GET_MEETINGS_LIST = "GET_MEETINGS_LIST";
 const UPDATE_MEETING = "UPDATE_MEETING";
+const GET_CURRENT_MEETING = "GET_CURRENT_MEETING";
 
 // statuses
 const GOT_STARTED = "GOT_STARTED";
@@ -54,6 +55,7 @@ const INSERT_PLACE_QUERY = 'INSERT INTO places VALUES(DEFAULT, $1::varchar, $2::
 const INSERT_MEETING_QUERY = 'INSERT INTO meetings VALUES(DEFAULT, $1::int, $2::varchar, $3::varchar, $4::timestamptz, $5::timestamptz)';
 const GET_MEETINGS_LIST_QUERY = 'SELECT * FROM getMeetingsList($1::varchar)';
 const UPDATE_MEETING_QUERY = 'UPDATE meetings SET description=$1::varchar, "startDate"=$2::timestamptz, "endDate"=$3::timestamptz WHERE id=$4::int';
+const GET_CURRENT_MEETING_QUERY = 'SELECT * FROM getAdministratedMeeting($1::varchar)';
 
 
 module.exports = {
@@ -89,6 +91,7 @@ module.exports = {
     INSERT_MEETING: INSERT_MEETING,
     GET_MEETINGS_LIST: GET_MEETINGS_LIST,
     UPDATE_MEETING: UPDATE_MEETING,
+    GET_CURRENT_MEETING: GET_CURRENT_MEETING,
 
     CONTACTING_US: CONTACTING_US,
 
@@ -109,4 +112,5 @@ module.exports = {
     INSERT_MEETING_QUERY: INSERT_MEETING_QUERY,
     GET_MEETINGS_LIST_QUERY: GET_MEETINGS_LIST_QUERY,
     UPDATE_MEETING_QUERY: UPDATE_MEETING_QUERY,
+    GET_CURRENT_MEETING_QUERY: GET_CURRENT_MEETING_QUERY,
 }

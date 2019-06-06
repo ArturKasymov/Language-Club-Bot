@@ -69,24 +69,20 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.ALL_MEETINGS === null) {
+		if (this.state.id === null) {
 			return <Loading />;
 		}
 
+		const users = <User key={"a"} id={"a"} nickname={"Demian"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />;
+
 		return (
-			if (this.state.id === null) {
-				return <Loading />;
-			}
-
-			const users = <User key={"a"} id={"a"} nickname={"Demian"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />;
-
 			<div className='app'>
 				<section>
 					<p>Meeting at {this.state.placeAddress}, {this.props.placeCity} in {this.props.placeName}</p>
 					<p>from {dateString(this.props.startTime, true)} to {dateString(this.props.endTime, true)}</p>
 					<hr/>
-					<Button onClick={() => this.finishMeeting()}/>FINISH</Button>
-					<Button onClick={() => this.nextRound()}/>NEXT ROUND</Button>
+					<Button onClick={() => this.finishMeeting()}>FINISH</Button>
+					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
 					<hr/>
 					<h2>USERS</h2>
 					{users}
