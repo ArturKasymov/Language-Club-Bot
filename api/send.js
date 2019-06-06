@@ -70,6 +70,14 @@ function sendAdminPanelMessage(id) {
     sendMessage(id, messages.adminPanelMessage);
 }
 
+function sendRegistrationOKMessage(id, nickname) {
+    sendMessage(id, messages.getRegistrationOKMessage(nickname));
+}
+
+function sendNickNameChanged(id, nickname) {
+    sendMessage(id, messages.getNicknameChangedMessage(nickname));
+}
+
 export default {
     sendMessage,
     sendReadReceipt,
@@ -77,5 +85,6 @@ export default {
     sendContactingUsMessage,
     sendNeedRegistrationMessage,
     sendOrganizatorPanelMessage,
-    sendAdminPanelMessage
+    sendAdminPanelMessage,
+    sendRegistrationOKMessage
 };

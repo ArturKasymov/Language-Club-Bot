@@ -82,7 +82,7 @@ export default class App extends React.PureComponent {
 				console.log('Data successfully updated on the server!');
 				return;
 			}
-		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
+		}).catch((err) => console.log(err)).then(() => {
 			WebviewControls.close();
 		});
 	}
