@@ -23,6 +23,7 @@ router.get('/:userID/all_languages', ({params: {userID}}, res) => {
 
 router.get('/:userID/user_languages', ({params: {userID}}, res) => {
     console.log("IN GET /USERS/" + userID);
+    
     query(CONSTANTS.GET_USER_LANGUAGES, [userID])
     .then((obj) => {
         const langsJSON = JSON.stringify(obj);
@@ -74,8 +75,8 @@ router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
 
     query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.IN_MENU, userID]);
 
-    
-    
+
+
 });
 
 

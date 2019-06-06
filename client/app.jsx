@@ -45,9 +45,7 @@ export default class App extends React.PureComponent {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-				
 				this.setState({languages: new Set(jsonResponse.user_langs)});
-
 		}).catch((err) => console.error('Error pulling data', err));
 
 		const all_endpoint = `/users/${this.props.userId}/all_languages`;
@@ -58,8 +56,7 @@ export default class App extends React.PureComponent {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-				this.setState({ALL_LANGUAGES: jsonResponse});
-
+				this.setState({ALL_LANGUAGES: jsonResponse,});
 		}).catch((err) => console.error('Error pulling data', err));
 	}
 
@@ -119,9 +116,9 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.ALL_LANGUAGES.length === 0) {
+		/*if (this.state.ALL_LANGUAGES.length === 0) {
 			return <Loading />;
-		}
+		}*/
 		
 		const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
 			const value = lang;
