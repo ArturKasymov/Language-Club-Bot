@@ -17,8 +17,6 @@ import {
 
 import WebviewControls from '../api/webview-controls';
 
-import Lang from '../entities/lang';
-
 import Loading from './loading.jsx';
 import Language from './language.jsx';
 
@@ -51,7 +49,7 @@ export default class App extends React.PureComponent {
 			this.setState({text});
 		}).then((jsonResponse) => {
 				
-				this.setState({languages: new Set(jsonResponse.user_langs), text: JSON.stringify(jsonResponse)});
+				this.setState({text: JSON.stringify(jsonResponse)});
 
 		}).catch((err) => console.error('Error pulling data', err));
 
@@ -67,39 +65,18 @@ export default class App extends React.PureComponent {
 			this.setState({text});
 		}).then((jsonResponse) => {
 				
-				this.setState({ALL_LANGUAGES: jsonResponse, text: 'success'});
+				this.setState({text: JSON.stringify(jsonResponse)});
 
 		}).catch((err) => console.error('Error pulling data', err));
 	}
 
 
 	pushData() {
-		this.setState({text: this.state.alert.toString()});
-		if ((this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.size == 0) {
-			this.showAlert();
-			return;
-		}
-
-		const content = this.jsonState();		
-
-		fetch(`/users/${this.props.userId}`, {
-			method: 'PUT',
-			headers: {'Content-Type': 'application/json'},
-			body: content,
-		}).then((response) => {
-			if (response.ok) {
-				console.log('Data successfully updated on the server!');
-				return;
-			}
-		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
-			WebviewControls.close();
-		});
+		
 	}
 
 
 	jsonState() {
-		if (this.props.first_time) return JSON.stringify({nickname: this.state.nickname, languages: [...this.state.languages]});
-		else return JSON.stringify({languages: [...this.state.languages]});
 	}
 
 	componentWillMount() {
@@ -129,48 +106,15 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.ALL_LANGUAGES.length === 0) {
+		if (this.state.text === 'init') {
 			return <Loading />;
-		}
-		
-		const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
-			const value = lang;
-			const checked = this.state.languages.has(value);
-
-			return (
-				<Language 
-					key={value}
-					value={value}
-					label={lang}
-					checked={checked}
-					addLanguage={this.addLanguage.bind(this)}
-					removeLanguage={this.removeLanguage.bind(this)}
-				/>
-			);
-		});
-
-		var input;
-		if (this.props.first_time && this.state.alert) {
-			input = <section><CellsTitle>Your Nickname</CellsTitle>
-					<Form><CellHeader>
-					<Input className='nickname-input alert' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
-			</CellHeader></Form></section>
-		} else if (this.props.first_time) {
-			input = <section><CellsTitle>Your Nickname</CellsTitle>
-					<Form><CellHeader>
-					<Input className='nickname-input' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
-			</CellHeader></Form></section>
 		}
 
 		return (
 			<div className='app'>
-				{this.props.first_time &&
-				input
-				}
 
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
-					<Form checkbox>{languagesFactory}</Form>
 				</section>
 
 				{this.state.alert && 
