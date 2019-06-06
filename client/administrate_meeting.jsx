@@ -45,8 +45,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 			const text = response.status.toString();
 			this.setState({text});
 		}).then((res) => {
-				this.setState({id: res.id, placeName: res.placename, placeCity: res.city, placeAddress: res.adress, description: res.meetingDescription, 
-								startTime: res.startDate, endTime: res.endDate, text: 'success'});
+				this.setState({id: res.id,text: 'success'});
 				return res.id;
 		}).then((id) => {
 			const endpoint_users = `/meetings/${this.props.userId}/users`;
@@ -88,10 +87,10 @@ export default class AdministrateMeeting extends React.PureComponent {
 		if (this.state.id === null) {
 			return <Loading />;
 		}
-		const adminId = this.props.userId;
+		/*const adminId = this.props.userId;
 		const users = this.state.REGISTERED_USERS.map((entry) => {
 			return <User key={entry.userID} id={entry.userID} nickname={entry.nickname} addable={true} not_added={entry.userID != adminId} add={this.addPresentUser.bind(this)} />;
-		});
+		});*/
 		//const users = <User key={"a"} id={"a"} nickname={"Demian"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />;
 
 		return (
@@ -104,7 +103,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
 					<hr/>
 					<h2>USERS</h2>
-					{users}
+					
 
 					<p>{this.state.text}</p>
 				</section>
