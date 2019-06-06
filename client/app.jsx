@@ -17,8 +17,6 @@ import {
 
 import WebviewControls from '../api/webview-controls';
 
-import Lang from '../entities/lang';
-
 import Loading from './loading.jsx';
 import Language from './language.jsx';
 
