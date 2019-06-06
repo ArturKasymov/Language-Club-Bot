@@ -70,6 +70,8 @@ function query(type, args) {
             break;
         case CONSTANTS.GET_CURRENT_MEETING:
             return getCurrentMeeting(args);
+        case CONSTANTS.GET_USERS_ON_MEETING:
+            return getUsersOnMeeting(args);
         default:
             break;
     }
@@ -162,6 +164,19 @@ function getCurrentMeeting(args) {
             return undefined;
         }
         console.log("current_meeting id: " + result.rows[0].id);
+        return result.rows[0];
+    });
+};
+
+function getUsersOnMeeting(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_USERS_ON_MEETING_QUERY, args));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("users count: " + result.rows.length);
         return result.rows[0];
     });
 };
