@@ -82,8 +82,8 @@ export default class Place extends React.PureComponent {
 	}
 
 	updateMeeting() {
-		pushData();
-		this.setState({change_meeting: false});
+		//pushData();
+		this.setState({change_meeting: false, text: 'well??'});
 	}
 
 	showChangePanel() {
