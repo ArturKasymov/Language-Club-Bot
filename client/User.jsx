@@ -3,11 +3,14 @@
 import React from 'react';
 import {MediaBox, MediaBoxBody, MediaBoxTitle} from 'react-weui';
 
-const User = ({id, nickname}) => {
+const User = ({id, nickname, addable, not_added, add}) => {
+
+	const addButton = <Button onClick={() => add(id, not_added)}>{not_added ? "ADD" : "DELETE"}</Button>
 
 	return (
 		<MediaBox type="text">
 			<MediaBoxBody>
+				{addable && addButton}
 				<MediaBoxTitle>{nickname}</MediaBoxTitle>
 			</MediaBoxBody>
 		</MediaBox>
@@ -17,6 +20,9 @@ const User = ({id, nickname}) => {
 User.propTypes = {
   id: React.PropTypes.string.isRequired,
   nickname: React.PropTypes.string.isRequired,
+  addable: React.PropTypes.bool.isRequired,
+  not_added: React.PropTypes.bool.isRequired,
+  add: React.PropTypes.func,
 };
 
 export default User;
