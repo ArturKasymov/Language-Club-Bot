@@ -33,6 +33,8 @@ const GET_MEETINGS_LIST = "GET_MEETINGS_LIST";
 const UPDATE_MEETING = "UPDATE_MEETING";
 const GET_CURRENT_MEETING = "GET_CURRENT_MEETING";
 const GET_USERS_ON_MEETING = "GET_USERS_ON_MEETING";
+const UPDATE_VISITOR = "UPDATE_VISITOR";
+const FINISH_MEETING = "FINISH_MEETING";
 
 // statuses
 const GOT_STARTED = "GOT_STARTED";
@@ -58,6 +60,8 @@ const GET_MEETINGS_LIST_QUERY = 'SELECT * FROM getMeetingsList($1::varchar)';
 const UPDATE_MEETING_QUERY = 'UPDATE meetings SET description=$1::varchar, "startDate"=$2::timestamptz, "endDate"=$3::timestamptz WHERE id=$4::int';
 const GET_CURRENT_MEETING_QUERY = 'SELECT * FROM getAdministratedMeeting($1::varchar)';
 const GET_USERS_ON_MEETING_QUERY = 'SELECT "userID", "isPresent", nickname FROM "meetingVisitors" m LEFT JOIN users u ON m."userID"=u."facebookID" WHERE "meetingID"=$1::int';
+const UPDATE_VISITOR_QUERY = 'UPDATE "meetingVisitors" SET "isPresent"=$1::boolean WHERE "userID"=$2::varchar AND "meetingID"=$3::varchar';
+const FINISH_MEETING_QUERY = 'UPDATE meetings SET "endDate"=NOW()::timestamptz WHERE id=$1::int';
 
 
 module.exports = {
@@ -95,6 +99,8 @@ module.exports = {
     UPDATE_MEETING: UPDATE_MEETING,
     GET_CURRENT_MEETING: GET_CURRENT_MEETING,
     GET_USERS_ON_MEETING: GET_USERS_ON_MEETING,
+    UPDATE_VISITOR: UPDATE_VISITOR,
+    FINISH_MEETING: FINISH_MEETING,
 
     CONTACTING_US: CONTACTING_US,
 
@@ -117,4 +123,6 @@ module.exports = {
     UPDATE_MEETING_QUERY: UPDATE_MEETING_QUERY,
     GET_CURRENT_MEETING_QUERY: GET_CURRENT_MEETING_QUERY,
     GET_USERS_ON_MEETING_QUERY: GET_USERS_ON_MEETING_QUERY,
+    UPDATE_VISITOR_QUERY: UPDATE_VISITOR_QUERY,
+    FINISH_MEETING_QUERY: FINISH_MEETING_QUERY
 }
