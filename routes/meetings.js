@@ -84,6 +84,4 @@ router.put('/:userID/finish', ({body, params: {userID}}, res) => {
     res.sendStatus(204);
 });
 
-router.put()
-
 export default router;
