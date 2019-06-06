@@ -49,7 +49,7 @@ export default class App extends React.PureComponent {
 			return <Loading />;
 		}
 
-		const meetings = this.state.ALL_MEETINGS.map((entry) => {
+		/*const meetings = this.state.ALL_MEETINGS.map((entry) => {
 			const id = Object.keys(entry)[0];
 			const placeID = entry[id][0];
 			const placeName = entry[id][1];
@@ -66,7 +66,8 @@ export default class App extends React.PureComponent {
 				organizatorID={organizatorID} organizatorNickname={organizatorNickname} description={description} startDate={startDate} endDate={endDate}
 				 />
 			);
-		})
+		});*/
+		const meetings = <p>NULL</p>;
 
 		return (
 			<div className='app'>
