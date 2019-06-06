@@ -116,6 +116,7 @@ CREATE OR REPLACE FUNCTION meetings_insert() returns trigger as $meetings_insert
 DECLARE
 k record;
 BEGIN
+  IF(TG_OP='INSERT') THEN
     FOR k IN (SELECT * FROM "meetings") LOOP
         IF (tsrange(k."startDate"::timestamp, k."endDate"::timestamp) && tsrange(new."startDate"::timestamp, new."endDate"::timestamp) = true AND (k."placeID"=new."placeID" OR k."organizerID"=new."organizerID")) THEN
             IF (k."placeID"=new."placeID") THEN RAISE EXCEPTION 'The place is not free at that time.'; END IF;
@@ -123,6 +124,15 @@ BEGIN
         END IF;
     END LOOP;
     RETURN NEW;
+  ELSEIF(TG_OP='UPDATE') THEN
+    FOR k IN (SELECT * FROM "meetings") LOOP
+        IF (tsrange(k."startDate"::timestamp, k."endDate"::timestamp) && tsrange(new."startDate"::timestamp, new."endDate"::timestamp) = true AND (k."placeID"=new."placeID" OR k."organizerID"=new."organizerID") AND k.id!=new.id) THEN
+            IF (k."placeID"=new."placeID") THEN RAISE EXCEPTION 'The place is not free at that time.'; END IF;
+            IF (k."organizatorID"=new."organizatorID") THEN RAISE EXCEPTION 'This organizer is not free at that time.'; END IF;
+        END IF;
+    END LOOP;
+    RETURN NEW;
+  END IF;
 END;
 $meetings_insert$ language plpgsql;
 
@@ -197,18 +207,12 @@ RETURN QUERY(
 END
 $$ language plpgsql;
 
-CREATE OR REPLACE FUNCTION getUserAdministratedMeetings(userID varchar) returns
-TABLE(id int, "meetingDescription" varchar,  "startDate" timestamp with time zone, "endDate" timestamp with time zone, 
-  city varchar, adress varchar, placename varchar)
-AS
-$$
-BEGIN
-RETURN QUERY( 
-    SELECT m.id, m.description, m."startDate", m."endDate", p.city, p.adress, p.name
-    FROM meetings m JOIN places p ON p.id=m."placeID" WHERE m."startDate"> NOW() AND m."organizerID"=userID
-);
-END
-$$ language plpgsql;
+
+create or replace function getMeetingsList(org_id varchar) 
+returns table(id int, "placeID" int, place_name varchar, place_city varchar, place_address varchar, "organizerID" varchar, organizer_nickname varchar, description varchar, "startDate" timestamptz, "endDate" timestamptz) as 
+begin 
+return query (select m.id, p.id, p.name, p.city, p.adress, m."organizerID", u."nickname", m.description, m."startDate", m."endDate" from meetings m left join users u on m."organizerID"=u."facebookID" left join places p on m."placeID"=p.id where m."organizerID"=org_id and m."startDate" > NOW());
+end $$ language plpgsql;
 
 CREATE OR REPLACE FUNCTION getAdministratedMeeting(organizatorID varchar) returns
 TABLE (id int, "meetingDescription" varchar,  "startDate" timestamp with time zone, "endDate" timestamp with time zone, 

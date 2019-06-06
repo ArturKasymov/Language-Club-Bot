@@ -1,5 +1,5 @@
 DROP FUNCTION IF EXISTS getAdministratedMeeting(varchar);
-DROP FUNCTION IF EXISTS getUserAdministratedMeetings(varchar);
+DROP FUNCTION IF EXISTS getMeetingsList(varchar);
 DROP FUNCTION IF EXISTS	getUsersMeetingPartners(int, varchar);
 DROP FUNCTION IF EXISTS getUsersMeetingsHistory();
 DROP FUNCTION IF EXISTS getFutureMeetingsList();
