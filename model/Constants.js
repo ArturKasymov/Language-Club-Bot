@@ -52,7 +52,7 @@ const GET_ALL_USERS_QUERY = 'SELECT "facebookID", "permissionLevel", nickname FR
 const GET_ALL_PLACES_QUERY = 'SELECT id, name, city, adress FROM places';
 const INSERT_PLACE_QUERY = 'INSERT INTO places VALUES(DEFAULT, $1::varchar, $2::varchar, $3::varchar, $4::varchar, $5::varchar) RETURNING id, name, city, adress';
 const INSERT_MEETING_QUERY = 'INSERT INTO meetings VALUES(DEFAULT, $1::int, $2::varchar, $3::varchar, $4::timestamptz, $5::timestamptz)';
-const GET_MEETINGS_LIST_QUERY = 'SELECT getMeetingsList($1::varchar)';
+const GET_MEETINGS_LIST_QUERY = 'SELECT * FROM getMeetingsList($1::varchar)';
 const UPDATE_MEETING_QUERY = 'UPDATE meetings SET description=$1::varchar, "startDate"=$2::timestamptz, "endDate"=$3::timestamptz WHERE id=$4::int';
 
 
