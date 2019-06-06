@@ -135,10 +135,6 @@ export default class App extends React.PureComponent {
 				{this.state.alert && 
 					<p style="color: red;">MAYBE YOU HAVE CHOSEN NO LANGUAGE</p>
 				}
-
-				<ButtonArea className='submit'>
-					<Button style="background-color: green;" onClick={() => this.pushData()}>Submit</Button>
-				</ButtonArea>
 			</div>
 		);
 	}
