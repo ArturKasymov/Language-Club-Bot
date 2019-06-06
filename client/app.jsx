@@ -34,25 +34,7 @@ export default class App extends React.PureComponent {
 	}
 
 	pushData() {
-		if ((this.props.first_time && (this.state.nickname.length === 0 || this.state.nickname.indexOf(' ') !== -1)) || this.state.languages.size === 0) {
-			this.showAlert();
-			return;
-		}
-
-		const content = this.jsonState();		
-
-		fetch(`/users/${this.props.userId}`, {
-			method: 'PUT',
-			headers: {'Content-Type': 'application/json'},
-			body: content,
-		}).then((response) => {
-			if (response.ok) {
-				console.log('Data successfully updated on the server!');
-				return;
-			}
-		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
-			WebviewControls.close();
-		});
+		
 	}
 
 	pullData() {
