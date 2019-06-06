@@ -122,7 +122,7 @@ export default class App extends React.PureComponent {
 			return <Loading />;
 		}
 		
-		const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
+		/*const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
 			const value = lang;
 			const checked = this.state.languages.has(value);
 
@@ -136,7 +136,7 @@ export default class App extends React.PureComponent {
 					removeLanguage={this.removeLanguage.bind(this)}
 				/>
 			);
-		});
+		});*/
 
 		var input;
 		if (this.props.first_time && this.state.alert) {
@@ -150,7 +150,7 @@ export default class App extends React.PureComponent {
 					<Input className='nickname-input' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
 			</CellHeader></Form></section>
 		}
-
+		//<Form checkbox>{languagesFactory}</Form>
 		return (
 			<div className='app'>
 				{this.props.first_time &&
@@ -159,7 +159,7 @@ export default class App extends React.PureComponent {
 
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
-					<Form checkbox>{languagesFactory}</Form>
+					
 				</section>
 
 				{this.state.alert && 
