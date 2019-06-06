@@ -150,18 +150,18 @@ export default class Place extends React.PureComponent {
 				</section>
 
 				<section>
-					<Button onClick={this.updateMeeting.bind(this)}>DONE</Button>
+					<Button onClick={() => this.updateMeeting()}>DONE</Button>
 				</section>
 				</div>;
 		
 		return (
 			<div className='app sub-app'>
-				<p>Meeting at {this.props.placeAddress}, {this.props.placeCity} in {this.props.placeName} from {this.props.startDate} to {this.props.endDate}</p>
+				<p>Meeting at {this.props.placeAddress}, {this.props.placeCity} in {this.props.placeName} from {dateString(this.props.startDate, true)} to {dateString(this.props.endDate, true)}</p>
 				<br/>
 				<p>{this.state.description}</p>
 				<Button onClick={() => this.showChangePanel()}>CHANGE</Button>
 				<p>{this.state.text}</p>
-				{this.state.change_meeting && changeMeetingPanel}				
+				{this.state.change_meeting ? changeMeetingPanel : <hr/>}				
 			</div>
 		);
 	}
