@@ -46,8 +46,8 @@ export default class AdministrateMeeting extends React.PureComponent {
 			this.setState({text});
 		}).then((res) => {
 				
-				/*this.setState({id: res.id, placeName: res.placename, placeCity: res.city, placeAddress: res.adress, description: res.meetingDescription, 
-								startTime: res.startDate, endTime: res.endDate, text: 'got"em'});*/
+				this.setState({id: res.id, placeName: res.placename, placeCity: res.city, placeAddress: res.adress, description: res.meetingDescription, 
+								startTime: res.startDate, endTime: res.endDate, text: 'got"em'});
 				return res.id;
 		}).then((id) => {
 			const endpoint_users = `/meetings/${this.props.userId}/users`;
