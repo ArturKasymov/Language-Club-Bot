@@ -3,6 +3,18 @@
 import React from 'react';
 import 'whatwg-fetch';
 
+import {
+  Button,
+  ButtonArea,
+  CellBody,
+  CellFooter,
+  CellHeader,
+  CellsTitle,
+  Form,
+  FormCell,
+  Input,
+} from 'react-weui';
+
 import WebviewControls from '../api/webview-controls';
 
 import Loading from './loading.jsx';
