@@ -59,7 +59,8 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
 
     res.sendStatus(204);
 
-    query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['3', userID]);
+    query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['1', userID]);
+    sendApi.sendRegistrationOKMessage(userID, body.nickname);
     //sendApi.sendUserMenu(userID);
 });
 
