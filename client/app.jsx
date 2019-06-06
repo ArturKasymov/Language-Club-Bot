@@ -58,6 +58,7 @@ export default class App extends React.PureComponent {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
+				
 				this.setState({ALL_LANGUAGES: jsonResponse});
 
 		}).catch((err) => console.error('Error pulling data', err));
@@ -81,7 +82,7 @@ export default class App extends React.PureComponent {
 				console.log('Data successfully updated on the server!');
 				return;
 			}
-		}).catch((err) => console.log(err)).then(() => {
+		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
 			WebviewControls.close();
 		});
 	}
@@ -166,6 +167,7 @@ export default class App extends React.PureComponent {
 				{this.state.alert && 
 					<p style="color: red;">MAYBE YOU HAVE CHOSEN NO LANGUAGE</p>
 				}
+
 				<ButtonArea className='submit'>
 					<Button style="background-color: green;" onClick={() => this.pushData()}>Submit</Button>
 				</ButtonArea>

@@ -13,7 +13,7 @@ import {dateString} from '../utils/date-string-format';
 import Loading from './loading.jsx';
 import User from './User.jsx';
 
-export default class App extends React.PureComponent {
+export default class AdministrateMeeting extends React.PureComponent {
 
 	static propTypes = {
 		userId: React.PropTypes.string.isRequired,
@@ -51,7 +51,7 @@ export default class App extends React.PureComponent {
 				return res.id;
 		}).then((id) => {
 			const endpoint_users = `/meetings/${this.props.userId}/users`;
-			const content = {id: id};
+			const content = JSON.stringify({id: id});
 
 			fetch(endpoint_users, {
 				method: 'PUT',
