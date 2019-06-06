@@ -22,7 +22,7 @@ router.get('/:userID', ({params: {userID}}, res) => {
 });
 
 router.put('/:userID', ({body, params: {userID}}, res) => {
-    console.log("IN PUT /MEETINGS/" + userID);
+    console.log("IN PUT /MEETINGS/" + JSON.stringify(body));
     query(CONSTANTS.INSERT_MEETING, [parseInt(body.place_id), userID, body.description, new Date(body.startTime), new Date(body.endTime)])
     res.sendStatus(204);
 });

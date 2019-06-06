@@ -109,7 +109,7 @@ export default class CreateMeeting extends React.PureComponent {
 	postNewPlace(place) {
 		this.state.ALL_PLACES.push({value: place.id, label: place.label, selected: "selected"});
 		const newPlaces = this.state.ALL_PLACES;
-		this.setState({new_place: false, ALL_PLACES: newPlaces, place_id: place.id});
+		this.setState({new_place: false, ALL_PLACES: newPlaces, place_id: place.id, text: place.id});
 	}
 
 	render() {
