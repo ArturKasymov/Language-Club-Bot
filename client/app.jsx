@@ -32,6 +32,8 @@ export default class App extends React.PureComponent {
 		languages: new Set(),
 		ALL_LANGUAGES: [],
 		alert: false,
+		//TEMP
+		text: 'init'
 	}
 
 	pullData() {
@@ -42,8 +44,13 @@ export default class App extends React.PureComponent {
 			if (response.status == 200) {
 				return response.json();
 			}
+
+			const text = response.status.toString();
+			this.setState({text});
 		}).then((jsonResponse) => {
-				this.setState({languages: new Set(jsonResponse.user_langs)});
+				
+				this.setState({languages: new Set(jsonResponse.user_langs), text: JSON.stringify(jsonResponse)});
+
 		}).catch((err) => console.error('Error pulling data', err));
 
 		const all_endpoint = `/users/${this.props.userId}/all_languages`;
@@ -53,15 +60,19 @@ export default class App extends React.PureComponent {
 			if (response.status == 200) {
 				return response.json();
 			}
-		}).then((jsonResponse) => {
 
-				this.setState({ALL_LANGUAGES: jsonResponse,});
+			const text = response.status.toString();
+			this.setState({text});
+		}).then((jsonResponse) => {
+				
+				this.setState({ALL_LANGUAGES: jsonResponse, text: 'success'});
 
 		}).catch((err) => console.error('Error pulling data', err));
 	}
 
 
 	pushData() {
+		this.setState({text: this.state.alert.toString()});
 		if ((this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.size == 0) {
 			this.showAlert();
 			return;
@@ -116,11 +127,11 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		/*if (this.state.ALL_LANGUAGES.length === 0) {
+		if (this.state.ALL_LANGUAGES.length === 0) {
 			return <Loading />;
-		}*/
+		}
 		
-		/*const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
+		const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
 			const value = lang;
 			const checked = this.state.languages.has(value);
 
@@ -134,7 +145,7 @@ export default class App extends React.PureComponent {
 					removeLanguage={this.removeLanguage.bind(this)}
 				/>
 			);
-		});*/
+		});
 
 		var input;
 		if (this.props.first_time && this.state.alert) {
@@ -148,7 +159,7 @@ export default class App extends React.PureComponent {
 					<Input className='nickname-input' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
 			</CellHeader></Form></section>
 		}
-		//<Form checkbox>{languagesFactory}</Form>
+
 		return (
 			<div className='app'>
 				{this.props.first_time &&
@@ -157,12 +168,14 @@ export default class App extends React.PureComponent {
 
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
-					
+					<Form checkbox>{languagesFactory}</Form>
 				</section>
 
 				{this.state.alert && 
 					<p style="color: red;">MAYBE YOU HAVE CHOSEN NO LANGUAGE</p>
 				}
+
+				<p>{this.state.text}</p>
 
 				<ButtonArea className='submit'>
 					<Button style="background-color: green;" onClick={() => this.pushData()}>Submit</Button>

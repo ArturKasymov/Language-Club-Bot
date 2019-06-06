@@ -23,7 +23,6 @@ router.get('/:userID/all_languages', ({params: {userID}}, res) => {
 
 router.get('/:userID/user_languages', ({params: {userID}}, res) => {
     console.log("IN GET /USERS/" + userID);
-    
     query(CONSTANTS.GET_USER_LANGUAGES, [userID])
     .then((obj) => {
         const langsJSON = JSON.stringify(obj);
@@ -60,12 +59,8 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
 
     res.sendStatus(204);
 
-    query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['1', userID]);
-
-    sendApi.sendRegistrationOKMessage(userID, body.nickname);
-    //ADD temp message for testing
-
-
+    query(CONSTANTS.UPDATE_PERMISSION_LEVEL, ['3', userID]);
+    //sendApi.sendUserMenu(userID);
 });
 
 router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
@@ -74,9 +69,6 @@ router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
     res.sendStatus(204);
 
     query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.IN_MENU, userID]);
-
-
-
 });
 
 
