@@ -52,11 +52,38 @@ export default class App extends React.PureComponent {
 				
 				this.setState({ALL_LANGUAGES: jsonResponse});
 
-		}).catch((err) => this.setState({text: err}));
+		}).catch((err) => console.log(err));
+	}
+
+	jsonState() {
+		if (this.props.first_time) return JSON.stringify({nickname: this.state.nickname, languages: [...this.state.languages]});
+		else return JSON.stringify({languages: [...this.state.languages]});
 	}
 
 	componentWillMount() {
 		this.pullData();
+	}
+
+	addLanguage(lang) {
+		const oldLanguages = this.state.languages;
+		const languages = new Set(oldLanguages);
+		languages.add(lang);
+		this.setState({languages: languages});
+	}
+
+	removeLanguage(lang) {
+		const oldLanguages = this.state.languages;
+		const languages = new Set(oldLanguages);
+		languages.delete(lang);
+		this.setState({languages: languages});
+	}
+
+	updateNickname(name) {
+		this.setState({nickname: name, alert: false});
+	}
+
+	showAlert() {
+		this.setState({alert: true});
 	}
 
 	render() {
@@ -64,9 +91,26 @@ export default class App extends React.PureComponent {
 			return <Loading />;
 		}
 
+		var input;
+		if (this.props.first_time && this.state.alert) {
+			input = <section><CellsTitle>Your Nickname</CellsTitle>
+					<Form><CellHeader>
+					<Input className='nickname-input alert' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
+			</CellHeader></Form></section>
+		} else if (this.props.first_time) {
+			input = <section><CellsTitle>Your Nickname</CellsTitle>
+					<Form><CellHeader>
+					<Input className='nickname-input' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
+			</CellHeader></Form></section>
+		}
+
 		return (
 			<div className='app'>
 				<p>{this.state.ALL_LANGUAGES.toString()}</p>
+
+				{this.props.first_time &&
+				input
+				}
 			</div>
 		);
 	}
