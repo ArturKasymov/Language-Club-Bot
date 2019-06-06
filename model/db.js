@@ -68,6 +68,10 @@ function query(type, args) {
         case CONSTANTS.UPDATE_MEETING:
             updateMeeting(args);
             break;
+        case CONSTANTS.GET_CURRENT_MEETING:
+            return getCurrentMeeting(args);
+        case CONSTANTS.GET_USERS_ON_MEETING:
+            return getUsersOnMeeting(args);
         default:
             break;
     }
@@ -148,6 +152,34 @@ function getStatus(args) {
         }
         console.log("innerStatus: " + result.rows[0].status);
         return result.rows[0].status;
+    });
+};
+
+function getCurrentMeeting(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_CURRENT_MEETING_QUERY, args));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("current_meeting id: " + result.rows[0].id);
+        return result.rows[0];
+    });
+};
+
+function getUsersOnMeeting(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_USERS_ON_MEETING_QUERY, args));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("users count: " + result.rows.length);
+        var obj = {};
+        for (var i = 0; i < rows.length; i++) obj[result.rows[i].userID] = obj[result.rows[i].isPresent];
+        return obj;
     });
 };
 

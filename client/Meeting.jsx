@@ -31,6 +31,8 @@ export default class Place extends React.PureComponent {
 		description: React.PropTypes.string,
 		startDate: React.PropTypes.string.isRequired,
 		endDate: React.PropTypes.string.isRequired,
+		disabled: React.PropTypes.bool.isRequired,
+		onBlock: React.PropTypes.func.isRequired,
 	}
 
 	state = {
@@ -89,6 +91,7 @@ export default class Place extends React.PureComponent {
 
 	showChangePanel() {
 		this.setState({change_meeting: true});
+		this.props.onBlock(this.props.id);
 	}
 
 	render() {	
@@ -163,7 +166,7 @@ export default class Place extends React.PureComponent {
 				<h3>Description:</h3>
 				<p>{this.state.description}</p>
 				<br/>
-				<Button onClick={() => this.showChangePanel()}>CHANGE</Button>
+				<Button disabled={this.props.disabled} onClick={() => this.showChangePanel()}>CHANGE</Button>
 				<p>{this.state.text}</p>
 				{this.state.change_meeting ? changeMeetingPanel : <hr/>}				
 			</div>
