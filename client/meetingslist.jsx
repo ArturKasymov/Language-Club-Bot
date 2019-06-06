@@ -62,7 +62,7 @@ export default class App extends React.PureComponent {
 			const endDate = entry[id][8];
 
 			return (
-				<Meeting id={id} placeID={placeID} placeName={placeName} placeCity={placeCity} placeAddress={placeAddress}
+				<Meeting userId={this.props.userId} id={id} placeID={placeID} placeName={placeName} placeCity={placeCity} placeAddress={placeAddress}
 				organizatorID={organizatorID} organizatorNickname={organizatorNickname} description={description} startDate={startDate} endDate={endDate}
 				 />
 			);

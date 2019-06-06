@@ -20,6 +20,7 @@ import {dateString} from '../utils/date-string-format';
 export default class Place extends React.PureComponent {
 
 	static propTypes = {
+		userId: React.PropTypes.string.isRequired,
 		id: React.PropTypes.number.isRequired,
 		placeID: React.PropTypes.string.isRequired,
 		placeName: React.PropTypes.string.isRequired,
@@ -82,7 +83,7 @@ export default class Place extends React.PureComponent {
 	}
 
 	updateMeeting() {
-		//pushData();
+		this.pushData();
 		this.setState({change_meeting: false, text: 'well??'});
 	}
 
@@ -156,9 +157,12 @@ export default class Place extends React.PureComponent {
 		
 		return (
 			<div className='app sub-app'>
-				<p>Meeting at {this.props.placeAddress}, {this.props.placeCity} in {this.props.placeName} from {dateString(this.props.startDate, true)} to {dateString(this.props.endDate, true)}</p>
+				<p>Meeting at {this.props.placeAddress}, {this.props.placeCity} in {this.props.placeName}</p>
+				<p>from {dateString(this.props.startDate, true)} to {dateString(this.props.endDate, true)}</p>
 				<br/>
+				<h3>Description:</h3>
 				<p>{this.state.description}</p>
+				<br/>
 				<Button onClick={() => this.showChangePanel()}>CHANGE</Button>
 				<p>{this.state.text}</p>
 				{this.state.change_meeting ? changeMeetingPanel : <hr/>}				
