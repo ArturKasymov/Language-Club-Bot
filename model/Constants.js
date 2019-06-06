@@ -57,7 +57,7 @@ const INSERT_MEETING_QUERY = 'INSERT INTO meetings VALUES(DEFAULT, $1::int, $2::
 const GET_MEETINGS_LIST_QUERY = 'SELECT * FROM getMeetingsList($1::varchar)';
 const UPDATE_MEETING_QUERY = 'UPDATE meetings SET description=$1::varchar, "startDate"=$2::timestamptz, "endDate"=$3::timestamptz WHERE id=$4::int';
 const GET_CURRENT_MEETING_QUERY = 'SELECT * FROM getAdministratedMeeting($1::varchar)';
-const GET_USERS_ON_MEETING_QUERY = 'SELECT "userID", "isPresent" FROM "meetingVisitors" WHERE "meetingID"=$1::int';
+const GET_USERS_ON_MEETING_QUERY = 'SELECT "userID", "isPresent", nickname FROM "meetingVisitors" m LEFT JOIN users u ON m."userID"=u."facebookID" WHERE "meetingID"=$1::int';
 
 
 module.exports = {

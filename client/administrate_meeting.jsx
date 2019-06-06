@@ -89,8 +89,11 @@ export default class App extends React.PureComponent {
 		if (this.state.id === null) {
 			return <Loading />;
 		}
-
-		const users = <User key={"a"} id={"a"} nickname={"Demian"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />;
+		const adminId = this.props.userId;
+		const users = this.state.REGISTERED_USERS.map((entry) => {
+			return <User key={entry.userID} id={entry.userID} nickname={entry.nickname} addable={true} not_added={entry.userID != adminId} add={this.addPresentUser.bind(this)} />;
+		})
+		//const users = <User key={"a"} id={"a"} nickname={"Demian"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />;
 
 		return (
 			<div className='app'>
