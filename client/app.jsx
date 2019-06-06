@@ -58,7 +58,6 @@ export default class App extends React.PureComponent {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-				
 				this.setState({ALL_LANGUAGES: jsonResponse});
 
 		}).catch((err) => console.error('Error pulling data', err));
