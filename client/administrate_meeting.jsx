@@ -101,7 +101,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 			body: content,
 		}).then((response) => {
 			if (response.ok) {
-				const newRegisteredUsers = new Object(REGISTERED_USERS);
+				const newRegisteredUsers = new Object(this.state.REGISTERED_USERS);
 				for (var i = 0; i < newRegisteredUsers.elngth; i++) {
 					if (newRegisteredUsers[i].userID == id) {
 						newRegisteredUsers[i].isPresent = !newRegisteredUsers[i].isPresent;
@@ -131,7 +131,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
 					<hr/>
 					<h2>USERS</h2>
-					<p>{this.state.REGISTERED_USERS}</p>
+					<p>{JSON.stringify(this.state.REGISTERED_USERS)}</p>
 					<p>{this.state.id}</p>
 				</section>
 			</div>
