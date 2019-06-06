@@ -47,7 +47,7 @@ router.get('/:userID/current', ({params: {userID}}, res) => {
     }).catch((err) => console.log(err));
 });
 
-router.put('/:userID/users', (body, {params: {userID}}, res) => {
+router.put('/:userID/users', ({body, params: {userID}}, res) => {
     console.log("WAITING... " + body.id);
     query(CONSTANTS.GET_USERS_ON_MEETING, [body.id])
     .then((obj) => {

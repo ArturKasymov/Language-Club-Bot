@@ -8,7 +8,7 @@ import WebviewControls from '../api/webview-controls';
 import Loading from './loading.jsx';
 import Meeting from './Meeting.jsx';
 
-export default class App extends React.PureComponent {
+export default class MeetingsList extends React.PureComponent {
 
 	static propTypes = {
 		userId: React.PropTypes.string.isRequired,

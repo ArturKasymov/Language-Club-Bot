@@ -13,7 +13,7 @@ import {dateString} from '../utils/date-string-format';
 import Loading from './loading.jsx';
 import User from './User.jsx';
 
-export default class App extends React.PureComponent {
+export default class AdministrateMeeting extends React.PureComponent {
 
 	static propTypes = {
 		userId: React.PropTypes.string.isRequired,
@@ -46,12 +46,12 @@ export default class App extends React.PureComponent {
 			this.setState({text});
 		}).then((res) => {
 				
-				this.setState({id: res.id, placeName: res.placename, placeCity: res.city, placeAddress: res.adress, description: res.meetingDescription, 
-								startTime: res.startDate, endTime: res.endDate, text: 'got"em'});
+				/*this.setState({id: res.id, placeName: res.placename, placeCity: res.city, placeAddress: res.adress, description: res.meetingDescription, 
+								startTime: res.startDate, endTime: res.endDate, text: 'got"em'});*/
 				return res.id;
 		}).then((id) => {
 			const endpoint_users = `/meetings/${this.props.userId}/users`;
-			const content = {id: id};
+			const content = JSON.stringify({id: id});
 
 			fetch(endpoint_users, {
 				method: 'PUT',
@@ -89,8 +89,11 @@ export default class App extends React.PureComponent {
 		if (this.state.id === null) {
 			return <Loading />;
 		}
-
-		const users = <User key={"a"} id={"a"} nickname={"Demian"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />;
+		const adminId = this.props.userId;
+		/*const users = this.state.REGISTERED_USERS.map((entry) => {
+			return <User key={entry.userID} id={entry.userID} nickname={entry.nickname} addable={true} not_added={entry.userID != adminId} add={this.addPresentUser.bind(this)} />;
+		})*/
+		//const users = <User key={"a"} id={"a"} nickname={"Demian"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />;
 
 		return (
 			<div className='app'>

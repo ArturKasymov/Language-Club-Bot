@@ -17,8 +17,6 @@ import {
 
 import WebviewControls from '../api/webview-controls';
 
-import Lang from '../entities/lang';
-
 import Loading from './loading.jsx';
 import Language from './language.jsx';
 
@@ -56,7 +54,9 @@ export default class App extends React.PureComponent {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
+
 				this.setState({ALL_LANGUAGES: jsonResponse,});
+
 		}).catch((err) => console.error('Error pulling data', err));
 	}
 
@@ -78,7 +78,7 @@ export default class App extends React.PureComponent {
 				console.log('Data successfully updated on the server!');
 				return;
 			}
-		}).catch((err) => console.log(err)).then(() => {
+		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
 			WebviewControls.close();
 		});
 	}
@@ -120,7 +120,7 @@ export default class App extends React.PureComponent {
 			return <Loading />;
 		}*/
 		
-		const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
+		/*const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
 			const value = lang;
 			const checked = this.state.languages.has(value);
 
@@ -134,7 +134,7 @@ export default class App extends React.PureComponent {
 					removeLanguage={this.removeLanguage.bind(this)}
 				/>
 			);
-		});
+		});*/
 
 		var input;
 		if (this.props.first_time && this.state.alert) {
@@ -148,7 +148,7 @@ export default class App extends React.PureComponent {
 					<Input className='nickname-input' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
 			</CellHeader></Form></section>
 		}
-
+		//<Form checkbox>{languagesFactory}</Form>
 		return (
 			<div className='app'>
 				{this.props.first_time &&
@@ -157,12 +157,13 @@ export default class App extends React.PureComponent {
 
 				<section>
 					<CellsTitle>What languages do you speak?</CellsTitle>
-					<Form checkbox>{languagesFactory}</Form>
+					
 				</section>
 
 				{this.state.alert && 
 					<p style="color: red;">MAYBE YOU HAVE CHOSEN NO LANGUAGE</p>
 				}
+
 				<ButtonArea className='submit'>
 					<Button style="background-color: green;" onClick={() => this.pushData()}>Submit</Button>
 				</ButtonArea>
