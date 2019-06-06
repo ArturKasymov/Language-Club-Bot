@@ -21,7 +21,6 @@ export default class App extends React.PureComponent {
 
 	state = {
 		id: null,
-		placeID: null,
 		placeName: null,
 		placeCity: null,
 		placeAddress: null,
@@ -45,11 +44,28 @@ export default class App extends React.PureComponent {
 
 			const text = response.status.toString();
 			this.setState({text});
-		}).then((jsonResponse) => {
+		}).then((res) => {
 				
-				this.setState(jsonResponse);
+				this.setState({id: res.id, placeName: res.placename, placeCity: res.city, placeAddress: res.adress, description: res.meetingDescription, 
+								startTime: res.startDate, endTime: res.endDate, text: 'got"em'});
+				return res.id;
+		}).then((id) => {
+			const endpoint_users = `/meetings/${this.props.userId}/users`;
+			const content = {id: id};
 
-		}).catch((err) => console.error('Error pulling data', err));
+			fetch(endpoint_users, {
+				method: 'PUT',
+				headers: {'Content-Type': 'application/json'},
+				body: content,
+			}).then((response) => {
+				if (response.status == 200) {
+					return response.json();
+				}
+
+				const text = response.status.toString();
+				this.setState({text});
+			}).then((res) => this.setState({REGISTERED_USERS: res})).catch((err) => this.setState({text: 'err'}));
+		});
 	}
 
 	componentWillMount() {

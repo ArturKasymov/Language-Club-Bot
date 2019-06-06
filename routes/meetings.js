@@ -47,6 +47,19 @@ router.get('/:userID/current', ({params: {userID}}, res) => {
     }).catch((err) => console.log(err));
 });
 
+router.put('/:userID/users', (body, {params: {userID}}, res) => {
+    console.log("WAITING... " + body.id);
+    query(CONSTANTS.GET_USERS_ON_MEETING, [body.id])
+    .then((obj) => {
+        const langsJSON = JSON.stringify(obj);
+
+        console.log(`GET User response: ${langsJSON}`);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.send(langsJSON);
+    }).catch((err) => console.log(err));
+});
+
 router.put('/:userID', ({body, params: {userID}}, res) => {
     console.log("IN PUT /MEETINGS/" + JSON.stringify(body));
     query(CONSTANTS.INSERT_MEETING, [parseInt(body.place_id), userID, body.description, new Date(body.startTime), new Date(body.endTime)]);
