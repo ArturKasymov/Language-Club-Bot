@@ -93,13 +93,13 @@ export default class AdministrateMeeting extends React.PureComponent {
 		/*const users = this.state.REGISTERED_USERS.map((entry) => {
 			return <User key={entry.userID} id={entry.userID} nickname={entry.nickname} addable={true} not_added={entry.userID != adminId} add={this.addPresentUser.bind(this)} />;
 		})*/
-		//const users = <User key={"a"} id={"a"} nickname={"Demian"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />;
+		const users = <User key={"a"} id={"a"} nickname={"Demian"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />;
 
 		return (
 			<div className='app'>
 				<section>
-					<p>Meeting at {this.state.placeAddress}, {this.props.placeCity} in {this.props.placeName}</p>
-					<p>from {dateString(this.props.startTime, true)} to {dateString(this.props.endTime, true)}</p>
+					<p>Meeting at {this.state.placeAddress}, {this.state.placeCity} in {this.state.placeName}</p>
+					<p>from {dateString(this.state.startTime, true)} to {dateString(this.state.endTime, true)}</p>
 					<hr/>
 					<Button onClick={() => this.finishMeeting()}>FINISH</Button>
 					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
