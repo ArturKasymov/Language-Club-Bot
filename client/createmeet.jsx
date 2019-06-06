@@ -35,6 +35,7 @@ export default class CreateMeeting extends React.PureComponent {
 
 		ALL_PLACES: null,
 		new_place: false,
+		alert: false,
 		//TEMP
 		text: 'init'
 	}
@@ -52,13 +53,16 @@ export default class CreateMeeting extends React.PureComponent {
 			this.setState({text});
 		}).then((jsonResponse) => {
 				
-				this.setState({ALL_PLACES: Object.entries(jsonResponse)
-											.map((entry) => {return {value: parseInt(entry[0]), label: entry[1]};})});
+				const select_data = Object.entries(jsonResponse)
+											.map((entry) => {return {value: parseInt(entry[0]), label: entry[1]};});
+				this.setState({ALL_PLACES: select_data, place_id: select_data[0].value});
 
 		}).catch((err) => console.error('Error pulling data', err));
 	}
 
 	pushData() {
+		if (new Date(this.state.startTime) > new Date(this.state.endTime)) this.showAlert();
+
 		const endpoint = `/meetings/${this.props.userId}`;
 
 		const content = this.jsonState();		
@@ -110,6 +114,10 @@ export default class CreateMeeting extends React.PureComponent {
 		this.state.ALL_PLACES.push({value: place.id, label: place.label, selected: "selected"});
 		const newPlaces = this.state.ALL_PLACES;
 		this.setState({new_place: false, ALL_PLACES: newPlaces, place_id: place.id, text: place.id});
+	}
+
+	showAlert() {
+		this.setState({text: 'alert'});
 	}
 
 	render() {
