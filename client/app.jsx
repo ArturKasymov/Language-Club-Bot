@@ -35,6 +35,17 @@ export default class App extends React.PureComponent {
 	}
 
 	pullData() {
+		const check_endpoint = `/users/${this.props.userId}/check_reg`;
+		fetch(user_endpoint)
+		.then((response) => {
+			if (response.status == 200) {
+				return response.json();
+			}
+		}).then((jsonResponse) => {
+			if(jsonResponse.result!='0') WebviewControls.close();
+		}).catch((err) => console.error('Error pulling data', err));
+
+
 		const user_endpoint = `/users/${this.props.userId}/user_languages`;
 
 		fetch(user_endpoint)
