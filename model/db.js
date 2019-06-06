@@ -82,7 +82,7 @@ function insertUser(args) {
 }
 
 function insertMeeting(args) {
-    console.log("TYP: " + (typeof args[0]));
+    console.log(args[0]);
     pool.query(CONSTANTS.INSERT_MEETING_QUERY, args, (err, res) => {
         console.log(err, res);
     });
