@@ -87,5 +87,5 @@ export default {
     sendOrganizatorPanelMessage,
     sendAdminPanelMessage,
     sendRegistrationOKMessage,
-    endNickNameChanged
+    sendNickNameChanged
 };
