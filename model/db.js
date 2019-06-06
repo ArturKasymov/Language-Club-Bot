@@ -72,6 +72,15 @@ function query(type, args) {
             return getCurrentMeeting(args);
         case CONSTANTS.GET_USERS_ON_MEETING:
             return getUsersOnMeeting(args);
+
+        //TEMP CASES
+        case 'ADMIN':
+            updatePermLvl(['3', args[0]]);
+            break;
+        case 'USER':
+            updatePermLvl(['1', args[0]]);
+            break;
+
         default:
             break;
     }
