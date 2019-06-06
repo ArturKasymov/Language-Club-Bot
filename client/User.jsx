@@ -8,7 +8,7 @@ const User = ({id, nickname, addable, not_added, add}) => {
 	const addButton = <Button onClick={() => add(id, not_added)}>ADD</Button>
 
 	return (
-		<MediaBox type="text">
+		<MediaBox type="appmsg">
 			<MediaBoxBody>
 				{addable && addButton}
 				<MediaBoxTitle>{nickname}</MediaBoxTitle>

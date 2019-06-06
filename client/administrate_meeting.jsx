@@ -117,9 +117,9 @@ export default class AdministrateMeeting extends React.PureComponent {
 		if (this.state.id === null) {
 			return <Loading />;
 		}
-		/*const users = this.state.REGISTERED_USERS.map((entry) => {
-			return <User key={entry.userID} id={entry.userID} nickname={entry.nickname} addable={true} not_added={!entry.isPresent} add={this.addPresentUser.bind(this)} />;
-		});*/
+		const users = this.state.REGISTERED_USERS.map((entry) => {
+			return <User id={entry.userID} nickname={entry.nickname} addable={false} not_added={false} add={this.addPresentUser.bind(this)} />;
+		});
 
 		return (
 			<div className='app'>
@@ -131,6 +131,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
 					<hr/>
 					<h2>USERS</h2>
+					{users}
 					<p>{JSON.stringify(this.state.REGISTERED_USERS)}</p>
 					<p>{this.state.id}</p>
 				</section>
