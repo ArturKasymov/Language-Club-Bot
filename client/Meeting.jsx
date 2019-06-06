@@ -20,7 +20,7 @@ import {dateString} from '../utils/date-string-format';
 export default class Place extends React.PureComponent {
 
 	static propTypes = {
-		id: React.PropTypes.string.isRequired,
+		id: React.PropTypes.number.isRequired,
 		placeID: React.PropTypes.string.isRequired,
 		placeName: React.PropTypes.string.isRequired,
 		placeCity: React.PropTypes.string.isRequired,
@@ -33,7 +33,7 @@ export default class Place extends React.PureComponent {
 	}
 
 	state = {
-		id: this.state.id,
+		id: this.props.id,
 		description: this.props.description,
 		startDate: this.props.startDate,
 		endDate: this.props.endDate,

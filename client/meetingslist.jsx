@@ -49,7 +49,7 @@ export default class App extends React.PureComponent {
 			return <Loading />;
 		}
 
-		/*const meetings = this.state.ALL_MEETINGS.map((entry) => {
+		const meetings = this.state.ALL_MEETINGS.map((entry) => {
 			const id = Object.keys(entry)[0];
 			const placeID = entry[id][0];
 			const placeName = entry[id][1];
@@ -62,12 +62,11 @@ export default class App extends React.PureComponent {
 			const endDate = entry[id][8];
 
 			return (
-				<Meeting key={parseInt(id)} id={id} placeID={placeID} placeName={placeName} placeCity={placeCity} placeAddress={placeAddress}
+				<Meeting id={id} placeID={placeID} placeName={placeName} placeCity={placeCity} placeAddress={placeAddress}
 				organizatorID={organizatorID} organizatorNickname={organizatorNickname} description={description} startDate={startDate} endDate={endDate}
 				 />
 			);
-		});*/
-		const meetings = <p>{JSON.stringify(this.state.ALL_MEETINGS)}</p>;
+		});
 
 		return (
 			<div className='app'>
