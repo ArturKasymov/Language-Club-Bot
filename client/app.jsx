@@ -33,6 +33,28 @@ export default class App extends React.PureComponent {
 		alert: false,
 	}
 
+	pushData() {
+		if ((this.props.first_time && (this.state.nickname.length === 0 || this.state.nickname.indexOf(' ') !== -1)) || this.state.languages.size === 0) {
+			this.showAlert();
+			return;
+		}
+
+		const content = this.jsonState();		
+
+		fetch(`/users/${this.props.userId}`, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: content,
+		}).then((response) => {
+			if (response.ok) {
+				console.log('Data successfully updated on the server!');
+				return;
+			}
+		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
+			WebviewControls.close();
+		});
+	}
+
 	pullData() {
 		const user_endpoint = `/users/${this.props.userId}/user_languages`;
 
@@ -123,6 +145,18 @@ export default class App extends React.PureComponent {
 				{this.props.first_time &&
 				input
 				}
+
+				<section>
+					<CellsTitle>What languages do you speak?</CellsTitle>
+				</section>
+
+				{this.state.alert && 
+					<p style="color: red;">MAYBE YOU HAVE CHOSEN NO LANGUAGE</p>
+				}
+
+				<ButtonArea className='submit'>
+					<Button style="background-color: green;" onClick={() => this.pushData()}>Submit</Button>
+				</ButtonArea>
 			</div>
 		);
 	}
