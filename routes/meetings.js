@@ -23,7 +23,7 @@ router.get('/:userID', ({params: {userID}}, res) => {
 
 router.get('/:userID/list', ({params: {userID}}, res) => {
     console.log("IN GET /MEETINGS/" + userID + "/LIST");
-    query(CONSTANTS.GET_ALL_MEETINGS_LIST, [userID])
+    query(CONSTANTS.GET_MEETINGS_LIST, [userID])
     .then((obj) => {
         const langsJSON = JSON.stringify(obj);
 
