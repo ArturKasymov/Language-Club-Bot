@@ -179,7 +179,7 @@ export default class CreateMeeting extends React.PureComponent {
 			</section>
 
 			<section>
-				<Button onClick={() => this.pushData()}>Add new place</Button>
+				<Button onClick={() => this.pushData()}>Submit</Button>
 			</section>
 
 			<p>{this.state.text}</p>
