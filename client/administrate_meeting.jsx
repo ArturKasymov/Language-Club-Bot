@@ -132,6 +132,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<hr/>
 					<h2>USERS</h2>
 					<p>{this.state.REGISTERED_USERS}</p>
+					<p>{this.state.id}</p>
 				</section>
 			</div>
 		);
