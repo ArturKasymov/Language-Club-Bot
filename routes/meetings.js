@@ -41,7 +41,7 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
 });
 
 router.put('/:userID/update', ({body, params: {userID}}, res) => {
-    console.log("IN PUT /MEETINGS/UPDATE " + (typeof body.startTime) + " " + body.startTime + " " + new Date(body.startTime));
+    console.log("IN PUT /MEETINGS/UPDATE " + (typeof body["startTime"]) + " " + body["startTime"] + " " + new Date(body["startTime"]) + " " + Object.keys(body));
     query(CONSTANTS.UPDATE_MEETING, [body.description, new Date(body.startTime), new Date(body.endTime), parseInt(body.id)]);
     res.sendStatus(204);
 });
