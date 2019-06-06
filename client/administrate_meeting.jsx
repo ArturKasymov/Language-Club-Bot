@@ -73,7 +73,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 	}
 
 	finishMeeting() {
-		/*const endpoint = `/meetings/${this.props.userId}/finish`;
+		const endpoint = `/meetings/${this.props.userId}/finish`;
 		const content = JSON.stringify({meet_id: parseInt(this.state.id)});
 
 		fetch(endpoint, {
@@ -84,7 +84,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 			if (reponse.ok) {
 				WebviewControls.close();
 			}
-		});*/
+		});
 	}
 
 	nextRound() {
@@ -92,7 +92,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 	}
 
 	addPresentUser(id, not_added) {
-		/*const endpoint = `/meetings/${this.props.userId}/present`;
+		const endpoint = `/meetings/${this.props.userId}/present`;
 		const content = JSON.stringify({meet_id: this.state.id, id: id, present: not_added});
 
 		fetch(endpoint, {
@@ -110,15 +110,14 @@ export default class AdministrateMeeting extends React.PureComponent {
 				}
 				this.setState({REGISTERED_USERS: newRegisteredUsers});
 			}
-		});*/
+		});
 	}
 
 	render() {
 		if (this.state.id === null) {
 			return <Loading />;
 		}
-		/*const adminId = this.props.userId;
-		const users = this.state.REGISTERED_USERS.map((entry) => {
+		/*const users = this.state.REGISTERED_USERS.map((entry) => {
 			return <User key={entry.userID} id={entry.userID} nickname={entry.nickname} addable={true} not_added={!entry.isPresent} add={this.addPresentUser.bind(this)} />;
 		});*/
 
@@ -132,7 +131,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
 					<hr/>
 					<h2>USERS</h2>
-					
+					<p>{this.state.REGISTERED_USERS}</p>
 				</section>
 			</div>
 		);
