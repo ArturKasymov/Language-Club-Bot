@@ -15,12 +15,14 @@ export default class App extends React.PureComponent {
 	}
 
 	state = {
-		//TEMP
-		text: 'init'
+		nickname: '',
+		languages: new Set(),
+		ALL_LANGUAGES: [],
+		alert: false,
 	}
 
 	pullData() {
-		/*const user_endpoint = `/users/${this.props.userId}/user_languages`;
+		const user_endpoint = `/users/${this.props.userId}/user_languages`;
 
 		fetch(user_endpoint)
 		.then((response) => {
@@ -32,9 +34,9 @@ export default class App extends React.PureComponent {
 			this.setState({text});
 		}).then((jsonResponse) => {
 				
-				this.setState({text: JSON.stringify(jsonResponse)});
+				this.setState({languages: new Set(jsonResponse.user_langs)});
 
-		}).catch((err) => this.setState({text: err}));*/
+		}).catch((err) => console.log(err));
 
 		const all_endpoint = `/users/${this.props.userId}/all_languages`;
 
@@ -48,7 +50,7 @@ export default class App extends React.PureComponent {
 			this.setState({text});
 		}).then((jsonResponse) => {
 				
-				this.setState({text: JSON.stringify(jsonResponse)});
+				this.setState({ALL_LANGUAGES: jsonResponse});
 
 		}).catch((err) => this.setState({text: err}));
 	}
@@ -58,13 +60,13 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.text === 'init') {
+		if (this.state.ALL_LANGUAGES.length === 0) {
 			return <Loading />;
 		}
 
 		return (
 			<div className='app'>
-				<p>{this.state.text}</p>
+				<p>{this.state.ALL_LANGUAGES.toString()}</p>
 			</div>
 		);
 	}
