@@ -73,7 +73,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 	}
 
 	finishMeeting() {
-		const endpoint = `/meetings/${this.props.userId}/finish`;
+		/*const endpoint = `/meetings/${this.props.userId}/finish`;
 		const content = JSON.stringify({meet_id: parseInt(this.state.id)});
 
 		fetch(endpoint, {
@@ -84,7 +84,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 			if (reponse.ok) {
 				WebviewControls.close();
 			}
-		});
+		});*/
 	}
 
 	nextRound() {
@@ -92,7 +92,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 	}
 
 	addPresentUser(id, not_added) {
-		const endpoint = `/meetings/${this.props.userId}/present`;
+		/*const endpoint = `/meetings/${this.props.userId}/present`;
 		const content = JSON.stringify({meet_id: this.state.id, id: id, present: not_added});
 
 		fetch(endpoint, {
@@ -110,7 +110,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 				}
 				this.setState({REGISTERED_USERS: newRegisteredUsers});
 			}
-		});
+		});*/
 	}
 
 	render() {
