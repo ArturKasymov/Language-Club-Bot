@@ -116,6 +116,7 @@ function getRegistrationOKMessage(nickname) {
     "text": nickname + ', registration complete!'
   }
 }
+
 function getNicknameChangedMessage(nickname){
   return {
     "text": nickname + ', nickname changed'
