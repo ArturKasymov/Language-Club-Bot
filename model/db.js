@@ -219,6 +219,7 @@ function getMeetingsList(args) {
         var obj = {};
         for (var i = 0; i < result.rows.length; i++) {
             const row = result.rows[i];
+            console.log("ROW: " + JSON.stringify(row));
             obj[row.id] = [row["placeID"], row["place_name"], row["place_city"], row["place_address"], row["organizerID"], row["organizer_nickname"],
                 row["description"], row["startDate"], row["endDate"]];
         }
