@@ -120,6 +120,8 @@ export default class App extends React.PureComponent {
 			</CellHeader></Form></section>
 		}
 
+		const callback = this.pushData();
+
 		return (
 			<div className='app'>
 				<p>{this.state.ALL_LANGUAGES.toString()}</p>
@@ -135,6 +137,10 @@ export default class App extends React.PureComponent {
 				{this.state.alert && 
 					<p style="color: red;">MAYBE YOU HAVE CHOSEN NO LANGUAGE</p>
 				}
+
+				<ButtonArea className='submit'>
+					<Button onClick={() => callback()}>Submit</Button>
+				</ButtonArea>
 			</div>
 		);
 	}
