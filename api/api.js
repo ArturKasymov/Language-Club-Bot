@@ -63,6 +63,11 @@ function callMessagesApi(dataArray, queryParams) {
     return callAPI('messages', dataArray, queryParams, 5);
 }
 
+function callBotProfileApi(messageDataArray, queryParams){
+    return callAPI('messenger_profile', messageDataArray, queryParams,5);
+};
+
 export default {
-    callMessagesApi
+    callMessagesApi,
+    callBotProfileApi
 };

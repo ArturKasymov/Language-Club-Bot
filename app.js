@@ -17,6 +17,8 @@ import languages from './routes/languages';
 import organizators from './routes/organizators';
 import webhooks from './routes/webhooks';
 
+import botSettings from'./api/bot-settings';
+
 const app = express();
 
 //app.set('views', path.join(__dirname, 'views'));
@@ -53,6 +55,8 @@ app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+botSettings.setSettings();
 
 app.listen(app.get('port'), () => console.log('Node app is running on port', app.get('port')));
 
