@@ -21,10 +21,10 @@ router.get('/:userID/all_languages', ({params: {userID}}, res) => {
     }).catch((err) => console.log(err));
 });
 
-router.get('/:userID/check_reg/:case', ({params: [{userID}, {case}] }, res) => {
+router.get('/:userID/check_reg/:case', (req, res) => {
     console.log("CHECK REGISTRATION " + userID);
 
-    query(CONSTANTS.GET_PERMISSION_LEVEL, [userID])
+    query(CONSTANTS.GET_PERMISSION_LEVEL, [req.params.userID])
     .then((result) => {
 
         const resultJSON = JSON.stringify(result);
@@ -34,7 +34,7 @@ router.get('/:userID/check_reg/:case', ({params: [{userID}, {case}] }, res) => {
 
         res.send(resultJSON);
 
-        if(resultJSON!='0'&&case=='0') sendApi.sendAlreadyRegistrMessage(userID);
+        if(resultJSON!='0'&&req.params.case=='0') sendApi.sendAlreadyRegistrMessage(userID);
 
     }).catch((err) => console.log(err));
 });
