@@ -110,7 +110,6 @@ export default class Meetings extends React.PureComponent {
 			if (response.ok) {
 				this.props.register(this.props.id);
 			}
-			register(this.props.id, this.props.registered);
 		});
 	}
 
