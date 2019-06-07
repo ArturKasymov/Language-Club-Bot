@@ -73,7 +73,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 	}
 
 	finishMeeting() {
-		if (this.state.startTime > NOW()) return;
+		if (this.state.startTime > new Date()) return;
 		const endpoint = `/meetings/${this.props.userId}/finish`;
 		const content = JSON.stringify({meet_id: parseInt(this.state.id)});
 
@@ -102,14 +102,14 @@ export default class AdministrateMeeting extends React.PureComponent {
 			body: content,
 		}).then((response) => {
 			if (response.ok) {
-				const newRegisteredUsers = new Object(this.state.REGISTERED_USERS);
+				var newRegisteredUsers = new Object(this.state.REGISTERED_USERS);
 				for (var i = 0; i < newRegisteredUsers.length; i++) {
 					if (newRegisteredUsers[i].userID === id) {
 						newRegisteredUsers[i].isPresent = !newRegisteredUsers[i].isPresent;
 						break;
 					}
 				}
-				this.setState({REGISTERED_USERS: newRegisteredUsers});
+				this.setState({REGISTERED_USERS: newRegisteredUsers, text: 'lol'});
 			}
 		});
 	}
