@@ -116,7 +116,7 @@ const alreadyRegistrMessage = {
 }
 
 const permissionMessage = {
-    "text": 'Your permission level is not enought'
+    "text": 'Your permission level is not enough'
 }
 
 function getRegistrationOKMessage(nickname) {

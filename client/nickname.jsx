@@ -16,6 +16,7 @@ import {
 } from 'react-weui';
 
 import WebviewControls from '../api/webview-controls';
+import Loading from './loading.jsx';
 
 export default class Nickname extends React.PureComponent {
 

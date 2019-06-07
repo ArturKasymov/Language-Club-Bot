@@ -31,29 +31,33 @@ export default class Organizators extends React.PureComponent {
 	}
 
 	pullData() {
-		const endpoint = `/users/${this.props.userId}/users_list`;
-
-		fetch(endpoint)
+		const check_endpoint = `/users/${this.props.userId}/check_perm/3`;
+		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
+			if(jsonResponse!="3") WebviewControls.close();
+		}).catch((err) => console.error('Error pulling data', err)).then( () => {
+			const endpoint = `/users/${this.props.userId}/users_list`;
+			fetch(endpoint)
+			.then((response) => {
+				if (response.status == 200) {
+					return response.json();
+				}
+			}).then((jsonResponse) => {
 				var organizators = new Set();
 				var users = new Set();
-
 				const flat = Object.entries(jsonResponse);
-				
 				for (var i = 0; i < flat.length; i++) {
 					if (flat[i][1].charAt(0) === '1') users.add([flat[i][0], flat[i][1].slice(1)]);
 					if (flat[i][1].charAt(0) === '2') organizators.add([flat[i][0], flat[i][1].slice(1)]);
 				}
-
 				const results = [...users];
-
 				this.setState({organizators, users, results});
-
-		}).catch((err) => console.error('Error pulling data', err));
+			}).catch((err) => console.error('Error pulling data', err));
+		});
 	}
 
 	pushData() {
