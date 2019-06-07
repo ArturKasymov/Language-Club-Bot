@@ -25,21 +25,19 @@ export default class Nickname extends React.PureComponent {
 
 	state = {
 		nickname: '',
-		alert: false,
-		//TEMP
-		text: 'init'
+		alert: false
 	}
 
 	pullData(){
-		const check_endpoint = `/users/${this.props.userId}/check_reg/false`;
+		const check_endpoint = `/users/${this.props.userId}/check_perm/1`;
 		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-			if(jsonResponse=="0") WebviewControls.close();
-		}).catch((err) => console.error('Error pulling data', err));		
+			if(jsonResponse=="0")sendApi.sendNeedRegistrationMessage(req.params.userID);
+		}).catch((err) => console.error('Error pulling data', err));	
 	}
 
 	pushData() {
@@ -47,7 +45,6 @@ export default class Nickname extends React.PureComponent {
 			this.showAlert();
 			return;
 		}
-		this.setState({text: this.jsonState()});
 		const content = this.jsonState();		
 
 		fetch(`/users/${this.props.userId}/nickname`, {
