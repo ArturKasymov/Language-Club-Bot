@@ -123,6 +123,12 @@ router.put('/:userID/finish', ({body, params: {userID}}, res) => {
     res.sendStatus(204);
 });
 
+router.put('/:userID/start', ({body, params: {userID}}, res) => {
+    console.log("IN PUT /MEETINGS/START " + JSON.stringify(body));
+    query(CONSTANTS.START_MEETING, [body.meet_id]);
+    res.sendStatus(204);
+});
+
 router.put('/:userID/register', ({body, params: {userID}}, res) => {
     console.log("IN PUT /MEETINGS/REGISTER " + JSON.stringify(body));
     if (body.registered) {

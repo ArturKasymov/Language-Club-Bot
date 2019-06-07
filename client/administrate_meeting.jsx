@@ -29,6 +29,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 		endTime: null,
 
 		REGISTERED_USERS: null,
+		started: false,
 	}
 
 	pullData() {
@@ -73,20 +74,36 @@ export default class AdministrateMeeting extends React.PureComponent {
 		this.pullData();
 	}
 
-	finishMeeting() {
-		if (new Date(this.state.startTime).getTime() > new Date().getTime()) return;
-		const endpoint = `/meetings/${this.props.userId}/finish`;
-		const content = JSON.stringify({meet_id: parseInt(this.state.id)});
+	handleMeeting() {
+		if (this.state.started) {
+			if (new Date(this.state.startTime).getTime() > new Date().getTime()) return;
+			const endpoint = `/meetings/${this.props.userId}/finish`;
+			const content = JSON.stringify({meet_id: parseInt(this.state.id)});
 
-		fetch(endpoint, {
-			method: 'PUT',
-			headers: {'Content-Type': 'application/json'},
-			body: content,
-		}).then((response) => {
-			if (reponse.ok) {
-				WebviewControls.close();
-			}
-		});
+			fetch(endpoint, {
+				method: 'PUT',
+				headers: {'Content-Type': 'application/json'},
+				body: content,
+			}).then((response) => {
+				if (reponse.ok) {
+					WebviewControls.close();
+				}
+			});
+		} else {
+			const endpoint = `/meetings/${this.props.userId}/start`;
+			const content = JSON.stringify({meet_id: parseInt(this.state.id)});
+
+			fetch(endpoint, {
+				method: 'PUT',
+				headers: {'Content-Type': 'application/json'},
+				body: content,
+			}).then((response) => {
+				if (reponse.ok) {
+					this.setState({started: true});
+				}
+			});
+		}
+		
 	}
 
 	nextRound() {
@@ -132,8 +149,8 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<p>Meeting at {this.state.placeAddress}, {this.state.placeCity} in {this.state.placeName}</p>
 					<p>from {dateString(this.state.startTime, true)} to {dateString(this.state.endTime, true)}</p>
 					<hr/>
-					<Button onClick={() => this.finishMeeting()}>FINISH</Button>
-					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
+					<Button onClick={() => this.handleMeeting()}>{this.state.started ? "FINISH" : "START"}</Button>
+					<Button disabled={this.state.started !== true} onClick={() => this.nextRound()}>NEXT ROUND</Button>
 					<hr/>
 					<h2>USERS</h2>
 					{users}

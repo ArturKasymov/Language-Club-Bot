@@ -75,6 +75,9 @@ function query(type, args) {
         case CONSTANTS.UPDATE_VISITOR:
             updateVisitor(args);
             break;
+        case CONSTANTS.START_MEETING:
+            startMeeting(args);
+            break;
         case CONSTANTS.FINISH_MEETING:
             finishMeeting(args);
             break;
@@ -142,6 +145,10 @@ function updateMeeting(args) {
     pool.query(CONSTANTS.UPDATE_MEETING_QUERY, args, (err, res) => {
         console.log(err, res);
     });
+}
+
+function startMeeting(args) {
+    pool.query(CONSTANTS.START_MEETING_QUERY, args);
 }
 
 function finishMeeting(args) {
