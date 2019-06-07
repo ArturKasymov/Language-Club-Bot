@@ -21,8 +21,9 @@ router.get('/:userID/all_languages', ({params: {userID}}, res) => {
     }).catch((err) => console.log(err));
 });
 
-router.get('/:userID/check_reg/:case', (req, res) => {
-    console.log("CHECK REGISTRATION " + req.params.userID);
+
+router.get(':userID/check_perm/:required', (req, res) => {
+    console.log("CHECK PERMISSION " + req.params.userID);
 
     query(CONSTANTS.GET_PERMISSION_LEVEL, [req.params.userID])
     .then((result) => {
@@ -32,11 +33,20 @@ router.get('/:userID/check_reg/:case', (req, res) => {
 
         res.send(resultJSON);
 
-        console.log("CHECK REGISTRATION RESULT="+((resultJSON!="\"0\""&&req.params.case=='true')||(resultJSON=="\"0\""&&req.params.case=='false')));
-
-        if(resultJSON!="\"0\""&&req.params.case=='true') sendApi.sendAlreadyRegistrMessage(req.params.userID);
-        if(resultJSON=="\"0\""&&req.params.case=='false') sendApi.sendNeedRegistrationMessage(req.params.userID);
-
+        switch(req.params.required){
+            case '0':
+                if(result!="0")sendApi.sendAlreadyRegistrMessage(req.params.userID);
+                break;
+            case '1':
+                if(result=="0")sendApi.sendNeedRegistrationMessage(req.params.userID);
+                break;
+            case '2':
+                if(!(result=="2"||result=="3"))sendApi.sendPermissionMessage(req.params.userID);
+                break;
+            case '3':
+                if(result!="3")sendApi.sendPermissionMessage(req.params.userID);
+                break;
+        }
     }).catch((err) => console.log(err));
 });
 
