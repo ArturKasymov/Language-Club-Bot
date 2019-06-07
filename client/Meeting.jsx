@@ -15,7 +15,6 @@ import {
 	Button,
 } from 'react-weui';
 
-import WebviewControls from '../api/webview-controls';
 import {dateString} from '../utils/date-string-format';
 
 export default class Meetings extends React.PureComponent {
@@ -40,7 +39,7 @@ export default class Meetings extends React.PureComponent {
 		register: React.PropTypes.func,
 
 		openable: React.PropTypes.bool.isRequired,
-		open_url: React.PropTypes.string,
+		open_url: React.PropTypes.func,
 	}
 
 	state = {
@@ -116,8 +115,7 @@ export default class Meetings extends React.PureComponent {
 	}
 
 	forward() {
-		WebviewControls.close();
-		fetch(this.props.open_url);
+		this.props.open_url(this.props.id);
 	}
 
 	render() {	

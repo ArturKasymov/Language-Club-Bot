@@ -88,6 +88,8 @@ function query(type, args) {
             break;
         case CONSTANTS.GET_HISTORY_MEETINGS:
             return getHistoryMeetings(args);
+        case CONSTANTS.GET_USER_PARTNERS:
+            return getUserPartners(args);
         
         //TEMP CASES
         case 'ADMIN':
@@ -219,6 +221,19 @@ function getUsersOnMeeting(args) {
             return undefined;
         }
         console.log("users count: " + result.rows.length);
+        return result.rows;
+    });
+};
+
+function getUserPartners(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_USER_PARTNERS_QUERY, args));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("partners count: " + result.rows.length);
         return result.rows;
     });
 };

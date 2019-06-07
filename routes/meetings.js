@@ -8,10 +8,17 @@ const query = require('../model/db.js');
 
 const router = express.Router();
 
-router.get('/history/:userID/:meetingID', ({params: {userID, meetingID}}, res) => {
+router.get('/:meetingID/partners/:userID', ({params: {meetingID, userID}}, res) => {
     console.log("IN GET HISTORY/ " + meetingID);
-    
-    res.render('./meeting', {meetingID: meetingID, title: 'Meeting Interlocutors'});
+    query(CONSTANTS.GET_USER_PARTNERS, [parseInt(meetingID), userID])
+    .then((obj) => {
+        const langsJSON = JSON.stringify(obj);
+
+        console.log(`GET User response: ${langsJSON}`);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.send(langsJSON);
+    }).catch((err) => console.log(err));
 });
 
 router.get('/:userID', ({params: {userID}}, res) => {
