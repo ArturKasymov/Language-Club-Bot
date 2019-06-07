@@ -68,7 +68,7 @@ export default class MeetingsList extends React.PureComponent {
 			return (
 				<Meeting userId={this.props.userId} id={id} placeID={placeID} placeName={placeName} placeCity={placeCity} placeAddress={placeAddress}
 				organizatorID={organizatorID} organizatorNickname={organizatorNickname} description={description} startDate={startDate} endDate={endDate}
-				disabled={this.state.update_meeting_idx==id} onBlock={this.blockOthers.bind(this)} />
+				disabled={this.state.update_meeting_idx==id} onBlock={this.blockOthers.bind(this)} registerable={false} registered={false} />
 			);
 		});
 

@@ -36,7 +36,7 @@ export default class Meetings extends React.PureComponent {
 
 		registerable: React.PropTypes.bool.isRequired,
 		registered: React.PropTypes.bool.isRequired,
-		register: React.PropTypes.func.isRequired,
+		register: React.PropTypes.func,
 	}
 
 	state = {
@@ -181,7 +181,8 @@ export default class Meetings extends React.PureComponent {
 		return (
 			<div className='app sub-app'>
 				<p>Meeting at {this.props.placeAddress}, {this.props.placeCity} in {this.props.placeName}</p>
-				<p>from {dateString(this.props.startDate, true)} to {dateString(this.props.endDate, true)}</p>
+				<p>from {dateString(this.props.startDate, true)} to {dateString(this.props.endDate, true)}.</p>
+				<p>Organized by {this.props.organizatorNickname}</p>
 				<br/>
 				<h3>Description:</h3>
 				<p>{this.state.description}</p>
