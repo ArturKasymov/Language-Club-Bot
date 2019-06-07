@@ -60,7 +60,8 @@ export default class FutureMeetings extends React.PureComponent {
 	}
 
 	onRegister(id) {
-	this.setState({text: id+''});
+		alert("lol"+id);
+		this.setState({text: id.toString()});
 		var newAllMeetings = new Array(...this.state.ALL_MEETINGS);
 		for (var i = 0; i < newAllMeetings.length; i++) {
 			if (newAllMeetings[i].id == id) {

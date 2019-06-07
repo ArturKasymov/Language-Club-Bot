@@ -107,7 +107,7 @@ export default class Meetings extends React.PureComponent {
 			headers: {'Content-Type': 'application/json'},
 			body: content,
 		}).then((res) => {
-			if (response.ok) {
+			if (res.ok) {
 				this.props.register(this.props.id);
 			}
 		});
