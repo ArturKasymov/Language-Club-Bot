@@ -64,6 +64,7 @@ export default class FutureMeetings extends React.PureComponent {
 		for (var i = 0; i < newAllMeetings.length; i++) {
 			if (newAllMeetings[i].id == id) {
 				newAllMeetings[i].registered = !newAllMeetings[i].registered;
+				this.setState({text: i+''});
 				break;
 			}
 		}
