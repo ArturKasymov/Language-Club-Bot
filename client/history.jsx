@@ -73,7 +73,7 @@ export default class History extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.ALL_MEETINGS == null) {
+		if (this.state.text == 'init') {
 			return <Loading />;
 		}
 
