@@ -51,12 +51,12 @@ app.use('/places', places);
 app.use('/meetingsadmlist', meetingsadmlist);
 app.use('/meetingsadm', meetingsadm);
 app.use('/futuremeetings', futuremeetings);
-app.use('/history', history);
+app.use('/historymeetings', history);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {
-    console.log("REQ: " + req);
-    console.log("RES " + res);
+    console.log("REQ: " + JSON.stringify(req));
+    console.log("RES " + JSON.stringify(res));
     const err = new Error('Not Found');
     err.status = 404;
     next(err);
