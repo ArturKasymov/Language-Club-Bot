@@ -74,8 +74,12 @@ function sendRegistrationOKMessage(id, nickname) {
     sendMessage(id, messages.getRegistrationOKMessage(nickname));
 }
 
-function sendNickNameChanged(id, nickname) {
+function sendNickNameChangedMessage(id, nickname) {
     sendMessage(id, messages.getNicknameChangedMessage(nickname));
+}
+
+function sendAlreadyRegistrMessage(id){
+    sendMessage(id, message.alreadyRegistrMessage);
 }
 
 //TEMP function
@@ -92,8 +96,8 @@ export default {
     sendOrganizatorPanelMessage,
     sendAdminPanelMessage,
     sendRegistrationOKMessage,
-    sendNickNameChanged,
-
+    sendNickNameChangedMessage,
+    sendAlreadyRegistrMessage,
 
     //TEMP function
     tempSend

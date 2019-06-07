@@ -22,7 +22,7 @@ router.get('/:userID/all_languages', ({params: {userID}}, res) => {
 });
 
 router.get('/:userID/check_reg', ({params: {userID}}, res) => {
-    console.log("CHECK REGISTRATION" + userID);
+    console.log("CHECK REGISTRATION " + userID);
 
     query(CONSTANTS.GET_PERMISSION_LEVEL, [userID])
     .then((result) => {
@@ -30,10 +30,11 @@ router.get('/:userID/check_reg', ({params: {userID}}, res) => {
         const resultJSON = JSON.stringify(result);
         res.setHeader('Content-Type', 'application/json');
 
-        console.log("CHECK REGISTRATION" + resultJSON);
+        console.log("CHECK REGISTRATION " + resultJSON);
 
         res.send(resultJSON);
 
+        if(resultJSON!='0') sendApi.sendAlreadyRegistrMessage(userID);
 
     }).catch((err) => console.log(err));
 });
@@ -107,7 +108,7 @@ router.put('/:userID/nickname', ({body, params: {userID}}, res) => {
     res.sendStatus(204);
 
     query(CONSTANTS.UPDATE_STATUS, [CONSTANTS.IN_MENU, userID]);
-    sendApi.sendNickNameChanged(userID, body.nickname);
+    sendApi.sendNickNameChangedMessage(userID, body.nickname);
 });
 
 

@@ -111,6 +111,10 @@ const adminPanelMessage = {
     }
 };
 
+const alreadyRegistrMessage = {
+    "text": 'You are already registered'
+}
+
 function getRegistrationOKMessage(nickname) {
   return {
     "text": nickname + ', registration complete!'
@@ -130,5 +134,6 @@ export default {
     organizatorPanelMessage,
     adminPanelMessage,
     getRegistrationOKMessage,
-    getNicknameChangedMessage
+    getNicknameChangedMessage,
+    alreadyRegistrMessage
 }
