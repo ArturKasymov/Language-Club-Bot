@@ -68,17 +68,17 @@ export default class FutureMeetings extends React.PureComponent {
 			return <Loading />;
 		}
 
-		/*const meetings = this.state.ALL_MEETINGS.map((entry) => {
+		const meetings = this.state.ALL_MEETINGS.map((entry) => {
 			return <Meeting userId={this.props.userId} id={parseInt(entry.id)} placeID={parseInt(entry.placeID)} placeName={entry.place_name} 
 					placeCity={entry.place_city} placeAddress={entry.place_address} organizatorID={entry.organizerID} organizatorNickname={entry.organizer_nickname}
 					description={entry.description} startDate={entry.startDate} endDate={entry.endDate} disabled={true} onBlock={this.onRegister.bind(this)}
 					registerable={true} registered={entry.registered} register={this.onRegister.bind(this)} />;
-		});*/
+		});
 
 		return (
 			<div className='app'>
 				<h1>YOUR MEETINGS</h1>
-
+				{meetings}
 			<p>{this.state.text}</p>
 			</div>
 		);
