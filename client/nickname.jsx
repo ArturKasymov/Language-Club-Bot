@@ -36,7 +36,7 @@ export default class Nickname extends React.PureComponent {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-			if(result=="0")sendApi.sendNeedRegistrationMessage(req.params.userID);
+			if(jsonResponse=="0")sendApi.sendNeedRegistrationMessage(req.params.userID);
 		}).catch((err) => console.error('Error pulling data', err));	
 	}
 
