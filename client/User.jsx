@@ -22,7 +22,7 @@ User.propTypes = {
   nickname: React.PropTypes.string.isRequired,
   addable: React.PropTypes.bool.isRequired,
   not_added: React.PropTypes.bool.isRequired,
-  add: React.PropTypes.func,
+  add: React.PropTypes.func.isRequired,
 };
 
 export default User;
