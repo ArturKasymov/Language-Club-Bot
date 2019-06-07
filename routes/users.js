@@ -30,7 +30,7 @@ router.get('/:userID/check_reg/:case', (req, res) => {
         const resultJSON = JSON.stringify(result);
         res.setHeader('Content-Type', 'application/json');
 
-        console.log("CHECK REGISTRATION " + resultJSON);
+        console.log("CHECK REGISTRATION " +req.params.case+ " "+ resultJSON);
 
         res.send(resultJSON);
 
