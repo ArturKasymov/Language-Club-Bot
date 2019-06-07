@@ -60,22 +60,23 @@ export default class History extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.text == '') {
+		if (this.state.ALL_MEETINGS == null) {
 			return <Loading />;
 		}
 
-		/*const meetings = this.state.ALL_MEETINGS.map((entry) => {
-			return <Meeting userId={this.props.userId} id={parseInt(entry.id)} placeID={parseInt(entry.placeID)} placeName={entry.place_name} 
+		const meetings = this.state.ALL_MEETINGS.map((entry) => {
+			return <Meeting userId={this.props.userId} id={entry.id} placeID={entry.placeID} placeName={entry.place_name} 
 					placeCity={entry.place_city} placeAddress={entry.place_address} organizatorID={entry.organizerID} organizatorNickname={entry.organizer_nickname}
 					description={entry.description} startDate={entry.startDate} endDate={entry.endDate} 
-					disabled={true} onBlock={this.onRegister.bind(this)}
+					disabled={true} onBlock={null}
 					registerable={false} registered={false} 
 					openable={true} open_url={'/meetings/history/' + this.props.userId + '/' + entry.id} />;
-		});*/
+		});
 
 		return (
 			<div className='app'>
 				<h1>HISTORY</h1>
+				{meetings}
 				<p>{this.state.text}</p>
 			</div>
 		);
