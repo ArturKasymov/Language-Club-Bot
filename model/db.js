@@ -79,7 +79,7 @@ function query(type, args) {
             finishMeeting(args);
             break;
         case CONSTANTS.GET_FUTURE_MEETINGS:
-            return getFutureMeetings();
+            return getFutureMeetings(args);
         case CONSTANTS.INSERT_VISITOR:
             insertVisitor(args);
             break;
@@ -221,9 +221,9 @@ function getUsersOnMeeting(args) {
     });
 };
 
-function getFutureMeetings() {
+function getFutureMeetings(args) {
     return new Promise((resolve, reject) => {
-        resolve(pool.query(CONSTANTS.GET_FUTURE_MEETINGS_QUERY));
+        resolve(pool.query(CONSTANTS.GET_FUTURE_MEETINGS_QUERY, args));
     })
     .then((result) => {
         if (result == undefined || result.rows.length == 0) {
