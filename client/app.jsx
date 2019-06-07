@@ -35,7 +35,7 @@ export default class App extends React.PureComponent {
 	}
 
 	pullData() {
-		const check_endpoint = `/users/${this.props.userId}/check_reg`;
+		const check_endpoint = `/users/${this.props.userId}/check_reg/t`;
 		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
