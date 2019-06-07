@@ -118,10 +118,11 @@ export default class AdministrateMeeting extends React.PureComponent {
 			return <Loading />;
 		}
 		
-		/*const users = this.state.REGISTERED_USERS ? this.state.REGISTERED_USERS.map((entry) => {
-			return <User id={entry.userID} nickname={entry.nickname} addable={true} not_added={false} add={this.addPresentUser.bind(this)} />;
-		}) : <p>NOR</p>;*/
-		const users = [<User id={"aaa"} nickname={"aba"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />];
+		const cb = this.addPresentUser.bind(this);
+		const users = this.state.REGISTERED_USERS ? this.state.REGISTERED_USERS.map((entry) => {
+			return <User id={entry.userID} nickname={entry.nickname} addable={true} not_added={true} add={cb} />;
+		}) : <p>NOR</p>;
+		//const users = [<User id={"aaa"} nickname={"aba"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />];
 
 		return (
 			<div className='app'>
