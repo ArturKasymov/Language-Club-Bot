@@ -30,6 +30,17 @@ export default class Nickname extends React.PureComponent {
 		text: 'init'
 	}
 
+	pullData(){
+		const check_endpoint = `/users/${this.props.userId}/check_reg/false`;
+		fetch(check_endpoint)
+		.then((response) => {
+			if (response.status == 200) {
+				return response.json();
+			}
+		}).then((jsonResponse) => {
+			if(jsonResponse=="0") WebviewControls.close();
+		}).catch((err) => console.error('Error pulling data', err));		
+	}
 
 	pushData() {
 		if (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1) {
@@ -53,6 +64,9 @@ export default class Nickname extends React.PureComponent {
 		});
 	}
 
+	componentWillMount() {
+		this.pullData();
+	}
 
 	jsonState() {
 		return JSON.stringify({nickname: this.state.nickname});
