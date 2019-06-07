@@ -22,7 +22,7 @@ router.get('/:userID/all_languages', ({params: {userID}}, res) => {
 });
 
 
-router.get(':userID/check_perm/:required', (req, res) => {
+router.get('/:userID/check_perm/:required', (req, res) => {
     console.log("CHECK PERMISSION " + req.params.userID);
 
     query(CONSTANTS.GET_PERMISSION_LEVEL, [req.params.userID])
