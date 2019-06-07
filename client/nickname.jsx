@@ -25,9 +25,7 @@ export default class Nickname extends React.PureComponent {
 
 	state = {
 		nickname: '',
-		alert: false,
-		//TEMP
-		text: 'init'
+		alert: false
 	}
 
 	pullData(){
@@ -47,7 +45,6 @@ export default class Nickname extends React.PureComponent {
 			this.showAlert();
 			return;
 		}
-		this.setState({text: this.jsonState()});
 		const content = this.jsonState();		
 
 		fetch(`/users/${this.props.userId}/nickname`, {

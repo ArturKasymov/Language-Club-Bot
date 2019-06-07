@@ -30,10 +30,7 @@ export default class Place extends React.PureComponent {
 		address: null,
 		description: null,
 		photo: null,
-
-		alert: false,
-		//TEMP
-		text: 'init'
+		alert: false
 	}
 
 	pushData() {
@@ -50,7 +47,7 @@ export default class Place extends React.PureComponent {
 				console.log('Data successfully updated on the server!');
 				return response.json();
 			}
-		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err));
+		}).catch((err) => console.log(err));
 	}
 
 	jsonState() {
@@ -58,7 +55,7 @@ export default class Place extends React.PureComponent {
 	}
 
 	showAlert() {
-		this.setState({alert:true, text: "alert"});
+		this.setState({alert:true});
 	}
 
 	updateName(e) {
@@ -134,8 +131,6 @@ export default class Place extends React.PureComponent {
 				<section>
 					<Button onClick={this.addNewPlace.bind(this)}>ADD</Button>
 				</section>
-
-				<p>{this.state.text}</p>
 			</div>
 		);
 	}

@@ -17,9 +17,7 @@ export default class MeetingsList extends React.PureComponent {
 	state = {
 		update_meeting_idx: -1,
 
-		ALL_MEETINGS: null,
-		//TEMP
-		text: 'init'
+		ALL_MEETINGS: null
 	}
 
 	pullData() {
@@ -30,9 +28,6 @@ export default class MeetingsList extends React.PureComponent {
 			if (response.status == 200) {
 				return response.json();
 			}
-
-			const text = response.status.toString();
-			this.setState({text});
 		}).then((jsonResponse) => {
 				
 				this.setState({ALL_MEETINGS: Object.entries(jsonResponse).map((entry) => {var x = {}; x[entry[0]] = entry[1]; return x;})});

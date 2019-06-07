@@ -35,9 +35,7 @@ export default class CreateMeeting extends React.PureComponent {
 
 		ALL_PLACES: null,
 		new_place: false,
-		alert: false,
-		//TEMP
-		text: 'init'
+		alert: false
 	}
 
 	pullData() {
@@ -48,9 +46,6 @@ export default class CreateMeeting extends React.PureComponent {
 			if (response.status == 200) {
 				return response.json();
 			}
-
-			const text = response.status.toString();
-			this.setState({text});
 		}).then((jsonResponse) => {
 				
 				const select_data = Object.entries(jsonResponse)
@@ -94,11 +89,11 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	updateDescription(e) {
-		this.setState({description: e.target.value, text: e.target.value, alert: false});
+		this.setState({description: e.target.value, alert: false});
 	}
 
 	updateStartTime(startTime) {
-		this.setState({startTime, text: startTime, alert: false});
+		this.setState({startTime, alert: false});
 	}
 
 	updateEndTime(endTime) {
@@ -106,7 +101,7 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	updatePlace(e) {
-		this.setState({place_id: e.target.value, text: e.target.value});
+		this.setState({place_id: e.target.value});
 	}
 
 	showNewPlaceForm() {
@@ -116,11 +111,11 @@ export default class CreateMeeting extends React.PureComponent {
 	postNewPlace(place) {
 		this.state.ALL_PLACES.push({value: place.id, label: place.label, selected: "selected"});
 		const newPlaces = this.state.ALL_PLACES;
-		this.setState({new_place: false, ALL_PLACES: newPlaces, place_id: place.id, text: place.id});
+		this.setState({new_place: false, ALL_PLACES: newPlaces, place_id: place.id});
 	}
 
 	showAlert() {
-		this.setState({alert: true, text: 'alert'});
+		this.setState({alert: true});
 	}
 
 	render() {
@@ -210,8 +205,6 @@ export default class CreateMeeting extends React.PureComponent {
 			<section>
 				<Button onClick={() => this.pushData()}>Submit</Button>
 			</section>
-
-			<p>{this.state.text}</p>
 			</div>
 		);
 	}
