@@ -10,6 +10,8 @@ import CreateMeeting from './createmeet.jsx';
 import MeetingsList from './meetingslist.jsx';
 import AdministrateMeeting from './administrate_meeting.jsx';
 import FutureMeetings from './futuremeetings.jsx';
+import History from './history.jsx';
+import MeetingIL from './meetingIL.jsx';
 import Oops from './oops.jsx';
 
 import 'weui';
@@ -73,6 +75,24 @@ window.attachMeetingsAdm = (userID) => {
 window.attachFutureMeetings = (userID) => {
     if (userID) {
         const app = <FutureMeetings userId={userID} />;
+        ReactDOM.render(app, document.getElementById('content'));
+    } else {
+        ReactDOM.render(<Oops />, document.getElementById('content'));
+    }
+}
+
+window.attachHistory = (SERVER_URL, userID) => {
+    if (userID) {
+        const app = <History SERVER_URL={SERVER_URL} userId={userID} />;
+        ReactDOM.render(app, document.getElementById('content'));
+    } else {
+        ReactDOM.render(<Oops />, document.getElementById('content'));
+    }
+}
+
+window.attachMeeting = (meetingID, userID) => {
+    if (userID) {
+        const app = <MeetingIL meetingId={meetingID} userId={userID} />;
         ReactDOM.render(app, document.getElementById('content'));
     } else {
         ReactDOM.render(<Oops />, document.getElementById('content'));

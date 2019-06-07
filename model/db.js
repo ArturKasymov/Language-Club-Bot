@@ -86,6 +86,8 @@ function query(type, args) {
         case CONSTANTS.DELETE_VISITOR:
             deleteVisitor(args);
             break;
+        case CONSTANTS.GET_HISTORY_MEETINGS:
+            return getHistoryMeetings(args);
         
         //TEMP CASES
         case 'ADMIN':
@@ -224,6 +226,19 @@ function getUsersOnMeeting(args) {
 function getFutureMeetings(args) {
     return new Promise((resolve, reject) => {
         resolve(pool.query(CONSTANTS.GET_FUTURE_MEETINGS_QUERY, args));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("meetings count: " + result.rows.length);
+        return result.rows;
+    });
+}
+
+function getHistoryMeetings(args) {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_HISTORY_MEETINGS_QUERY, args));
     })
     .then((result) => {
         if (result == undefined || result.rows.length == 0) {

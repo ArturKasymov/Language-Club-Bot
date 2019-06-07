@@ -37,6 +37,9 @@ export default class Meetings extends React.PureComponent {
 		registerable: React.PropTypes.bool.isRequired,
 		registered: React.PropTypes.bool.isRequired,
 		register: React.PropTypes.func,
+
+		openable: React.PropTypes.bool.isRequired,
+		open_url: React.PropTypes.string,
 	}
 
 	state = {
@@ -109,6 +112,10 @@ export default class Meetings extends React.PureComponent {
 				this.props.register(this.props.id);
 			}
 		});
+	}
+
+	forward() {
+		fetch(this.props.open_url);
 	}
 
 	render() {	
@@ -184,7 +191,8 @@ export default class Meetings extends React.PureComponent {
 				<h3>Description:</h3>
 				<p>{this.state.description}</p>
 				<br/>
-				{this.props.registerable ? <Button onClick={() => this.onRegister()}>{this.props.registered ? "CANCEL" : "REGISTER"}</Button> : <Button disabled={this.props.disabled} onClick={() => this.showChangePanel()}>CHANGE</Button>}
+				{this.props.registerable ? <Button onClick={() => this.onRegister()}>{this.props.registered ? "CANCEL" : "REGISTER"}</Button> : 
+				(this.props.openable ? <Button onClick={() => this.forward()}>INFO</Button> : <Button disabled={this.props.disabled} onClick={() => this.showChangePanel()}>CHANGE</Button>)}
 				{this.state.change_meeting ? changeMeetingPanel : <hr/>}				
 			</div>
 		);

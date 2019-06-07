@@ -8,6 +8,12 @@ const query = require('../model/db.js');
 
 const router = express.Router();
 
+router.get('/history/:userID/:meetingID', ({params: {userID, meetingID}}, res) => {
+    console.log("IN GET HISTORY/ " + meetingID);
+    
+    res.render('./meeting', {meetingID: meetingID, title: 'Meeting Interlocutors'});
+});
+
 router.get('/:userID', ({params: {userID}}, res) => {
     console.log("IN GET /MEETINGS/" + userID);
     query(CONSTANTS.GET_ALL_PLACES, [])
@@ -37,6 +43,19 @@ router.get('/:userID/list', ({params: {userID}}, res) => {
 router.get('/:userID/future', ({params: {userID}}, res) => {
     console.log("IN GET /MEETINGS/FUTURE " + userID);
     query(CONSTANTS.GET_FUTURE_MEETINGS, [userID])
+    .then((obj) => {
+        const langsJSON = JSON.stringify(obj);
+        console.log(`GET User response: ${langsJSON}`);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.send(langsJSON);
+    }).catch((err) => console.log(err));
+    
+});
+
+router.get('/:userID/history', ({params: {userID}}, res) => {
+    console.log("IN GET /MEETINGS/HISTORY " + userID);
+    query(CONSTANTS.GET_HISTORY_MEETINGS, [userID])
     .then((obj) => {
         const langsJSON = JSON.stringify(obj);
         console.log(`GET User response: ${langsJSON}`);
