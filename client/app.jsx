@@ -52,37 +52,31 @@ export default class App extends React.PureComponent {
                 	if(jsonResponse=="0")WebviewControls.close();
                 	break;
 			}
-		}).catch((err) => console.error('Error pulling data', err));
+		}).catch((err) => console.error('Error pulling data', err)).then(() => {
 
+			const user_endpoint = `/users/${this.props.userId}/user_languages`;
 
-
-		const user_endpoint = `/users/${this.props.userId}/user_languages`;
-
-		fetch(user_endpoint)
-		.then((response) => {
-			if (response.status == 200) {
-				return response.json();
-			}
-		}).then((jsonResponse) => {
-				
+			fetch(user_endpoint)
+			.then((response) => {
+				if (response.status == 200) {
+					return response.json();
+				}
+			}).then((jsonResponse) => {
 				this.setState({languages: new Set(jsonResponse.user_langs)});
+			}).catch((err) => console.error('Error pulling data', err));
 
-		}).catch((err) => console.error('Error pulling data', err));
+			const all_endpoint = `/users/${this.props.userId}/all_languages`;
 
-		const all_endpoint = `/users/${this.props.userId}/all_languages`;
-
-		fetch(all_endpoint)
-		.then((response) => {
-			if (response.status == 200) {
-				return response.json();
-			}
-		}).then((jsonResponse) => {
-				
+			fetch(all_endpoint)
+			.then((response) => {
+				if (response.status == 200) {
+					return response.json();
+				}
+			}).then((jsonResponse) => {
 				this.setState({ALL_LANGUAGES: jsonResponse});
-
-		}).catch((err) => console.error('Error pulling data', err));
+			}).catch((err) => console.error('Error pulling data', err));
+		});
 	}
-
 
 	pushData() {
 		if ((this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.size == 0) {
