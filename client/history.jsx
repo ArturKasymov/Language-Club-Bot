@@ -77,14 +77,14 @@ export default class History extends React.PureComponent {
 			return <Loading />;
 		}
 
-		/*const meetings = this.state.ALL_MEETINGS ? this.state.ALL_MEETINGS.map((entry) => {
+		const meetings = this.state.ALL_MEETINGS ? this.state.ALL_MEETINGS.map((entry) => {
 			return <Meeting userId={this.props.userId} id={entry.id} placeID={entry.placeID} placeName={entry.place_name} 
 					placeCity={entry.place_city} placeAddress={entry.place_address} organizatorID={entry.organizerID} organizatorNickname={entry.organizer_nickname}
 					description={entry.description} startDate={entry.startDate} endDate={entry.endDate} 
-					disabled={true} onBlock={null}
+					disabled={true} onBlock={this.showPartners.bind(this)}
 					registerable={false} registered={false} 
 					openable={true} open_url={this.showPartners.bind(this)} />;
-		}) : null;*/
+		}) : <p>NO MEETINGS</p>;
 
 		/*const partners = this.state.currPartners ? this.state.currPartners.map((entry) => {
 			return <User id={entry.partnerID} nickname={entry.partnerNickname} addable={false} not_added={false} />;
@@ -94,6 +94,7 @@ export default class History extends React.PureComponent {
 		return (
 			<div className='app'>
 				<h1>{this.state.curr_info == -1 ? "HISTORY" : "PARTNERS"}</h1>
+				{meetings}
 				<p>{this.state.text}</p>
 			</div>
 		);
