@@ -73,6 +73,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 	}
 
 	finishMeeting() {
+		if (this.state.startTime > NOW()) return;
 		const endpoint = `/meetings/${this.props.userId}/finish`;
 		const content = JSON.stringify({meet_id: parseInt(this.state.id)});
 
@@ -102,8 +103,8 @@ export default class AdministrateMeeting extends React.PureComponent {
 		}).then((response) => {
 			if (response.ok) {
 				const newRegisteredUsers = new Object(this.state.REGISTERED_USERS);
-				for (var i = 0; i < newRegisteredUsers.elngth; i++) {
-					if (newRegisteredUsers[i].userID == id) {
+				for (var i = 0; i < newRegisteredUsers.length; i++) {
+					if (newRegisteredUsers[i].userID === id) {
 						newRegisteredUsers[i].isPresent = !newRegisteredUsers[i].isPresent;
 						break;
 					}
@@ -122,7 +123,6 @@ export default class AdministrateMeeting extends React.PureComponent {
 		const users = this.state.REGISTERED_USERS ? this.state.REGISTERED_USERS.map((entry) => {
 			return <User id={entry.userID} nickname={entry.nickname} addable={true} not_added={!entry.isPresent} add={cb} />;
 		}) : <p>NOR</p>;
-		//const users = [<User id={"aaa"} nickname={"aba"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />];
 
 		return (
 			<div className='app'>
@@ -130,7 +130,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<p>Meeting at {this.state.placeAddress}, {this.state.placeCity} in {this.state.placeName}</p>
 					<p>from {dateString(this.state.startTime, true)} to {dateString(this.state.endTime, true)}</p>
 					<hr/>
-					<Button disabled={this.state.startDate < new Date()} onClick={() => this.finishMeeting()}>FINISH</Button>
+					<Button onClick={() => this.finishMeeting()}>FINISH</Button>
 					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
 					<hr/>
 					<h2>USERS</h2>
