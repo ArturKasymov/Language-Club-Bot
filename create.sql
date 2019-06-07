@@ -162,33 +162,29 @@ $$ language plpgsql;
 
 
 
-CREATE OR REPLACE FUNCTION getFutureMeetingsList() returns 
-TABLE( id int, "meetingDescription" varchar,  "startDate" timestamp with time zone, "endDate" timestamp with time zone, 
-  city varchar, adress varchar, placename varchar, "placeDescription" varchar )
-as
-$$
-BEGIN
-RETURN QUERY( 
-  SELECT m.id, m.description, m."startDate", m."endDate", p.city, p.adress, p.name, p.description 
-  FROM meetings m JOIN places p ON p.id=m."placeID" WHERE m."startDate"> NOW()
-);
-END
-$$ language plpgsql;
+create or replace function getFutureMeetingsList(user_id varchar) returns 
+table(id int, "placeID" int, place_name varchar, place_city varchar, place_address varchar, "organizerID" varchar, organizer_nickname varchar, description varchar, "startDate" timestamptz, "endDate" timestamptz, registered bool) 
+as $$
+begin 
+return query (
+  select m.id, p.id, p.name, p.city, p.adress, m."organizerID", u."nickname", m.description, m."startDate", m."endDate", (case when mv."userID" is null then false else true end) 
+  from meetings m left join users u on m."organizerID"=u."facebookID" 
+  left join places p on m."placeID"=p.id 
+  left join "meetingVisitors" mv ON mv."meetingID"=m.id 
+  where (mv."userID"=user_id or mv."userID" is null) AND m."startDate" > NOW()); 
+end $$ language plpgsql;
 
-CREATE OR REPLACE FUNCTION getUsersMeetingsHistory(userID varchar) returns
-TABLE( id int, city varchar, "startDate" timestamp with time zone)
-as
-$$
+CREATE OR REPLACE FUNCTION getHistoryMeetingsList(user_id varchar) returns 
+TABLE(id int, "placeID" int, place_name varchar, place_city varchar, place_address varchar, "organizerID" varchar, organizer_nickname varchar, description varchar, "startDate" timestamptz, "endDate" timestamptz) 
+AS $$
 BEGIN
-RETURN QUERY( 
-  SELECT m.id, p.city, m."startDate"  
-  FROM "meetingVisitors" mv 
-  JOIN meetings m ON m.id=mv."meetingID" 
-  JOIN places p ON p.id=m."placeID" 
-  WHERE mv."userID"=userID AND m."endDate" < NOW() AND mv."isPresent"=true
-);
-END
-$$ language plpgsql;
+RETURN QUERY (
+  SELECT m.id, p.id, p.name, p.city, p.adress, m."organizerID", u.nickname, m.description, m."startDate", m."endDate" 
+  FROM meetings m LEFT JOIN users u ON m."organizerID"=u."facebookID" 
+  LEFT JOIN places p ON p.id=m."placeID" 
+  LEFT JOIN "meetingVisitors" mv ON mv."meetingID"=m.id 
+  WHERE mv."userID"=user_id AND m."endDate" < NOW());
+END $$ language plpgsql;
 
 CREATE OR REPLACE FUNCTION getUsersMeetingPartners(meetingID int, userID varchar) returns
 TABLE("partnerID" varchar, "partnerNickname" varchar)
