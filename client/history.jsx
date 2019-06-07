@@ -33,14 +33,14 @@ export default class History extends React.PureComponent {
 	}
 
 	pullData(){
-		const check_endpoint = `/users/${this.props.userId}/check_reg/false`;
+		const check_endpoint = `/users/${this.props.userId}/check_perm/1`;
 		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-			if(jsonResponse=="0") WebviewControls.close();
+			if(jsonResponse=="0")sendApi.sendNeedRegistrationMessage(req.params.userID);
 		}).catch((err) => console.error('Error pulling data', err))
 		.then(() => {
 			const endpoint = `/meetings/${this.props.userId}/history`;
@@ -49,8 +49,8 @@ export default class History extends React.PureComponent {
 				if (response.ok) return response.json();
 			}).then((res) => {
 				this.setState({ALL_MEETINGS: res});
-			})
-		});		
+			});
+		});	
 	}
 
 	componentWillMount() {
