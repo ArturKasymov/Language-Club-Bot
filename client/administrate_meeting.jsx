@@ -29,8 +29,6 @@ export default class AdministrateMeeting extends React.PureComponent {
 		endTime: null,
 
 		REGISTERED_USERS: null,
-		//TEMP
-		text: 'init'
 	}
 
 	pullData() {
@@ -42,11 +40,9 @@ export default class AdministrateMeeting extends React.PureComponent {
 				return response.json();
 			}
 
-			const text = response.status.toString();
-			this.setState({text});
 		}).then((res) => {
 				this.setState({id: res.id, placeName: res.placename, placeCity: res.city, placeAddress: res.adress, description: res.meetingDescription, 
-								startTime: res.startDate.toString(), endTime: res.endDate.toString(), text: 'success'});
+								startTime: res.startDate.toString(), endTime: res.endDate.toString()});
 				return res.id;
 		}).then((id) => {
 			const endpoint_users = `/meetings/${this.props.userId}/users`;
@@ -60,11 +56,8 @@ export default class AdministrateMeeting extends React.PureComponent {
 				if (response.status == 200) {
 					return response.json();
 				}
-
-				const text = response.status.toString();
-				this.setState({text});
 			}).then((res) => this.setState({REGISTERED_USERS: res}))
-			.catch((err) => this.setState({text: 'err'}));
+			.catch((err) => alert(err));
 		});
 	}
 

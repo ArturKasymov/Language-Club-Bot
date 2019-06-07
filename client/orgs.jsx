@@ -27,9 +27,7 @@ export default class Organizators extends React.PureComponent {
 		organizators: new Set(),
 		users: new Set(),
 		searchFilter: "",
-		results: [],
-		//TEMP
-		text: 'init'
+		results: []
 	}
 
 	pullData() {
@@ -40,9 +38,6 @@ export default class Organizators extends React.PureComponent {
 			if (response.status == 200) {
 				return response.json();
 			}
-
-			const text = response.status.toString();
-			this.setState({text});
 		}).then((jsonResponse) => {
 				var organizators = new Set();
 				var users = new Set();
@@ -56,7 +51,7 @@ export default class Organizators extends React.PureComponent {
 
 				const results = [...users];
 
-				this.setState({organizators, users, results, text: JSON.stringify(results)});
+				this.setState({organizators, users, results});
 
 		}).catch((err) => console.error('Error pulling data', err));
 	}
@@ -87,7 +82,7 @@ export default class Organizators extends React.PureComponent {
 		const oldOrganizators = this.state.organizators;
 		const organizators = new Set(oldOrganizators);
 		organizators.delete(org);
-		this.setState({organizators, text: [...organizators].toString()});
+		this.setState({organizators});
 	}
 
 	handleSearchChange(text, e) {
@@ -138,7 +133,6 @@ export default class Organizators extends React.PureComponent {
 				<PanelBody>{users.length > 0 ? users : <MediaBox>Can't find any!</MediaBox>}</PanelBody>
 			</Panel>
 
-			<p>{this.state.text}</p>
 		</div>
 		);
 	}
