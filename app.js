@@ -20,6 +20,7 @@ import meetings from './routes/meetings';
 import places from './routes/places';
 import meetingsadmlist from './routes/meetingsadmlist';
 import meetingsadm from './routes/meetingsadm';
+import futuremeetings from './routes/futuremeetings';
 import webhooks from './routes/webhooks';
 
 import botSettings from'./api/bot-settings';
@@ -48,7 +49,7 @@ app.use('/meetings', meetings);
 app.use('/places', places);
 app.use('/meetingsadmlist', meetingsadmlist);
 app.use('/meetingsadm', meetingsadm);
-//app.use('/futuremeetings', futuremeetings);
+app.use('/futuremeetings', futuremeetings);
 app.use('/webhook', webhooks);
 
 app.use(function(req, res, next) {

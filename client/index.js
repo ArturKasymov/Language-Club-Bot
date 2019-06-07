@@ -9,6 +9,7 @@ import Organizators from './orgs.jsx';
 import CreateMeeting from './createmeet.jsx';
 import MeetingsList from './meetingslist.jsx';
 import AdministrateMeeting from './administrate_meeting.jsx';
+import FutureMeetings from './futuremeetings.jsx';
 import Oops from './oops.jsx';
 
 import 'weui';
@@ -68,3 +69,12 @@ window.attachMeetingsAdm = (userID) => {
         ReactDOM.render(<Oops />, document.getElementById('content'));
     }
 };
+
+window.attachFutureMeetings = (userID) => {
+    if (userID) {
+        const app = <FutureMeetings userId={userId} />;
+        ReactDOM.render(app, document.getElementById('content'));
+    } else {
+        ReactDOM.render(<Oops />, document.getElementById('content'));
+    }
+}

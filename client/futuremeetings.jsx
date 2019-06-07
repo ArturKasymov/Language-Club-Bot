@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+﻿/* eslint-disable react/react-in-jsx-scope */
 
 import React from 'react';
 import 'whatwg-fetch';
@@ -18,24 +18,21 @@ import {
 import WebviewControls from '../api/webview-controls';
 
 import Loading from './loading.jsx';
-import Language from './language.jsx';
 
-export default class App extends React.PureComponent {
+export default class FutureMeetings extends React.PureComponent {
 
 	static propTypes = {
-		first_time: React.PropTypes.bool.isRequired,
 		userId: React.PropTypes.string.isRequired,
 	}
 
 	state = {
-		nickname: '',
-		languages: new Set(),
-		ALL_LANGUAGES: [],
+		
+		ALL_MEETINGS: [],
 		alert: false,
 	}
 
 	pullData() {
-		const check_endpoint = `/users/${this.props.userId}/check_reg/${this.props.first_time}`;
+		const check_endpoint = `/meetings/${this.props.userId}/`;
 		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
@@ -130,57 +127,13 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.ALL_LANGUAGES.length === 0) {
+		if ( === 0) {
 			return <Loading />;
-		}
-		
-		const languagesFactory = this.state.ALL_LANGUAGES.map((lang, index) => {
-			const value = lang;
-			const checked = this.state.languages.has(value);
-
-			return (
-				<Language 
-					key={value}
-					value={value}
-					label={lang}
-					checked={checked}
-					addLanguage={this.addLanguage.bind(this)}
-					removeLanguage={this.removeLanguage.bind(this)}
-				/>
-			);
-		});
-
-		var input;
-		if (this.props.first_time && this.state.alert) {
-			input = <section><CellsTitle>Your Nickname</CellsTitle>
-					<Form><CellHeader>
-					<Input className='nickname-input alert' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
-			</CellHeader></Form></section>
-		} else if (this.props.first_time) {
-			input = <section><CellsTitle>Your Nickname</CellsTitle>
-					<Form><CellHeader>
-					<Input className='nickname-input' type='text' placeholder='Enter your nickname' onChange={(e) => this.updateNickname(e.target.value)}/>
-			</CellHeader></Form></section>
 		}
 
 		return (
 			<div className='app'>
-				{this.props.first_time &&
-				input
-				}
-
-				<section>
-					<CellsTitle>What languages do you speak?</CellsTitle>
-					<Form checkbox>{languagesFactory}</Form>
-				</section>
-
-				{this.state.alert && 
-					<p style="color: red;">MAYBE YOU HAVE CHOSEN NO LANGUAGE</p>
-				}
-
-				<ButtonArea className='submit'>
-					<Button onClick={() => this.pushData()}>Submit</Button>
-				</ButtonArea>
+				
 			</div>
 		);
 	}
