@@ -50,7 +50,7 @@ export default class History extends React.PureComponent {
 			.then((response) => {
 				if (response.ok) return response.json();
 			}).then((res) => {
-				this.setState({text: JSON.stringify(res)});
+				this.setState({ALL_MEETINGS: res, text: JSON.stringify(res)});
 			});
 		});	
 	}
