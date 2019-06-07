@@ -73,7 +73,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 	}
 
 	finishMeeting() {
-		if (this.state.startTime > new Date()) return;
+		if (new Date(this.state.startTime).getTime() > new Date().getTime()) return;
 		const endpoint = `/meetings/${this.props.userId}/finish`;
 		const content = JSON.stringify({meet_id: parseInt(this.state.id)});
 
@@ -109,7 +109,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 						break;
 					}
 				}
-				this.setState({REGISTERED_USERS: newRegisteredUsers, text: 'lol'});
+				this.setState({REGISTERED_USERS: newRegisteredUsers, text: text+'i'});
 			}
 		});
 	}
