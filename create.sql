@@ -62,7 +62,7 @@ CREATE TABLE "meetings" (
   "description" varchar NOT NULL,
   "startDate" timestamp with time zone NOT NULL,
   "endDate" timestamp with time zone NOT NULL
-  check ("startDate" > NOW()),
+  check ("startDate" >= NOW()),
   check ("startDate" < "endDate")
 );
 
