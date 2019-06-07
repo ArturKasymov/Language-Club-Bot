@@ -85,7 +85,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 				headers: {'Content-Type': 'application/json'},
 				body: content,
 			}).then((response) => {
-				if (reponse.ok) {
+				if (response.ok) {
 					WebviewControls.close();
 				}
 			});
@@ -98,8 +98,9 @@ export default class AdministrateMeeting extends React.PureComponent {
 				headers: {'Content-Type': 'application/json'},
 				body: content,
 			}).then((response) => {
-				if (reponse.ok) {
-					this.setState({started: true});
+				if (response.ok) {
+					const newDate = new Date().toString();
+					this.setState({startTime: newDate, started: true});
 				}
 			});
 		}
