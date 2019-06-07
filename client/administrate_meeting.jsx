@@ -109,7 +109,8 @@ export default class AdministrateMeeting extends React.PureComponent {
 						break;
 					}
 				}
-				this.setState({REGISTERED_USERS: newRegisteredUsers, text: text+'i'});
+				this.setState({REGISTERED_USERS: null});
+				this.setState({REGISTERED_USERS: newRegisteredUsers});
 			}
 		});
 	}
