@@ -27,113 +27,55 @@ export default class FutureMeetings extends React.PureComponent {
 
 	state = {
 		
-		ALL_MEETINGS: [],
+		ALL_MEETINGS: null,
 		alert: false,
 	}
 
-	pullData() {
-		const check_endpoint = `/meetings/${this.props.userId}/`;
+	pullData(){
+		const check_endpoint = `/users/${this.props.userId}/check_reg/false`;
 		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-			if(jsonResponse!="0"&&this.props.first_time==true) WebviewControls.close();
-			if(jsonResponse=="0"&&this.props.first_time==false) WebviewControls.close();
-		}).catch((err) => console.error('Error pulling data', err));
-
-
-		const user_endpoint = `/users/${this.props.userId}/user_languages`;
-
-		fetch(user_endpoint)
-		.then((response) => {
-			if (response.status == 200) {
-				return response.json();
-			}
-		}).then((jsonResponse) => {
-				
-				this.setState({languages: new Set(jsonResponse.user_langs)});
-
-		}).catch((err) => console.error('Error pulling data', err));
-
-		const all_endpoint = `/users/${this.props.userId}/all_languages`;
-
-		fetch(all_endpoint)
-		.then((response) => {
-			if (response.status == 200) {
-				return response.json();
-			}
-		}).then((jsonResponse) => {
-				
-				this.setState({ALL_LANGUAGES: jsonResponse});
-
-		}).catch((err) => console.error('Error pulling data', err));
-	}
-
-
-	pushData() {
-		if ((this.props.first_time && (this.state.nickname.length == 0 || this.state.nickname.indexOf(' ') != -1)) || this.state.languages.size == 0) {
-			this.showAlert();
-			return;
-		}
-
-		const content = this.jsonState();		
-
-		fetch(`/users/${this.props.userId}`, {
-			method: 'PUT',
-			headers: {'Content-Type': 'application/json'},
-			body: content,
-		}).then((response) => {
-			if (response.ok) {
-				console.log('Data successfully updated on the server!');
-				return;
-			}
-		}).catch((err) => /*TODO: HANDLE ERROR*/console.log(err)).then(() => {
-			WebviewControls.close();
-		});
-	}
-
-
-	jsonState() {
-		if (this.props.first_time) return JSON.stringify({nickname: this.state.nickname, languages: [...this.state.languages]});
-		else return JSON.stringify({languages: [...this.state.languages]});
+			if(jsonResponse=="0") WebviewControls.close();
+		}).catch((err) => console.error('Error pulling data', err))
+		.then(() => {
+			const endpoint = `/meetings/${this.props.userId}/future`;
+			fetch(endpoint)
+			.then((response) => {
+				if (response.ok) return response.json();
+			}).then((res) => {
+				this.setState({ALL_MEETINGS: res});
+			})
+		});		
 	}
 
 	componentWillMount() {
 		this.pullData();
 	}
 
-	addLanguage(lang) {
-		const oldLanguages = this.state.languages;
-		const languages = new Set(oldLanguages);
-		languages.add(lang);
-		this.setState({languages: languages});
-	}
-
-	removeLanguage(lang) {
-		const oldLanguages = this.state.languages;
-		const languages = new Set(oldLanguages);
-		languages.delete(lang);
-		this.setState({languages: languages});
-	}
-
-	updateNickname(name) {
-		this.setState({nickname: name, alert: false});
-	}
-
-	showAlert() {
-		this.setState({alert: true});
+	onRegister(id, registered) {
+		
 	}
 
 	render() {
-		if ( === 0) {
+		if (this.state.ALL_MEETINGS == null) {
 			return <Loading />;
 		}
 
+		const meetings = this.state.ALL_MEETINGS.map((entry) => {
+			return <Meeting userId={this.props.userId} id={parseInt(entry.id)} placeID={parseInt(entry.placeID)} placeName={entry.place_name} 
+					placeCity={entry.place_city} placeAddress={entry.place_address} organizatorID={entry.organizerID} organizatorNickname={entry.organizer_nickname}
+					description={entry.description} startDate={entry.startDate} endDate={entry.endDate} disabled={true} onBlock={this.onRegister.bind(this)}
+					registerable={true} registered={entry.registered} register={this.onRegister.bind(this)} />;
+		})
+
 		return (
 			<div className='app'>
-				
+				<h1>YOUR MEETINGS</h1>
+				{meetings}
 			</div>
 		);
 	}

@@ -34,6 +34,19 @@ router.get('/:userID/list', ({params: {userID}}, res) => {
     }).catch((err) => console.log(err));
 });
 
+router.get('/:userID/future', ({params: {userID}}, res) => {
+    console.log("IN GET /MEETINGS/FUTURE " + userID);
+    query(CONSTANTS.GET_FUTURE_MEETINGS, [userID])
+    .then((obj) => {
+        const langsJSON = JSON.stringify(obj);
+        console.log(`GET User response: ${langsJSON}`);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.send(langsJSON);
+    }).catch((err) => console.log(err));
+    
+});
+
 router.get('/:userID/current', ({params: {userID}}, res) => {
     console.log("IN GET /MEETINGS/" + userID + "/CURRENT");
     query(CONSTANTS.GET_CURRENT_MEETING, [userID])
@@ -83,5 +96,15 @@ router.put('/:userID/finish', ({body, params: {userID}}, res) => {
     query(CONSTANTS.FINISH_MEETING, [body.meet_id]);
     res.sendStatus(204);
 });
+
+router.put('/:userID/register', ({body, params: {userID}}, res) => {
+    console.log("IN PUT /MEETINGS/REGISTER " + JSON.stringify(body));
+    if (body.registered) {
+        query(CONSTANTS.DELETE_VISITOR, [userID, body.id]);
+    } else {
+        query(CONSTANTS.INSERT_VISITOR, [userID, body.id]);
+    }
+    res.sendStatus(204);
+})
 
 export default router;

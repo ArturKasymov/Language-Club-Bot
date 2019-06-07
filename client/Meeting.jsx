@@ -17,7 +17,7 @@ import {
 
 import {dateString} from '../utils/date-string-format';
 
-export default class Place extends React.PureComponent {
+export default class Meetings extends React.PureComponent {
 
 	static propTypes = {
 		userId: React.PropTypes.string.isRequired,
@@ -33,6 +33,10 @@ export default class Place extends React.PureComponent {
 		endDate: React.PropTypes.string.isRequired,
 		disabled: React.PropTypes.bool.isRequired,
 		onBlock: React.PropTypes.func.isRequired,
+
+		registerable: React.PropTypes.bool.isRequired,
+		registered: React.PropTypes.bool.isRequired,
+		register: React.PropTypes.func.isRequired,
 	}
 
 	state = {
@@ -92,6 +96,22 @@ export default class Place extends React.PureComponent {
 	showChangePanel() {
 		this.setState({change_meeting: true});
 		this.props.onBlock(this.props.id);
+	}
+
+	onRegister() {
+		const endpoint = `/meetings/${this.props.userId}/register`;
+		const content = JSON.stringify({id: this.props.id, registered: this.props.registered});
+
+		fetch(endpoint, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: content,
+		}).then((res) => {
+			if (response.ok) {
+				this.props.register(this.props.id);
+			}
+			register(this.props.id, this.props.registered);
+		});
 	}
 
 	render() {	
@@ -166,7 +186,7 @@ export default class Place extends React.PureComponent {
 				<h3>Description:</h3>
 				<p>{this.state.description}</p>
 				<br/>
-				<Button disabled={this.props.disabled} onClick={() => this.showChangePanel()}>CHANGE</Button>
+				{this.props.registerable ? <Button onClick={() => this.onRegister()}>{this.props.registered ? "CANCEL" : "REGISTER"}</Button> : <Button disabled={this.props.disabled} onClick={() => this.showChangePanel()}>CHANGE</Button>}
 				<p>{this.state.text}</p>
 				{this.state.change_meeting ? changeMeetingPanel : <hr/>}				
 			</div>

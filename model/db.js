@@ -78,6 +78,14 @@ function query(type, args) {
         case CONSTANTS.FINISH_MEETING:
             finishMeeting(args);
             break;
+        case CONSTANTS.GET_FUTURE_MEETINGS:
+            return getFutureMeetings();
+        case CONSTANTS.INSERT_VISITOR:
+            insertVisitor(args);
+            break;
+        case CONSTANTS.DELETE_VISITOR:
+            deleteVisitor(args);
+            break;
         
         //TEMP CASES
         case 'ADMIN':
@@ -109,6 +117,18 @@ function insertUser(args) {
 function insertMeeting(args) {
     console.log(args[0]);
     pool.query(CONSTANTS.INSERT_MEETING_QUERY, args, (err, res) => {
+        console.log(err, res);
+    });
+}
+
+function insertVisitor(args) {
+    pool.query(CONSTANTS.INSERT_VISITOR_QUERY, args, (err, res) => {
+        console.log(err, res);
+    });
+}
+
+function deleteVisitor(args) {
+    pool.query(CONSTANTS.DELETE_VISITOR_QUERY, args, (err, res) => {
         console.log(err, res);
     });
 }
@@ -200,6 +220,19 @@ function getUsersOnMeeting(args) {
         return result.rows;
     });
 };
+
+function getFutureMeetings() {
+    return new Promise((resolve, reject) => {
+        resolve(pool.query(CONSTANTS.GET_FUTURE_MEETINGS_QUERY));
+    })
+    .then((result) => {
+        if (result == undefined || result.rows.length == 0) {
+            return undefined;
+        }
+        console.log("meetings count: " + result.rows.length);
+        return result.rows;
+    });
+}
 
 function getPermLvl(args) {
     return new Promise((resolve, reject) => {
