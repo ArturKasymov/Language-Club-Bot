@@ -30,12 +30,13 @@ router.get('/:userID/check_reg/:case', (req, res) => {
         const resultJSON = JSON.stringify(result);
         res.setHeader('Content-Type', 'application/json');
 
-        console.log("CHECK REGISTRATION " +req.params.case+ " "+ resultJSON);
+        console.log("CHECK REGISTRATION:\n(req.params.case==\'false\')="+(req.params.case=='false')+
+         "\n(req.params.case==false)="+(req.params.case==false) + "\nresultJSON=" + resultJSON);
 
         res.send(resultJSON);
 
-        if(resultJSON!='0'&&req.params.case=='t') sendApi.sendAlreadyRegistrMessage(req.params.userID);
-        if(resultJSON=='0'&&req.params.case=='f') sendApi.sendNeedRegistrationMessage(req.params.userID);
+        if(resultJSON!='0'&&req.params.case=='true') sendApi.sendAlreadyRegistrMessage(req.params.userID);
+        if(resultJSON=='0'&&req.params.case=='false') sendApi.sendNeedRegistrationMessage(req.params.userID);
 
     }).catch((err) => console.log(err));
 });
