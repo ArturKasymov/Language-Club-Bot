@@ -30,8 +30,6 @@ export default class FutureMeetings extends React.PureComponent {
 		
 		ALL_MEETINGS: null,
 		alert: false,
-		//TEMP
-		text: 'init'
 	}
 
 	pullData(){
@@ -50,7 +48,7 @@ export default class FutureMeetings extends React.PureComponent {
 			.then((response) => {
 				if (response.ok) return response.json();
 			}).then((res) => {
-				this.setState({ALL_MEETINGS: res, text: JSON.stringify(res)});
+				this.setState({ALL_MEETINGS: res});
 			})
 		});		
 	}
@@ -60,13 +58,10 @@ export default class FutureMeetings extends React.PureComponent {
 	}
 
 	onRegister(id) {
-		alert("lol"+id);
-		this.setState({text: id.toString()});
 		var newAllMeetings = new Array(...this.state.ALL_MEETINGS);
 		for (var i = 0; i < newAllMeetings.length; i++) {
 			if (newAllMeetings[i].id == id) {
 				newAllMeetings[i].registered = !newAllMeetings[i].registered;
-				this.setState({text: i+''});
 				break;
 			}
 		}
@@ -90,7 +85,6 @@ export default class FutureMeetings extends React.PureComponent {
 			<div className='app'>
 				<h1>YOUR MEETINGS</h1>
 				{meetings}
-			<p>{this.state.text}</p>
 			</div>
 		);
 	}

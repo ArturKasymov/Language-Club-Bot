@@ -47,8 +47,6 @@ export default class Meetings extends React.PureComponent {
 
 		alert: false,
 		change_meeting: false,
-		//TEMP
-		text: 'init'
 	}
 
 	pushData() {
@@ -73,24 +71,24 @@ export default class Meetings extends React.PureComponent {
 	}
 
 	showAlert() {
-		this.setState({alert:true, text: "alert"});
+		this.setState({alert:true});
 	}
 
 	updateStartTime(startDate) {
-		this.setState({startDate, text: startDate, alert: false});
+		this.setState({startDate, alert: false});
 	}
 
 	updateEndTime(endDate) {
-		this.setState({endDate, text: endDate, alert: false});
+		this.setState({endDate, alert: false});
 	}
 
 	updateMeetingDescription(e) {
-		this.setState({description: e.target.value, text: e.target.value});
+		this.setState({description: e.target.value});
 	}
 
 	updateMeeting() {
 		this.pushData();
-		this.setState({change_meeting: false, text: 'well??'});
+		this.setState({change_meeting: false});
 	}
 
 	showChangePanel() {
@@ -187,7 +185,6 @@ export default class Meetings extends React.PureComponent {
 				<p>{this.state.description}</p>
 				<br/>
 				{this.props.registerable ? <Button onClick={() => this.onRegister()}>{this.props.registered ? "CANCEL" : "REGISTER"}</Button> : <Button disabled={this.props.disabled} onClick={() => this.showChangePanel()}>CHANGE</Button>}
-				<p>{this.state.text}</p>
 				{this.state.change_meeting ? changeMeetingPanel : <hr/>}				
 			</div>
 		);
