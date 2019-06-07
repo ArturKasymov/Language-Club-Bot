@@ -19,6 +19,7 @@ import WebviewControls from '../api/webview-controls';
 
 import Loading from './loading.jsx';
 import Meeting from './Meeting.jsx';
+import User from './User.jsx';
 
 export default class History extends React.PureComponent {
 
