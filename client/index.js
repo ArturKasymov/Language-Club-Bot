@@ -81,9 +81,9 @@ window.attachFutureMeetings = (userID) => {
     }
 }
 
-window.attachHistory = (SERVER_URL, userID) => {
+window.attachHistory = (userID) => {
     if (userID) {
-        const app = <History SERVER_URL={SERVER_URL} userId={userID} />;
+        const app = <History userId={userID} />;
         ReactDOM.render(app, document.getElementById('content'));
     } else {
         ReactDOM.render(<Oops />, document.getElementById('content'));
