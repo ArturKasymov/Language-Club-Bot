@@ -25,7 +25,8 @@ export default class Nickname extends React.PureComponent {
 
 	state = {
 		nickname: '',
-		alert: false
+		alert: false,
+		isloading: true
 	}
 
 	pullData(){
@@ -37,7 +38,10 @@ export default class Nickname extends React.PureComponent {
 			}
 		}).then((jsonResponse) => {
 			if(jsonResponse=="0")WebviewControls.close();
-		}).catch((err) => console.error('Error pulling data', err));	
+		}).catch((err) => console.error('Error pulling data', err))	
+		.then(() => {
+			this.setState({isloading: false});
+		});
 	}
 
 	pushData() {
@@ -78,6 +82,11 @@ export default class Nickname extends React.PureComponent {
 	}
 
 	render() {	
+		if (this.state.isloading) {
+			return <Loading />;
+		}
+
+
 		var input;
 		if (this.state.alert) {
 			input = <section><CellsTitle>Your Nickname</CellsTitle>
