@@ -119,7 +119,9 @@ export default class AdministrateMeeting extends React.PureComponent {
 		}
 		
 		const users = this.state.REGISTERED_USERS ? this.state.REGISTERED_USERS.map((entry) => {
+			try {
 			return <User id={entry.userID} nickname={entry.nickname} addable={true} not_added={false} add={this.addPresentUser.bind(this)} />;
+			} catch (error) {return <p>NOR</p>; } 
 		}) : <p>NOR</p>;
 
 		return (
