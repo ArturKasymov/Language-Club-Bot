@@ -115,6 +115,10 @@ const alreadyRegistrMessage = {
     "text": 'You are already registered'
 }
 
+const permissionMessage = {
+    "text": 'Your permission level is not enought'
+}
+
 function getRegistrationOKMessage(nickname) {
   return {
     "text": nickname + ', registration complete!'
@@ -135,5 +139,6 @@ export default {
     adminPanelMessage,
     getRegistrationOKMessage,
     getNicknameChangedMessage,
-    alreadyRegistrMessage
+    alreadyRegistrMessage,
+    permissionMessage
 }

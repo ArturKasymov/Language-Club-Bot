@@ -35,16 +35,25 @@ export default class App extends React.PureComponent {
 	}
 
 	pullData() {
-		const check_endpoint = `/users/${this.props.userId}/check_reg/${this.props.first_time}`;
+		const required=this.props.first_time?'0':'1'; 
+		const check_endpoint = `/users/${this.props.userId}/check_perm/${required}`;
 		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-			if(jsonResponse!="0"&&this.props.first_time==true) WebviewControls.close();
-			if(jsonResponse=="0"&&this.props.first_time==false) WebviewControls.close();
+			
+			switch(required){
+				case '0':
+                	if(jsonResponse!="0")WebviewControls.close();
+                	break;
+            	case '1':
+                	if(jsonResponse=="0")WebviewControls.close();
+                	break;
+			}
 		}).catch((err) => console.error('Error pulling data', err));
+
 
 
 		const user_endpoint = `/users/${this.props.userId}/user_languages`;

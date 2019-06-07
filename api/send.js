@@ -82,6 +82,10 @@ function sendAlreadyRegistrMessage(id){
     sendMessage(id, messages.alreadyRegistrMessage);
 }
 
+function sendPermissionMessage(id){
+    sendMessage(id, messages.permissionMessage )
+}
+
 //TEMP function
 function tempSend(id, message){
     sendMessage(id, message);
@@ -98,7 +102,7 @@ export default {
     sendRegistrationOKMessage,
     sendNickNameChangedMessage,
     sendAlreadyRegistrMessage,
-
+    sendPermissionMessage,
     //TEMP function
     tempSend
 };
