@@ -10,6 +10,7 @@
     <script>
     window.extAsyncInit = function() {
         MessengerExtensions.getUserID(function success(uids) {
+			alert(parseInt(meetingID));
 			window.attachMeeting(parseInt(meetingID), uids.psid);
         }, function error(err) {
 			window.attachMeeting();
