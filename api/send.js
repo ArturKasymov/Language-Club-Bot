@@ -79,7 +79,7 @@ function sendNickNameChangedMessage(id, nickname) {
 }
 
 function sendAlreadyRegistrMessage(id){
-    sendMessage(id, message.alreadyRegistrMessage);
+    sendMessage(id, messages.alreadyRegistrMessage);
 }
 
 //TEMP function
