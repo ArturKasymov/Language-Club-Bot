@@ -84,17 +84,16 @@ export default class History extends React.PureComponent {
 					disabled={true} onBlock={this.showPartners.bind(this)}
 					registerable={false} registered={false} 
 					openable={true} open_url={this.showPartners.bind(this)} />;
-		}) : <p>NO MEETINGS</p>;
+		}) : <p></p>;
 
-		/*const partners = this.state.currPartners ? this.state.currPartners.map((entry) => {
+		const partners = this.state.currPartners ? this.state.currPartners.map((entry) => {
 			return <User id={entry.partnerID} nickname={entry.partnerNickname} addable={false} not_added={false} />;
-		}) : null;*/
-		const partners = null;
+		}) : <p>NO PARTNERS</p>;
 
 		return (
 			<div className='app'>
 				<h1>{this.state.curr_info == -1 ? "HISTORY" : "PARTNERS"}</h1>
-				{meetings}
+				{this.state.curr_info == -1 ? meetings : partners}
 				<p>{this.state.text}</p>
 			</div>
 		);
