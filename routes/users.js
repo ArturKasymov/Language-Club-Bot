@@ -21,7 +21,7 @@ router.get('/:userID/all_languages', ({params: {userID}}, res) => {
     }).catch((err) => console.log(err));
 });
 
-router.get('/:userID/check_reg', ({params: {userID}}, res) => {
+router.get('/:userID/check_reg/:case', ({params: [{userID}, {case}] }, res) => {
     console.log("CHECK REGISTRATION " + userID);
 
     query(CONSTANTS.GET_PERMISSION_LEVEL, [userID])
@@ -34,7 +34,7 @@ router.get('/:userID/check_reg', ({params: {userID}}, res) => {
 
         res.send(resultJSON);
 
-        if(resultJSON!='0') sendApi.sendAlreadyRegistrMessage(userID);
+        if(resultJSON!='0'&&case=='0') sendApi.sendAlreadyRegistrMessage(userID);
 
     }).catch((err) => console.log(err));
 });
@@ -85,7 +85,7 @@ router.put('/:userID', ({body, params: {userID}}, res) => {
             "type": "template",
             "payload": {
             "template_type": "button",
-            "text": "Szanowny Panie Macieju,\nżeby Panu było wygodniej testować, zrobiliśmy możliwość zmiany permissionLevla dla Pana.Przy admin modę naciskając przycisk \"Contact us\" otrzyma Pan admin panel.",
+            "text": "Szanowny Panie Macieju,\nżeby Panu było wygodniej testować, zrobiliśmy możliwość zmiany permissionLvla dla Pana. Przy admin modę naciskając przycisk \"Contact us\" otrzyma Pan admin panel.",
             "buttons": [{
                 "type": "postback",
                 "title": "Admin mode",
