@@ -93,7 +93,7 @@ export default class History extends React.PureComponent {
 
 		return (
 			<div className='app'>
-				<h1>{curr_info == -1 ? "HISTORY" : "PARTNERS"}</h1>
+				<h1>{this.state.curr_info == -1 ? "HISTORY" : "PARTNERS"}</h1>
 				<p>{this.state.text}</p>
 			</div>
 		);
