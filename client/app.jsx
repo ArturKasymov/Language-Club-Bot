@@ -42,8 +42,8 @@ export default class App extends React.PureComponent {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-			if(jsonResponse.result!='0'&&this.props.first_time) WebviewControls.close();
-			if(jsonResponse.result=='0'&&!this.props.first_time) WebviewControls.close();
+			if(jsonResponse.result!='0'&&this.props.first_time==true) WebviewControls.close();
+			if(jsonResponse.result=='0'&&this.props.first_time==false) WebviewControls.close();
 		}).catch((err) => console.error('Error pulling data', err));
 
 

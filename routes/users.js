@@ -34,8 +34,8 @@ router.get('/:userID/check_reg/:case', (req, res) => {
 
         res.send(resultJSON);
 
-        if(resultJSON!='0'&&req.params.case) sendApi.sendAlreadyRegistrMessage(req.params.userID);
-        if(resultJSON=='0'&&!req.params.case) sendApi.sendNeedRegistrationMessage(req.params.userID);
+        if(resultJSON!='0'&&req.params.case=='true') sendApi.sendAlreadyRegistrMessage(req.params.userID);
+        if(resultJSON=='0'&&req.params.case=='false') sendApi.sendNeedRegistrationMessage(req.params.userID);
 
     }).catch((err) => console.log(err));
 });
