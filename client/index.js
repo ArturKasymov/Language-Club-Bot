@@ -72,7 +72,7 @@ window.attachMeetingsAdm = (userID) => {
 
 window.attachFutureMeetings = (userID) => {
     if (userID) {
-        const app = <FutureMeetings userId={userId} />;
+        const app = <FutureMeetings userId={userID} />;
         ReactDOM.render(app, document.getElementById('content'));
     } else {
         ReactDOM.render(<Oops />, document.getElementById('content'));

@@ -18,6 +18,7 @@ import {
 import WebviewControls from '../api/webview-controls';
 
 import Loading from './loading.jsx';
+import Meeting from './Meeting.jsx';
 
 export default class FutureMeetings extends React.PureComponent {
 
