@@ -40,35 +40,32 @@ export default class AdministrateMeeting extends React.PureComponent {
 			}
 		}).then((jsonResponse) => {
 			if(!(jsonResponse=="2"||jsonResponse=="3")) WebviewControls.close();
-		}).catch((err) => console.error('Error pulling data', err));
+		}).catch((err) => console.error('Error pulling data', err)).then( () => {
 
-
-
-		const endpoint = `/meetings/${this.props.userId}/current`;
-		fetch(endpoint)
-		.then((response) => {
-			if (response.status == 200) {
-				return response.json();
-			}
-
-		}).then((res) => {
-				this.setState({id: res.id, placeName: res.placename, placeCity: res.city, placeAddress: res.adress, description: res.meetingDescription, 
-								startTime: res.startDate.toString(), endTime: res.endDate.toString()});
-				return res.id;
-		}).then((id) => {
-			const endpoint_users = `/meetings/${this.props.userId}/users`;
-			const content = JSON.stringify({id: id});
-
-			fetch(endpoint_users, {
-				method: 'PUT',
-				headers: {'Content-Type': 'application/json'},
-				body: content,
-			}).then((response) => {
+			const endpoint = `/meetings/${this.props.userId}/current`;
+			fetch(endpoint)
+			.then((response) => {
 				if (response.status == 200) {
 					return response.json();
 				}
-			}).then((res) => this.setState({REGISTERED_USERS: res}))
-			.catch((err) => alert(err));
+			}).then((res) => {
+				this.setState({id: res.id, placeName: res.placename, placeCity: res.city, placeAddress: res.adress, description: res.meetingDescription, 
+								startTime: res.startDate.toString(), endTime: res.endDate.toString()});
+				return res.id;
+			}).then((id) => {
+				const endpoint_users = `/meetings/${this.props.userId}/users`;
+				const content = JSON.stringify({id: id});
+				fetch(endpoint_users, {
+					method: 'PUT',
+					headers: {'Content-Type': 'application/json'},
+					body: content,
+				}).then((response) => {
+					if (response.status == 200) {
+						return response.json();
+					}
+				}).then((res) => this.setState({REGISTERED_USERS: res}))
+				.catch((err) => alert(err));
+			});
 		});
 	}
 

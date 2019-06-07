@@ -21,18 +21,26 @@ export default class MeetingsList extends React.PureComponent {
 	}
 
 	pullData() {
-		const endpoint = `/meetings/${this.props.userId}/list`;
-
-		fetch(endpoint)
+		const check_endpoint = `/users/${this.props.userId}/check_perm/2`;
+		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-				
+			if(!(jsonResponse=="2"||jsonResponse=="3"))WebviewControls.close();
+		}).catch((err) => console.error('Error pulling data', err))	
+		.then( () => { 
+			const endpoint = `/meetings/${this.props.userId}/list`;
+			fetch(endpoint)
+			.then((response) => {
+				if (response.status == 200) {
+					return response.json();
+				}
+			}).then((jsonResponse) => {
 				this.setState({ALL_MEETINGS: Object.entries(jsonResponse).map((entry) => {var x = {}; x[entry[0]] = entry[1]; return x;})});
-
-		}).catch((err) => console.error('Error pulling data', err));
+			}).catch((err) => console.error('Error pulling data', err));
+		});
 	}
 
 	componentWillMount() {

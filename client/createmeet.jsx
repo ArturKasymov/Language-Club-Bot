@@ -39,20 +39,28 @@ export default class CreateMeeting extends React.PureComponent {
 	}
 
 	pullData() {
-		const user_endpoint = `/meetings/${this.props.userId}`;
-
-		fetch(user_endpoint)
+		const check_endpoint = `/users/${this.props.userId}/check_perm/2`;
+		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
 				return response.json();
 			}
 		}).then((jsonResponse) => {
-				
+			if(!(jsonResponse=="2"||jsonResponse=="3"))WebviewControls.close();
+		}).catch((err) => console.error('Error pulling data', err))	
+		.then(() => {
+			const user_endpoint = `/meetings/${this.props.userId}`;
+			fetch(user_endpoint)
+			.then((response) => {
+				if (response.status == 200) {
+					return response.json();
+				}
+			}).then((jsonResponse) => {	
 				const select_data = Object.entries(jsonResponse)
 											.map((entry) => {return {value: parseInt(entry[0]), label: entry[1]};});
 				this.setState({ALL_PLACES: select_data, place_id: select_data[0].value});
-
-		}).catch((err) => console.error('Error pulling data', err));
+			}).catch((err) => console.error('Error pulling data', err));
+		});
 	}
 
 	pushData() {
