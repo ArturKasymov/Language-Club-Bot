@@ -33,8 +33,6 @@ export default class History extends React.PureComponent {
 		
 		ALL_MEETINGS: null,
 		alert: false,
-		//TEMP
-		text: ''
 	}
 
 	pullData(){
@@ -53,7 +51,7 @@ export default class History extends React.PureComponent {
 			.then((response) => {
 				if (response.ok) return response.json();
 			}).then((res) => {
-				this.setState({ALL_MEETINGS: res, text: JSON.stringify(res)});
+				this.setState({ALL_MEETINGS: res});
 			});
 		});	
 	}
@@ -72,8 +70,12 @@ export default class History extends React.PureComponent {
 		});
 	}
 
+	rollBack() {
+		this.setState({curr_info: -1});
+	}
+
 	render() {
-		if (this.state.text == 'init') {
+		if (this.state.ALL_MEETINGS == null) {
 			return <Loading />;
 		}
 
@@ -94,7 +96,7 @@ export default class History extends React.PureComponent {
 			<div className='app'>
 				<h1>{this.state.curr_info == -1 ? "HISTORY" : "PARTNERS"}</h1>
 				{this.state.curr_info == -1 ? meetings : partners}
-				<p>{this.state.text}</p>
+				{this.state.curr_info != -1 ? <Button onClick={() => this.rollBack()}>BACK</Button> : <p></p>}
 			</div>
 		);
 	}
