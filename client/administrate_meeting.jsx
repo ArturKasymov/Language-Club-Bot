@@ -118,11 +118,10 @@ export default class AdministrateMeeting extends React.PureComponent {
 			return <Loading />;
 		}
 		
-		const users = this.state.REGISTERED_USERS ? this.state.REGISTERED_USERS.map((entry) => {
-			try {
+		/*const users = this.state.REGISTERED_USERS ? this.state.REGISTERED_USERS.map((entry) => {
 			return <User id={entry.userID} nickname={entry.nickname} addable={true} not_added={false} add={this.addPresentUser.bind(this)} />;
-			} catch (error) {return <p>NOR</p>; } 
-		}) : <p>NOR</p>;
+		}) : <p>NOR</p>;*/
+		const users = [<User id={"aaa"} nickname={"aba"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />];
 
 		return (
 			<div className='app'>
@@ -135,7 +134,6 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<hr/>
 					<h2>USERS</h2>
 					{users}
-					<p>{this.state.REGISTERED_USERS[0].nickname}</p>
 					<p>{this.state.id}</p>
 				</section>
 			</div>
