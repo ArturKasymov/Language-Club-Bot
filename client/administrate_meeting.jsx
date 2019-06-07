@@ -120,7 +120,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 		
 		const cb = this.addPresentUser.bind(this);
 		const users = this.state.REGISTERED_USERS ? this.state.REGISTERED_USERS.map((entry) => {
-			return <User id={entry.userID} nickname={entry.nickname} addable={true} not_added={true} add={cb} />;
+			return <User id={entry.userID} nickname={entry.nickname} addable={true} not_added={!entry.isPresent} add={cb} />;
 		}) : <p>NOR</p>;
 		//const users = [<User id={"aaa"} nickname={"aba"} addable={true} not_added={true} add={this.addPresentUser.bind(this)} />];
 
@@ -130,7 +130,7 @@ export default class AdministrateMeeting extends React.PureComponent {
 					<p>Meeting at {this.state.placeAddress}, {this.state.placeCity} in {this.state.placeName}</p>
 					<p>from {dateString(this.state.startTime, true)} to {dateString(this.state.endTime, true)}</p>
 					<hr/>
-					<Button onClick={() => this.finishMeeting()}>FINISH</Button>
+					<Button disabled={this.state.startDate < new Date()} onClick={() => this.finishMeeting()}>FINISH</Button>
 					<Button onClick={() => this.nextRound()}>NEXT ROUND</Button>
 					<hr/>
 					<h2>USERS</h2>
