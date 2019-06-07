@@ -31,7 +31,7 @@ export default class Nickname extends React.PureComponent {
 	}
 
 	pullData() {
-		/*const check_endpoint = `/users/${this.props.userId}/check_reg_a`;
+		/*const check_endpoint = `/users/${this.props.userId}/check_reg/1`;
 		fetch(check_endpoint)
 		.then((response) => {
 			if (response.status == 200) {
