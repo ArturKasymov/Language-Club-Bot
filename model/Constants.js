@@ -67,8 +67,10 @@ const UPDATE_MEETING_QUERY = 'UPDATE meetings SET description=$1::varchar, "star
 const GET_CURRENT_MEETING_QUERY = 'SELECT * FROM getAdministratedMeeting($1::varchar)';
 const GET_USERS_ON_MEETING_QUERY = 'SELECT "userID", "isPresent", nickname FROM "meetingVisitors" m LEFT JOIN users u ON m."userID"=u."facebookID" WHERE "meetingID"=$1::int';
 const UPDATE_VISITOR_QUERY = 'UPDATE "meetingVisitors" SET "isPresent"=$1::boolean WHERE "userID"=$2::varchar AND "meetingID"=$3::int';
-const START_MEETING_QUERY = 'UPDATE meetings SET "startDate"=NOW()::timestamptz WHERE id=$1::int';
-const FINISH_MEETING_QUERY = 'UPDATE meetings SET "endDate"=NOW()::timestamptz WHERE id=$1::int';
+const START_MEETING_QUERY1 = 'UPDATE meetings SET "startDate"=NOW()::timestamptz WHERE id=$1::int';
+const FINISH_MEETING_QUERY1 = 'UPDATE meetings SET "endDate"=NOW()::timestamptz WHERE id=$1::int';
+const START_MEETING_QUERY2 = 'SELECT startMeeting($1::int)';
+const FINISH_MEETING_QUERY2 = 'SELECT finishMeeting($2::int)';
 const GET_FUTURE_MEETINGS_QUERY = 'SELECT * FROM getFutureMeetingsList($1::varchar)';
 const INSERT_VISITOR_QUERY = 'INSERT INTO "meetingVisitors" VALUES($1::varchar, $2::int, false)';
 const DELETE_VISITOR_QUERY = 'DELETE FROM "meetingVisitors" WHERE "userID"=$1::varchar AND "meetingID"=$2::int';
@@ -142,8 +144,10 @@ module.exports = {
     GET_CURRENT_MEETING_QUERY: GET_CURRENT_MEETING_QUERY,
     GET_USERS_ON_MEETING_QUERY: GET_USERS_ON_MEETING_QUERY,
     UPDATE_VISITOR_QUERY: UPDATE_VISITOR_QUERY,
-    START_MEETING_QUERY: START_MEETING_QUERY,
-    FINISH_MEETING_QUERY: FINISH_MEETING_QUERY,
+    START_MEETING_QUERY1: START_MEETING_QUERY1,
+    FINISH_MEETING_QUERY1: FINISH_MEETING_QUERY1,
+    START_MEETING_QUERY2: START_MEETING_QUERY2,
+    FINISH_MEETING_QUERY2: FINISH_MEETING_QUERY2,
     GET_FUTURE_MEETINGS_QUERY: GET_FUTURE_MEETINGS_QUERY,
     INSERT_VISITOR_QUERY: INSERT_VISITOR_QUERY,
     DELETE_VISITOR_QUERY: DELETE_VISITOR_QUERY,

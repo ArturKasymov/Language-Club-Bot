@@ -148,11 +148,13 @@ function updateMeeting(args) {
 }
 
 function startMeeting(args) {
-    pool.query(CONSTANTS.START_MEETING_QUERY, args);
+    pool.query(CONSTANTS.START_MEETING_QUERY1, args);
+    pool.query(CONSTANTS.START_MEETING_QUERY2, args);
 }
 
 function finishMeeting(args) {
-    pool.query(CONSTANTS.FINISH_MEETING_QUERY, args);
+    pool.query(CONSTANTS.FINISH_MEETING_QUERY1, args);
+    pool.query(CONSTANTS.FINISH_MEETING_QUERY2, args);
 }
 
 function updateStatus(args) {
