@@ -51,7 +51,7 @@
     "request": "^2.79.0",
     "serve-favicon": "~2.3.0",
     "style-loader": "^0.13.1",
-    "uglify-loader": "^1.4.0",
+    "uglify-loader": "^3.0.0",
     "webpack": "^3.6.0",
     "weui": "^1.1.1",
     "whatwg-fetch": "^2.0.2"
