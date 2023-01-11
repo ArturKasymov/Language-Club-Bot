@@ -34,7 +34,7 @@
     "body-parser": "^1.16.1",
     "cookie-parser": "~1.4.3",
     "css-loader": "^0.26.1",
-    "debug": "~2.2.0",
+    "debug": "~2.6.9",
     "ejs": "^2.5.5",
     "eslint": "^3.15.0",
     "express": "~4.14.0",
